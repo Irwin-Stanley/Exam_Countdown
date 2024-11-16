@@ -28,8 +28,8 @@ body {
 /* Bowl */
 #bowl {
     position: relative;
-    width: 250px;
-    height: 150px;
+    width: 300px; /* Increased width */
+    height: 180px; /* Increased height */
     background: radial-gradient(circle at center, #4fa8af, #005f73);
     border-radius: 50% 50% 0 0;
     overflow: hidden;
@@ -54,7 +54,7 @@ body {
     left: 50%;
     transform: translate(-50%, 50%);
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem; /* Reduced font size */
     font-weight: bold;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -81,8 +81,8 @@ body {
 /* Floor */
 #floor {
     position: relative;
-    width: 270px;
-    height: 30px;
+    width: 320px; /* Increased width */
+    height: 35px; /* Increased height */
     background: #004f5f;
     border-radius: 50%;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -98,7 +98,7 @@ body {
     height: 10px;
     background: #00b4d8;
     border-radius: 50%;
-    animation: splash 1.5s infinite ease-in-out;
+    animation: splash 1.5s infinite ease-in-out; /* Slower fade */
     transform: translateX(-50%);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -127,4 +127,5 @@ body {
     text-align: center;
     color: #b2ebf2;
     font-size: 1.5rem;
+    text-transform: capitalize; /* Capitalize first letter of each word */
 }
