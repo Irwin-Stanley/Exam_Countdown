@@ -10,14 +10,23 @@
     <div id="hourglass-container">
         <div id="bowl">
             <div id="fluid">
-                <div id="countdown">00:00:00:00</div>
+                <div id="countdown">
+                    <div id="time-values">
+                        <span id="count-days">00</span>:<span id="count-hours">00</span>:<span id="count-minutes">00</span>
+                    </div>
+                    <div id="time-labels">
+                        <span>Days</span> <span>Hours</span> <span>Minutes</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="floor">
             <div class="splash"></div>
         </div>
         <div id="message">
-            <span id="days-left">_ DAYS LEFT FOR BOARD EXAM</span>
+            <div id="days-left-box">
+                <span id="days-left">_ DAYS LEFT FOR BOARD EXAM</span>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
