@@ -25,14 +25,7 @@ body {
     position: relative;
 }
 
-/* Days Left Display */
-#days-left {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
-
-/* Bowl (Hourglass Bottom) */
+/* Bowl */
 #bowl {
     position: relative;
     width: 250px;
@@ -66,7 +59,7 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Floor Area */
+/* Floor */
 #floor {
     position: relative;
     width: 270px;
@@ -100,4 +93,12 @@ body {
         opacity: 0;
         transform: translate(-50%, 20px) scale(1.5);
     }
+}
+
+/* Message Below */
+#message {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    text-align: center;
+    color: #b2ebf2; /* Light cyan that blends with the background */
 }
