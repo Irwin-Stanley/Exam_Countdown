@@ -1,5 +1,5 @@
 // Set Target Date
-const targetDate = new Date("February 15, 2025 00:00:00").getTime();
+const targetDate = new Date("November 17, 2024 00:00:00").getTime();
 
 // DOM Elements
 const countdownElement = document.getElementById("countdown");
