@@ -4,7 +4,7 @@ const targetDate = new Date("February 15, 2025 00:00:00").getTime();
 // DOM Elements
 const countdownElement = document.getElementById("countdown");
 const fluidElement = document.getElementById("fluid");
-const daysElement = document.getElementById("days");
+const daysLeftElement = document.getElementById("days-left");
 
 // Calculate Total Duration
 const startDate = new Date().getTime();
@@ -17,8 +17,8 @@ setInterval(() => {
 
     if (timeLeft <= 0) {
         countdownElement.textContent = "00:00:00:00";
+        daysLeftElement.textContent = "EXAM DAY!";
         fluidElement.style.transform = "translateY(100%)";
-        daysElement.textContent = "0";
         return;
     }
 
@@ -30,7 +30,7 @@ setInterval(() => {
 
     // Update Countdown and Days Left
     countdownElement.textContent = `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    daysElement.textContent = days;
+    daysLeftElement.textContent = `${days} DAYS LEFT FOR BOARD EXAM`;
 
     // Update Fluid Level Gradually
     const percentage = (1 - timeLeft / totalDuration) * 100;
