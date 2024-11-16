@@ -53,10 +53,29 @@ body {
     bottom: 50%;
     left: 50%;
     transform: translate(-50%, 50%);
+    text-align: center;
     font-size: 2rem;
     font-weight: bold;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#time-values span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+#time-labels {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#time-labels span {
+    width: 40px;
+    text-align: center;
 }
 
 /* Floor */
@@ -79,7 +98,7 @@ body {
     height: 10px;
     background: #00b4d8;
     border-radius: 50%;
-    animation: splash 1s infinite ease-in-out;
+    animation: splash 1.5s infinite ease-in-out;
     transform: translateX(-50%);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -95,10 +114,17 @@ body {
     }
 }
 
-/* Message Below */
+/* Message Box Below */
 #message {
-    font-size: 1.5rem;
     margin-top: 15px;
+}
+
+#days-left-box {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     text-align: center;
-    color: #b2ebf2; /* Light cyan that blends with the background */
+    color: #b2ebf2;
+    font-size: 1.5rem;
 }
