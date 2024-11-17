@@ -16,7 +16,17 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #80d0c7, #0066cc); /* Calm & Cool Gradient */
       color: #ffffff; /* White text color for contrast */
-      justify-content: flex-start; /* Start from top, to align all boxes centrally */
+      justify-content: flex-start;
+    }
+
+    /* Main Title */
+    .main-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #000000; /* Black text for the title */
+      margin-top: 1cm; /* 1 cm gap from the top */
+      text-align: center;
+      text-decoration: underline;
     }
 
     /* Containers */
@@ -26,8 +36,11 @@
       align-items: flex-start;
       width: 100%;
       max-width: 1200px;
+      margin-top: 20px;
+      gap: 2%; /* Space between the columns */
       flex-grow: 1;
-      margin-top: 50px; /* Moves the content down to the center of the page */
+      position: relative;
+      margin-bottom: 0.5cm; /* To leave 0.5 cm gap at the bottom */
     }
 
     .left-container, .right-container {
@@ -41,6 +54,8 @@
     .center-container {
       width: 50%; /* Increased width for the center container */
       text-align: center;
+      position: absolute; /* Center the fluid animation and countdown box at the bottom */
+      bottom: 0.5cm; /* 0.5 cm gap from the bottom of the page */
     }
 
     .box {
@@ -151,6 +166,8 @@
   </style>
 </head>
 <body>
+  <div class="main-title">10 - C Noticeboard</div> <!-- Main title -->
+
   <div class="main-container">
     <div class="left-container">
       <div class="box" id="how-today">
@@ -221,19 +238,18 @@
       };
       const today = new Date();
       const formattedDate = `${today.getMonth() + 1}/${today.getDate()}`;
-      document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No special event today'}`;
+      document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No Special Event'}`;
     }
 
-    // List of quotes for today
+    // Quote system
     const quotes = [
-      "Believe in yourself and all that you are.",
-      "The best way to predict the future is to create it.",
-      "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-      "Do not wait for leaders; do it alone, person to person.",
-      "What lies behind us and what lies before us are tiny matters compared to what lies within us."
+      "The best time to plant a tree was 20 years ago. The second best time is now.",
+      "Your limitation—it’s only your imagination.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Great things never come from comfort zones.",
+      "Dream it. Wish it. Do it."
     ];
 
-    // Function to get today's quote
     function updateQuote() {
       const date = new Date();
       const quoteIndex = date.getDate() % quotes.length; // Change the quote every day
