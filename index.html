@@ -14,7 +14,7 @@
       justify-content: space-between;
       align-items: center;
       min-height: 100vh;
-      background-color: #0d47a1; /* Blue background */
+      background: linear-gradient(135deg, #80d0c7, #0066cc); /* Calm & Cool Gradient */
       color: #ffffff; /* White text color for contrast */
     }
 
@@ -34,7 +34,7 @@
 
     .box {
       padding: 15px;
-      background: #bbdefb; /* Light blue boxes */
+      background: linear-gradient(135deg, #bbdefb, #81d4fa); /* Light blue gradient for boxes */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       overflow-y: auto;
@@ -126,7 +126,7 @@
 
   <div class="center-container">
     <div id="countdown-container">
-      <span id="countdown">Countdown: 90 Days</span>
+      <span id="countdown">------- Days left for board exam!</span>
     </div>
     <div id="fluid-animation">
       <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
@@ -177,9 +177,9 @@
     // Update time every second
     setInterval(updateDateTime, 1000);
 
-    // Countdown Logic (e.g., till Valentine's Day)
+    // Countdown Logic (e.g., till Board Exam Date)
     function updateCountdown() {
-      const eventDate = new Date("2024-02-14T00:00:00"); // Target date
+      const eventDate = new Date("2024-02-14T00:00:00"); // Target date for board exams
       const now = new Date();
 
       // Strip time components for accurate day calculations
@@ -189,7 +189,7 @@
       const diff = startOfEventDay - startOfToday;
       const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
       
-      document.getElementById('countdown').textContent = `Countdown: ${daysLeft} Days`;
+      document.getElementById('countdown').textContent = `${daysLeft} Days left for board exam!`;
     }
 
     // Update countdown daily
