@@ -64,21 +64,6 @@
       background-color: #e8f0fe;
     }
 
-    /* Countdown Styles */
-    #countdown-container {
-      font-size: 2em;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #ffffff; /* White countdown text */
-    }
-
-    /* Countdown (Days:Hours:Minutes) inside fluid animation */
-    #countdown-timer {
-      font-size: 1.5em;
-      color: #ffffff;
-      margin-top: 10px;
-    }
-
     /* Fluid Animation Placeholder */
     #fluid-animation {
       height: 200px;
@@ -110,6 +95,26 @@
         opacity: 0;
       }
     }
+
+    /* Countdown inside the Fluid Container */
+    #countdown-container {
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #ffffff; /* White countdown text */
+    }
+
+    /* Countdown Values with Labels */
+    .countdown-value {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .countdown-label {
+      font-size: 1em;
+      color: #ffffff; /* White labels */
+    }
   </style>
 </head>
 <body>
@@ -140,11 +145,14 @@
       </div>
       <div id="countdown-container">
         <span id="countdown">88 Days left for board exam!</span>
-      </div>
-      <div id="countdown-timer">
-        <span id="days-left">Days: 88</span><br>
-        <span id="hours-left">Hours: 00</span><br>
-        <span id="minutes-left">Minutes: 00</span>
+        <div id="countdown-timer">
+          <div class="countdown-value" id="days-left">88</div>
+          <div class="countdown-label">Days</div>
+          <div class="countdown-value" id="hours-left">00</div>
+          <div class="countdown-label">Hours</div>
+          <div class="countdown-value" id="minutes-left">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
       </div>
     </div>
   </div>
@@ -209,9 +217,9 @@
         document.getElementById('countdown-timer').innerHTML = "The time has arrived!";
       } else {
         document.getElementById('countdown').textContent = `${daysLeft} Days left for board exam!`;
-        document.getElementById('days-left').textContent = `Days: ${daysLeft}`;
-        document.getElementById('hours-left').textContent = `Hours: ${hoursLeft}`;
-        document.getElementById('minutes-left').textContent = `Minutes: ${minutesLeft}`;
+        document.getElementById('days-left').textContent = `${daysLeft}`;
+        document.getElementById('hours-left').textContent = `${hoursLeft}`;
+        document.getElementById('minutes-left').textContent = `${minutesLeft}`;
       }
     }
 
