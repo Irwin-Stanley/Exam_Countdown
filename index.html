@@ -72,6 +72,13 @@
       color: #ffffff; /* White countdown text */
     }
 
+    /* Countdown (Days:Hours:Minutes) inside fluid animation */
+    #countdown-timer {
+      font-size: 1.5em;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
     /* Fluid Animation Placeholder */
     #fluid-animation {
       height: 200px;
@@ -125,13 +132,18 @@
   </div>
 
   <div class="center-container">
-    <div id="countdown-container">
-      <span id="countdown">------- Days left for board exam!</span>
-    </div>
     <div id="fluid-animation">
       <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
       <div class="drip" style="left: 60%; animation-delay: 0.5s;"></div>
       <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
+    </div>
+    <div id="countdown-container">
+      <span id="countdown">88 Days left for board exam!</span>
+    </div>
+    <div id="countdown-timer">
+      <span id="days-left">Days: 88</span><br>
+      <span id="hours-left">Hours: 00</span><br>
+      <span id="minutes-left">Minutes: 00</span>
     </div>
   </div>
 
@@ -179,22 +191,31 @@
 
     // Countdown Logic (e.g., till Board Exam Date)
     function updateCountdown() {
-      const eventDate = new Date("2024-02-14T00:00:00"); // Target date for board exams
+      const eventDate = new Date("2025-02-14T00:00:00"); // Target date for board exams
       const now = new Date();
 
-      // Strip time components for accurate day calculations
-      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const startOfEventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+      // Calculate the difference between now and the target date
+      const diff = eventDate - now;
 
-      const diff = startOfEventDay - startOfToday;
-      const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      
-      document.getElementById('countdown').textContent = `${daysLeft} Days left for board exam!`;
+      // Calculate the time remaining (in days, hours, minutes)
+      const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hoursLeft = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = "Board Exam Day is here!";
+        document.getElementById('countdown-timer').innerHTML = "The time has arrived!";
+      } else {
+        document.getElementById('countdown').textContent = `${daysLeft} Days left for board exam!`;
+        document.getElementById('days-left').textContent = `Days: ${daysLeft}`;
+        document.getElementById('hours-left').textContent = `Hours: ${hoursLeft}`;
+        document.getElementById('minutes-left').textContent = `Minutes: ${minutesLeft}`;
+      }
     }
 
-    // Update countdown daily
+    // Update countdown every minute
     updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 60 * 24);
+    setInterval(updateCountdown, 60000); // Update every minute
   </script>
 </body>
 </html>
