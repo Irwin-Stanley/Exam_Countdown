@@ -17,19 +17,66 @@ body {
     color: white;
 }
 
+/* Main Container */
+#container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Side Boxes */
+.side-box {
+    width: 15%;
+    height: 90%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: #b2ebf2;
+}
+
+.side-box textarea {
+    width: 100%;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 5px;
+    margin-top: 10px;
+    resize: none;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem;
+    border-radius: 10px;
+}
+
+.box-title {
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 /* Hourglass Container */
 #hourglass-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    width: 70%;
 }
 
 /* Bowl */
 #bowl {
     position: relative;
-    width: 300px; /* Increased width */
-    height: 180px; /* Increased height */
+    width: 300px; /* Adjust bowl size */
+    height: 180px;
     background: radial-gradient(circle at center, #4fa8af, #005f73);
     border-radius: 50% 50% 0 0;
     overflow: hidden;
@@ -54,7 +101,7 @@ body {
     left: 50%;
     transform: translate(-50%, 50%);
     text-align: center;
-    font-size: 1.5rem; /* Reduced font size */
+    font-size: 1.5rem;
     font-weight: bold;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -81,8 +128,8 @@ body {
 /* Floor */
 #floor {
     position: relative;
-    width: 320px; /* Increased width */
-    height: 35px; /* Increased height */
+    width: 320px;
+    height: 35px;
     background: #004f5f;
     border-radius: 50%;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -98,20 +145,9 @@ body {
     height: 10px;
     background: #00b4d8;
     border-radius: 50%;
-    animation: splash 1.5s infinite ease-in-out; /* Slower fade */
+    animation: splash 1.5s infinite ease-in-out;
     transform: translateX(-50%);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes splash {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, 0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, 20px) scale(1.5);
-    }
 }
 
 /* Message Box Below */
@@ -127,5 +163,5 @@ body {
     text-align: center;
     color: #b2ebf2;
     font-size: 1.5rem;
-    text-transform: capitalize; /* Capitalize first letter of each word */
+    text-transform: capitalize;
 }
