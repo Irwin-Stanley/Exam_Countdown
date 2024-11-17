@@ -52,10 +52,13 @@
     }
 
     .center-container {
-      width: 50%; /* Increased width for the center container */
+      width: 45%; /* Reduced width for both fluid and quote box */
       text-align: center;
       position: absolute; /* Center the fluid animation and countdown box at the bottom */
       bottom: 0.5cm; /* 0.5 cm gap from the bottom of the page */
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5cm; /* Space between the two central boxes */
     }
 
     .box {
@@ -99,7 +102,6 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
     }
 
     /* Simulated Dripping Fluid */
@@ -231,17 +233,15 @@
 
     // Function to fetch and display speciality of the day (placeholder example)
     function updateSpeciality() {
+      const date = new Date();
       const specialties = {
-        "1/1": "New Year's Day",
-        "2/14": "Valentine's Day",
-        "11/17": "International Students' Day",
+        '11/17/2024': 'Science Quiz',
       };
-      const today = new Date();
-      const formattedDate = `${today.getMonth() + 1}/${today.getDate()}`;
+      const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
       document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No Special Event'}`;
     }
 
-    // Quote system
+    // Function to update quote
     const quotes = [
       "The best time to plant a tree was 20 years ago. The second best time is now.",
       "Your limitation—it’s only your imagination.",
