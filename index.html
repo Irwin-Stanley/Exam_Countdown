@@ -1,54 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hourglass Countdown</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      width: 80%;
+      height: 90vh;
+    }
+
+    .box {
+      padding: 15px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow-y: auto;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .editable {
+      border: 1px dashed #ccc;
+      padding: 10px;
+      background-color: #fafafa;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .editable:focus {
+      outline: none;
+      background-color: #e8f0fe;
+    }
+  </style>
 </head>
 <body>
-    <div id="container">
-        <!-- Left Text Box -->
-        <div class="side-box" id="reminders-box">
-            <div class="box-title">Reminders</div>
-            <textarea id="reminders-content" placeholder="Enter your reminders here..."></textarea>
-        </div>
-
-        <!-- Hourglass Section -->
-        <div id="hourglass-container">
-            <!-- Bowl for Fluid -->
-            <div id="bowl">
-                <div id="fluid">
-                    <div id="countdown">
-                        <div id="time-values">
-                            <span id="count-days">00</span>:<span id="count-hours">00</span>:<span id="count-minutes">00</span>
-                        </div>
-                        <div id="time-labels">
-                            <span>Days</span> <span>Hours</span> <span>Minutes</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Floor / Collection Plate -->
-            <div id="floor">
-                <div class="splash"></div>
-            </div>
-
-            <!-- Message for Days Left -->
-            <div id="message">
-                <div id="days-left-box">
-                    <span id="days-left">_ Days Left For Board Exam</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Text Box -->
-        <div class="side-box" id="timetable-box">
-            <div class="box-title">Time Table</div>
-            <textarea id="timetable-content" placeholder="Enter your time table here..."></textarea>
-        </div>
+  <div class="container">
+    <div class="box" id="how-today">
+      <h3>How's Today?</h3>
+      <p id="today-date">Today's Date: </p>
+      <p id="current-time">Current Time: </p>
+      <p id="special-day">Speciality of the Day: </p>
+      <p>&nbsp;</p>
+      <p>Class Monitors: <span contenteditable="true" class="editable">Add names here</span></p>
+      <p>Cleaning Duty: <span contenteditable="true" class="editable">Add names here</span></p>
     </div>
-    <script src="script.js"></script>
+    <div class="box" id="todays-timetable">
+      <h3>Today's Timetable</h3>
+      <p contenteditable="true" class="editable">
+        Add your timetable here or edit as required.
+      </p>
+    </div>
+    <div class="box" id="reminders">
+      <h3>Reminders</h3>
+      <p contenteditable="true" class="editable">
+        Add reminders here. (e.g., Submit homework, Bring supplies)
+      </p>
+    </div>
+    <div class="box" id="homeworks">
+      <h3>Homeworks</h3>
+      <p contenteditable="true" class="editable">
+        Add homeworks here. (e.g., Complete page 45 exercises)
+      </p>
+    </div>
+  </div>
+  <script>
+    // Function to update date and time
+    function updateDateTime() {
+      const date = new Date();
+      document.getElementById('today-date').textContent = `Today's Date: ${date.toLocaleDateString()}`;
+      document.getElementById('current-time').textContent = `Current Time: ${date.toLocaleTimeString()}`;
+    }
+
+    // Function to fetch and display speciality of the day (placeholder example)
+    function updateSpeciality() {
+      const specialties = {
+        "1/1": "New Year's Day",
+        "2/14": "Valentine's Day",
+        "11/17": "International Students' Day",
+      };
+      const today = new Date();
+      const formattedDate = `${today.getMonth() + 1}/${today.getDate()}`;
+      document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No special event today'}`;
+    }
+
+    // Initial setup
+    updateDateTime();
+    updateSpeciality();
+
+    // Update time every second
+    setInterval(updateDateTime, 1000);
+  </script>
 </body>
 </html>
