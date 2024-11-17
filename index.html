@@ -82,6 +82,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
 
     /* Simulated Dripping Fluid */
@@ -105,7 +106,7 @@
       }
     }
 
-    /* Text Inside Fluid Container */
+    /* Countdown Text Inside Fluid Container */
     #countdown-container {
       font-size: 1.5em; /* Reduced font size */
       font-weight: bold;
@@ -127,7 +128,7 @@
       background: linear-gradient(135deg, #bbdefb, #81d4fa);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-      width: 80%;
+      width: 80%; /* Same width as the fluid animation container */
       text-align: center;
       margin-top: 20px;
     }
@@ -175,8 +176,13 @@
           <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
         </div>
         <div id="countdown-container">
-          <span id="countdown">88 Days left for board exam!</span>
+          <span id="countdown">88 Days Left For Board Exam!</span>
         </div>
+      </div>
+      <!-- Today's Quote Box -->
+      <div id="todays-quote">
+        <h3>Today's Quote</h3>
+        <p id="quote-text">Loading quote...</p>
       </div>
     </div>
 
@@ -194,12 +200,6 @@
         </p>
       </div>
     </div>
-  </div>
-
-  <!-- Today's Quote Box -->
-  <div id="todays-quote">
-    <h3>Today's Quote</h3>
-    <p id="quote-text">Loading quote...</p>
   </div>
 
   <script>
@@ -234,18 +234,18 @@
     // Function to get today's quote
     function updateQuote() {
       const today = new Date();
-      const quoteIndex = today.getDate() % quotes.length; // Change quote every day
+      const quoteIndex = today.getDate() % quotes.length; // Change the quote every day
       document.getElementById('quote-text').textContent = quotes[quoteIndex];
     }
 
-    // Initial setup
+    // Initialize the date, time, speciality, and quote
     updateDateTime();
     updateSpeciality();
     updateQuote();
 
-    // Update every minute and reset at midnight for the quote
+    // Update the time every minute and reset the quote at midnight
     setInterval(updateDateTime, 60000);
-    setInterval(updateQuote, 86400000); // 24 hours in milliseconds
+    setInterval(updateQuote, 86400000); // Update quote every 24 hours
   </script>
 </body>
 </html>
