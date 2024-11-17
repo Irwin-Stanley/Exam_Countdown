@@ -11,7 +11,7 @@
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
       min-height: 100vh;
       background: linear-gradient(135deg, #80d0c7, #0066cc); /* Calm & Cool Gradient */
@@ -19,6 +19,15 @@
     }
 
     /* Containers */
+    .main-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 1200px;
+      flex-grow: 1;
+    }
+
     .left-container, .right-container {
       display: flex;
       flex-direction: column;
@@ -112,53 +121,85 @@
       color: #ffffff;
     }
 
+    /* Today's Quote Box */
+    #todays-quote {
+      padding: 15px;
+      background: linear-gradient(135deg, #bbdefb, #81d4fa);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      width: 80%;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #todays-quote h3 {
+      font-size: 1.2em;
+      color: #000000; /* Black color for heading */
+      text-decoration: underline; /* Underline title */
+    }
+
+    #quote-text {
+      font-size: 1.5em;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      margin-top: 10px;
+    }
+
   </style>
 </head>
 <body>
-  <div class="left-container">
-    <div class="box" id="how-today">
-      <h3>How's Today?</h3>
-      <p id="today-date">Today's Date: </p>
-      <p id="current-time">Current Time: </p>
-      <p id="special-day">Speciality of the Day: </p>
-      <p>&nbsp;</p>
-      <p>Class Monitors: <span contenteditable="true" class="editable">Add names here</span></p>
-      <p>Cleaning Duty: <span contenteditable="true" class="editable">Add names here</span></p>
+  <div class="main-container">
+    <div class="left-container">
+      <div class="box" id="how-today">
+        <h3>How's Today?</h3>
+        <p id="today-date">Today's Date: </p>
+        <p id="current-time">Current Time: </p>
+        <p id="special-day">Speciality of the Day: </p>
+        <p>&nbsp;</p>
+        <p>Class Monitors: <span contenteditable="true" class="editable">Add names here</span></p>
+        <p>Cleaning Duty: <span contenteditable="true" class="editable">Add names here</span></p>
+      </div>
+      <div class="box" id="reminders">
+        <h3>Reminders</h3>
+        <p contenteditable="true" class="editable">
+          Add reminders here. (e.g., Submit homework, Bring supplies)
+        </p>
+      </div>
     </div>
-    <div class="box" id="reminders">
-      <h3>Reminders</h3>
-      <p contenteditable="true" class="editable">
-        Add reminders here. (e.g., Submit homework, Bring supplies)
-      </p>
+
+    <div class="center-container">
+      <div class="box" id="fluid-box">
+        <div id="fluid-animation">
+          <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
+          <div class="drip" style="left: 60%; animation-delay: 0.5s;"></div>
+          <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
+        </div>
+        <div id="countdown-container">
+          <span id="countdown">88 Days left for board exam!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-container">
+      <div class="box" id="todays-timetable">
+        <h3>Today's Timetable</h3>
+        <p contenteditable="true" class="editable">
+          Add your timetable here or edit as required.
+        </p>
+      </div>
+      <div class="box" id="homeworks">
+        <h3>Homeworks</h3>
+        <p contenteditable="true" class="editable">
+          Add homeworks here. (e.g., Complete page 45 exercises)
+        </p>
+      </div>
     </div>
   </div>
 
-  <div class="center-container">
-    <div class="box" id="fluid-box">
-      <div id="fluid-animation">
-        <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
-        <div class="drip" style="left: 60%; animation-delay: 0.5s;"></div>
-        <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
-      </div>
-      <div id="countdown-container">
-        <span id="countdown">88 Days left for board exam!</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="right-container">
-    <div class="box" id="todays-timetable">
-      <h3>Today's Timetable</h3>
-      <p contenteditable="true" class="editable">
-        Add your timetable here or edit as required.
-      </p>
-    </div>
-    <div class="box" id="homeworks">
-      <h3>Homeworks</h3>
-      <p contenteditable="true" class="editable">
-        Add homeworks here. (e.g., Complete page 45 exercises)
-      </p>
-    </div>
+  <!-- Today's Quote Box -->
+  <div id="todays-quote">
+    <h3>Today's Quote</h3>
+    <p id="quote-text">Loading quote...</p>
   </div>
 
   <script>
@@ -181,12 +222,30 @@
       document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No special event today'}`;
     }
 
+    // List of quotes for today
+    const quotes = [
+      "Believe in yourself and all that you are.",
+      "The best way to predict the future is to create it.",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "Do not wait for leaders; do it alone, person to person.",
+      "What lies behind us and what lies before us are tiny matters compared to what lies within us."
+    ];
+
+    // Function to get today's quote
+    function updateQuote() {
+      const today = new Date();
+      const quoteIndex = today.getDate() % quotes.length; // Change quote every day
+      document.getElementById('quote-text').textContent = quotes[quoteIndex];
+    }
+
     // Initial setup
     updateDateTime();
     updateSpeciality();
+    updateQuote();
 
-    // Update time every second
-    setInterval(updateDateTime, 1000);
+    // Update every minute and reset at midnight for the quote
+    setInterval(updateDateTime, 60000);
+    setInterval(updateQuote, 86400000); // 24 hours in milliseconds
   </script>
 </body>
 </html>
