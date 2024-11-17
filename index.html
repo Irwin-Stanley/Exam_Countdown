@@ -21,6 +21,7 @@
     .left-container, .right-container {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 10px;
       width: 20%; /* Adjust width as needed */
     }
@@ -36,6 +37,10 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       overflow-y: auto;
+      flex: 1; /* Ensures equal height for all boxes */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .box h3 {
@@ -172,10 +177,16 @@
 
     // Countdown Logic (e.g., till Valentine's Day)
     function updateCountdown() {
-      const eventDate = new Date("2024-02-14T00:00:00");
+      const eventDate = new Date("2024-02-14T00:00:00"); // Target date
       const now = new Date();
-      const diff = eventDate - now;
+
+      // Strip time components for accurate day calculations
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startOfEventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+
+      const diff = startOfEventDay - startOfToday;
       const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      
       document.getElementById('countdown').textContent = `Countdown: ${daysLeft} Days`;
     }
 
