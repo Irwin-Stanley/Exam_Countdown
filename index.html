@@ -16,6 +16,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #80d0c7, #0066cc); /* Calm & Cool Gradient */
       color: #ffffff; /* White text color for contrast */
+      justify-content: flex-start; /* Start from top, to align all boxes centrally */
     }
 
     /* Containers */
@@ -26,6 +27,7 @@
       width: 100%;
       max-width: 1200px;
       flex-grow: 1;
+      margin-top: 50px; /* Moves the content down to the center of the page */
     }
 
     .left-container, .right-container {
@@ -33,16 +35,16 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 10px;
-      width: 20%; /* Adjust width as needed */
+      width: 25%; /* Increased width */
     }
 
     .center-container {
-      width: 40%; /* Adjust to balance spacing */
+      width: 50%; /* Increased width for the center container */
       text-align: center;
     }
 
     .box {
-      padding: 15px;
+      padding: 20px;
       background: linear-gradient(135deg, #bbdefb, #81d4fa); /* Light blue gradient for boxes */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
@@ -55,7 +57,7 @@
 
     .box h3 {
       margin: 0 0 10px;
-      font-size: 1.2em;
+      font-size: 1.3em;
       color: #000000; /* Black color for headings */
       text-decoration: underline; /* Underline titles */
     }
@@ -108,7 +110,7 @@
 
     /* Countdown Text Inside Fluid Container */
     #countdown-container {
-      font-size: 1.5em; /* Reduced font size */
+      font-size: 1.2em; /* Decreased font size */
       font-weight: bold;
       margin-top: 20px;
       color: #ffffff; /* White countdown text */
@@ -117,24 +119,24 @@
 
     /* Countdown Message */
     #countdown {
-      font-size: 1.8em; /* Slightly smaller size */
+      font-size: 1.5em; /* Slightly smaller size */
       font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif; /* Rounder font */
       color: #ffffff;
     }
 
     /* Today's Quote Box */
     #todays-quote {
-      padding: 15px;
+      padding: 20px;
       background: linear-gradient(135deg, #bbdefb, #81d4fa);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
-      width: 80%; /* Same width as the fluid animation container */
+      width: 100%; /* Same width as the fluid animation container */
       text-align: center;
       margin-top: 20px;
     }
 
     #todays-quote h3 {
-      font-size: 1.2em;
+      font-size: 1.3em;
       color: #000000; /* Black color for heading */
       text-decoration: underline; /* Underline title */
     }
@@ -233,8 +235,8 @@
 
     // Function to get today's quote
     function updateQuote() {
-      const today = new Date();
-      const quoteIndex = today.getDate() % quotes.length; // Change the quote every day
+      const date = new Date();
+      const quoteIndex = date.getDate() % quotes.length; // Change the quote every day
       document.getElementById('quote-text').textContent = quotes[quoteIndex];
     }
 
