@@ -7,31 +7,46 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="hourglass-container">
-        <!-- Bowl for Fluid -->
-        <div id="bowl">
-            <div id="fluid">
-                <div id="countdown">
-                    <div id="time-values">
-                        <span id="count-days">00</span>:<span id="count-hours">00</span>:<span id="count-minutes">00</span>
+    <div id="container">
+        <!-- Left Text Box -->
+        <div class="side-box" id="reminders-box">
+            <div class="box-title">Reminders</div>
+            <textarea id="reminders-content" contenteditable="true" placeholder="Enter your reminders here..."></textarea>
+        </div>
+
+        <!-- Hourglass Section -->
+        <div id="hourglass-container">
+            <!-- Bowl for Fluid -->
+            <div id="bowl">
+                <div id="fluid">
+                    <div id="countdown">
+                        <div id="time-values">
+                            <span id="count-days">00</span>:<span id="count-hours">00</span>:<span id="count-minutes">00</span>
+                        </div>
+                        <div id="time-labels">
+                            <span>Days</span> <span>Hours</span> <span>Minutes</span>
+                        </div>
                     </div>
-                    <div id="time-labels">
-                        <span>Days</span> <span>Hours</span> <span>Minutes</span>
-                    </div>
+                </div>
+            </div>
+
+            <!-- Floor / Collection Plate -->
+            <div id="floor">
+                <div class="splash"></div>
+            </div>
+
+            <!-- Message for Days Left -->
+            <div id="message">
+                <div id="days-left-box">
+                    <span id="days-left">_ Days Left For Board Exam</span>
                 </div>
             </div>
         </div>
 
-        <!-- Floor / Collection Plate -->
-        <div id="floor">
-            <div class="splash"></div>
-        </div>
-
-        <!-- Message for Days Left -->
-        <div id="message">
-            <div id="days-left-box">
-                <span id="days-left">_ Days Left For Board Exam</span>
-            </div>
+        <!-- Right Text Box -->
+        <div class="side-box" id="timetable-box">
+            <div class="box-title">Time Table</div>
+            <textarea id="timetable-content" contenteditable="true" placeholder="Enter your time table here..."></textarea>
         </div>
     </div>
     <script src="script.js"></script>
