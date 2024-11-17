@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class Dashboard</title>
+  <title>Class Dashboard with Countdown</title>
   <style>
+    /* General Body Styling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       min-height: 100vh;
       background-color: #f5f5f5;
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+    /* Containers */
+    .left-container, .right-container {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      width: 80%;
-      height: 90vh;
+      width: 20%; /* Adjust width as needed */
+    }
+
+    .center-container {
+      width: 40%; /* Adjust to balance spacing */
+      text-align: center;
     }
 
     .box {
@@ -51,10 +56,50 @@
       outline: none;
       background-color: #e8f0fe;
     }
+
+    /* Countdown Styles */
+    #countdown-container {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Fluid Animation Placeholder */
+    #fluid-animation {
+      height: 200px;
+      width: 100%;
+      background: linear-gradient(to bottom, #add8e6, #f5f5f5);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Simulated Dripping Fluid */
+    .drip {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #add8e6;
+      border-radius: 50%;
+      animation: drip 2s infinite;
+    }
+
+    @keyframes drip {
+      0% {
+        top: 0;
+        opacity: 1;
+      }
+      100% {
+        top: 100%;
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="left-container">
     <div class="box" id="how-today">
       <h3>How's Today?</h3>
       <p id="today-date">Today's Date: </p>
@@ -64,16 +109,30 @@
       <p>Class Monitors: <span contenteditable="true" class="editable">Add names here</span></p>
       <p>Cleaning Duty: <span contenteditable="true" class="editable">Add names here</span></p>
     </div>
-    <div class="box" id="todays-timetable">
-      <h3>Today's Timetable</h3>
-      <p contenteditable="true" class="editable">
-        Add your timetable here or edit as required.
-      </p>
-    </div>
     <div class="box" id="reminders">
       <h3>Reminders</h3>
       <p contenteditable="true" class="editable">
         Add reminders here. (e.g., Submit homework, Bring supplies)
+      </p>
+    </div>
+  </div>
+
+  <div class="center-container">
+    <div id="countdown-container">
+      <span id="countdown">Countdown: 90 Days</span>
+    </div>
+    <div id="fluid-animation">
+      <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
+      <div class="drip" style="left: 60%; animation-delay: 0.5s;"></div>
+      <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
+    </div>
+  </div>
+
+  <div class="right-container">
+    <div class="box" id="todays-timetable">
+      <h3>Today's Timetable</h3>
+      <p contenteditable="true" class="editable">
+        Add your timetable here or edit as required.
       </p>
     </div>
     <div class="box" id="homeworks">
@@ -83,6 +142,7 @@
       </p>
     </div>
   </div>
+
   <script>
     // Function to update date and time
     function updateDateTime() {
@@ -109,6 +169,19 @@
 
     // Update time every second
     setInterval(updateDateTime, 1000);
+
+    // Countdown Logic (e.g., till Valentine's Day)
+    function updateCountdown() {
+      const eventDate = new Date("2024-02-14T00:00:00");
+      const now = new Date();
+      const diff = eventDate - now;
+      const daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('countdown').textContent = `Countdown: ${daysLeft} Days`;
+    }
+
+    // Update countdown daily
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 60 * 24);
   </script>
 </body>
 </html>
