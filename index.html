@@ -5,246 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Dashboard</title>
   <style>
-    /* General Body Styling */
     body {
-      font-family: Arial, sans-serif;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      height: 100vh;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #80d0c7, #0066cc); /* Calm & Cool Gradient */
-      color: #ffffff; /* White text color for contrast */
-      justify-content: flex-start;
+      font-family: Arial, sans-serif;
+      transition: background 1s ease-in-out;
     }
-
-    /* Main Title */
-    .main-title {
-      font-size: 2em;
+    .box {
+      border: 2px solid #333;
+      padding: 10px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+    .title {
       font-weight: bold;
-      color: #000000; /* Black text for the title */
-      margin-top: 1cm; /* 1 cm gap from the top */
+      font-size: 1.2em;
+      margin-bottom: 8px;
       text-align: center;
       text-decoration: underline;
     }
-
-    /* Containers */
-    .main-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 20px;
-      gap: 2%; /* Space between the columns */
-      flex-grow: 1;
-      position: relative;
-      margin-bottom: 0.5cm; /* To leave 0.5 cm gap at the bottom */
+    .content {
+      line-height: 1.6;
     }
-
-    .left-container, .right-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      width: 25%; /* Width of the left and right containers */
-    }
-
-    .center-container {
-      width: 45%; /* Reduced width for the central container */
-      text-align: center;
-      position: absolute; /* Center the fluid animation and quote box at the bottom */
-      bottom: 0.5cm; /* 0.5 cm gap from the bottom of the page */
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5cm; /* Space between the two central boxes */
-    }
-
-    .box {
-      padding: 20px;
-      background: linear-gradient(135deg, #bbdefb, #81d4fa); /* Light blue gradient for boxes */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow-y: auto;
-      flex: 1; /* Ensures equal height for all boxes */
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .box h3 {
-      margin: 0 0 10px;
-      font-size: 1.3em;
-      color: #000000; /* Black color for headings */
-      text-decoration: underline; /* Underline titles */
-    }
-
     .editable {
-      border: 1px dashed #90caf9; /* Light blue dashed border */
-      padding: 10px;
-      background-color: #f0f4c3; /* Light greenish-yellow background */
-      border-radius: 5px;
-      margin-top: 10px;
+      border: 1px dashed #999;
+      padding: 5px;
+      margin-top: 5px;
     }
-
-    .editable:focus {
-      outline: none;
-      background-color: #e8f0fe;
+    #date, #time, #speciality {
+      font-weight: bold;
     }
-
-    /* Fluid Animation Placeholder */
-    #fluid-animation {
-      height: 200px;
-      width: 100%;
-      background: linear-gradient(to bottom, #90caf9, #bbdefb); /* Light blue gradient */
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Simulated Dripping Fluid */
-    .drip {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #0d47a1; /* Dark blue drops */
-      border-radius: 50%;
-      animation: drip 2s infinite;
-    }
-
-    @keyframes drip {
-      0% {
-        top: 0;
-        opacity: 1;
-      }
-      100% {
-        top: 100%;
-        opacity: 0;
-      }
-    }
-
-    /* Today's Quote Box */
-    #todays-quote {
-      padding: 20px;
-      background: linear-gradient(135deg, #bbdefb, #81d4fa);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      width: 100%; /* Same width as the fluid animation container */
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #todays-quote h3 {
-      font-size: 1.3em;
-      color: #000000; /* Black color for heading */
-      text-decoration: underline; /* Underline title */
-    }
-
-    #quote-text {
-      font-size: 1.5em;
-      font-family: 'Arial', sans-serif;
-      color: #ffffff;
-      margin-top: 10px;
-    }
-
   </style>
 </head>
 <body>
-  <div class="main-title">10 - C Noticeboard</div> <!-- Main title -->
-
-  <div class="main-container">
-    <div class="left-container">
-      <div class="box" id="how-today">
-        <h3>How's Today?</h3>
-        <p id="today-date">Today's Date: </p>
-        <p id="current-time">Current Time: </p>
-        <p id="special-day">Speciality of the Day: </p>
-        <p>&nbsp;</p>
-        <p>Class Monitors: <span contenteditable="true" class="editable">Add names here</span></p>
-        <p>Cleaning Duty: <span contenteditable="true" class="editable">Add names here</span></p>
-      </div>
-      <div class="box" id="reminders">
-        <h3>Reminders</h3>
-        <p contenteditable="true" class="editable">
-          Add reminders here. (e.g., Submit homework, Bring supplies)
-        </p>
-      </div>
+  <!-- How's Today? -->
+  <div class="box">
+    <div class="title">How's Today?</div>
+    <div class="content">
+      <div id="date"></div>
+      <div id="time"></div>
+      <div id="speciality"></div>
+      <br>
+      <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
+      <div id="cleaning-duty">Cleaning Duty: </div>
     </div>
+  </div>
 
-    <div class="center-container">
-      <div class="box" id="fluid-box">
-        <div id="fluid-animation">
-          <div class="drip" style="left: 50%; animation-delay: 0s;"></div>
-          <div class="drip" style="left: 60%; animation-delay: 0.5s;"></div>
-          <div class="drip" style="left: 40%; animation-delay: 1s;"></div>
-        </div>
-      </div>
-      <!-- Today's Quote Box -->
-      <div id="todays-quote">
-        <h3>Today's Quote</h3>
-        <p id="quote-text">Loading quote...</p>
-      </div>
+  <!-- Today's Timetable -->
+  <div class="box">
+    <div class="title">Today's Timetable</div>
+    <div class="content">
+      <ol id="timetable"></ol>
     </div>
+  </div>
 
-    <div class="right-container">
-      <div class="box" id="todays-timetable">
-        <h3>Today's Timetable</h3>
-        <p contenteditable="true" class="editable">
-          Add your timetable here or edit as required.
-        </p>
-      </div>
-      <div class="box" id="homeworks">
-        <h3>Homeworks</h3>
-        <p contenteditable="true" class="editable">
-          Add homeworks here. (e.g., Complete page 45 exercises)
-        </p>
-      </div>
+  <!-- Reminders -->
+  <div class="box">
+    <div class="title">Reminders</div>
+    <div class="content">
+      <ul>
+        <li>Parent-Teacher Meeting at 4 PM</li>
+        <li>Bring sports uniform tomorrow</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Homeworks -->
+  <div class="box">
+    <div class="title">Homeworks</div>
+    <div class="content">
+      <ul>
+        <li>Math: Practice problems from page 45</li>
+        <li>Science: Complete lab report</li>
+      </ul>
     </div>
   </div>
 
   <script>
-    // Function to update date and time
-    function updateDateTime() {
-      const date = new Date();
-      document.getElementById('today-date').textContent = `Today's Date: ${date.toLocaleDateString()}`;
-      document.getElementById('current-time').textContent = `Current Time: ${date.toLocaleTimeString()}`;
+    const today = new Date();
+
+    // Update Date
+    document.getElementById("date").innerText = `Today's Date: ${today.toLocaleDateString()}`;
+
+    // Update Time
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("time").innerText = `Current Time: ${now.toLocaleTimeString()}`;
     }
+    setInterval(updateTime, 1000);
+    updateTime();
 
-    // Function to fetch and display speciality of the day (placeholder example)
-    function updateSpeciality() {
-      const date = new Date();
-      const specialties = {
-        '11/17/2024': 'Science Quiz',
-      };
-      const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-      document.getElementById('special-day').textContent = `Speciality of the Day: ${specialties[formattedDate] || 'No Special Event'}`;
+    // Get Speciality of the Day
+    async function fetchSpeciality() {
+      const query = `What is special about ${today.toLocaleDateString("en-US")}`;
+      const response = await fetch(`https://www.googleapis.com/customsearch/v1?key=YOUR_API_KEY&cx=YOUR_CX&q=${query}`);
+      const data = await response.json();
+      const speciality = data.items?.[0]?.snippet || "No speciality found.";
+      document.getElementById("speciality").innerText = `Speciality of the Day: ${speciality}`;
     }
+    fetchSpeciality();
 
-    // Function to update quote
-    const quotes = [
-      "The best time to plant a tree was 20 years ago. The second best time is now.",
-      "Your limitation—it’s only your imagination.",
-      "Push yourself, because no one else is going to do it for you.",
-      "Great things never come from comfort zones.",
-      "Dream it. Wish it. Do it."
-    ];
+    // Update Timetable
+    const timetable = {
+      0: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      1: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/ Hindi", "Information Technology", "Physical Training", "English"],
+      2: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/ Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
+      3: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/ Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
+      4: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/ Hindi", "Information Technology", "English"],
+      5: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/ Hindi"]
+    };
+    const todayIndex = today.getDay();
+    const todayTimetable = timetable[todayIndex] || [];
+    const timetableList = document.getElementById("timetable");
+    timetableList.innerHTML = todayTimetable.map((subject, index) => `<li>${subject}</li>`).join("");
 
-    function updateQuote() {
-      const date = new Date();
-      const quoteIndex = date.getDate() % quotes.length; // Change the quote every day
-      document.getElementById('quote-text').textContent = quotes[quoteIndex];
-    }
-
-    // Initialize the date, time, speciality, and quote
-    updateDateTime();
-    updateSpeciality();
-    updateQuote();
-
-    // Update the time every minute and reset the quote at midnight
-    setInterval(updateDateTime, 60000);
-    setInterval(updateQuote, 86400000); // Update quote every 24 hours
+    // Cleaning Duty and Theme
+    const cleaningGroups = ["Gandhi", "Nehru", "Patel", "Tagore"];
+    const groupColors = {
+      Gandhi: "linear-gradient(to right, darkgreen, lightgreen)",
+      Nehru: "linear-gradient(to right, red, lightcoral)",
+      Patel: "linear-gradient(to right, blue, lightblue)",
+      Tagore: "linear-gradient(to right, yellow, lightyellow)"
+    };
+    const currentWeek = Math.floor((today.getDate() - 1) / 7) % 4;
+    const currentGroup = cleaningGroups[currentWeek];
+    document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
+    document.body.style.background = groupColors[currentGroup];
   </script>
 </body>
 </html>
