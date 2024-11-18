@@ -76,6 +76,7 @@
       text-align: center;
       width: 50%;
       position: relative;
+      margin-top: 20px;
     }
 
     #fluid-container {
@@ -200,7 +201,7 @@
             <span contenteditable="true" id="speciality" class="editable">World Kindness Day</span>
           </div>
           <br>
-          <div>Class Monitors: <span class="editable" contenteditable="true">[Akash Padmanabhan , Theertha Shaji]</span></div>
+          <div>Class Monitors: <span class="editable" contenteditable="true">Akash Padmanabhan , Theertha Shaji.</span></div>
           <div id="cleaning-duty">
             Cleaning Duty: <span contenteditable="true" id="cleaning-duty-editable">Nehru</span>
           </div>
@@ -274,7 +275,7 @@
     updateTime();
 
     // Weekly Cleaning Duty Rotation (Starts with Nehru)
-    const cleaningGroups = ["Nehru","Patel","Tagore","Gandhi"];
+    const cleaningGroups = ["Nehru", "Gandhi", "Patel", "Tagore"];
     const weekNumber = Math.floor((today - new Date("2024-01-01")) / (7 * 24 * 60 * 60 * 1000)) % 4;
     const currentGroup = cleaningGroups[weekNumber];
     document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
@@ -297,7 +298,7 @@
 
     // Update Timetable
     function updateTimetable() {
-      const dayOfWeek = today.getDay() || 7; // Sunday is 0 in JS, adjust to make it 7 for Sunday
+      const dayOfWeek = today.getDay() || 7;
       const todaysTimetable = timetable[dayOfWeek];
       const timetableList = document.getElementById("timetable");
       timetableList.innerHTML = "";
@@ -323,6 +324,21 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // Today's Quote
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "Don't watch the clock; do what it does. Keep going.",
+      "The future depends on what we do in the present.",
+      "Success is the sum of small efforts, repeated day in and day out.",
+      "Time is what we want most but what we use worst."
+    ];
+
+    function updateQuote() {
+      const todayIndex = today.getDate() % quotes.length;
+      document.getElementById("quote").innerText = `"${quotes[todayIndex]}"`;
+    }
+    updateQuote();
   </script>
 </body>
 </html>
