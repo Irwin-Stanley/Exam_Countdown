@@ -14,6 +14,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       transition: background 1s ease-in-out;
+      background: linear-gradient(to right, red, lightcoral); /* Nehru's theme */
     }
     .box {
       border: 2px solid #333;
@@ -35,6 +36,7 @@
       border: 1px dashed #999;
       padding: 5px;
       margin-top: 5px;
+      display: block;
     }
     #date, #time, #speciality {
       font-weight: bold;
@@ -51,7 +53,7 @@
       <div id="speciality"></div>
       <br>
       <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
-      <div id="cleaning-duty">Cleaning Duty: </div>
+      <div id="cleaning-duty">Cleaning Duty: Nehru</div>
     </div>
   </div>
 
@@ -67,9 +69,9 @@
   <div class="box">
     <div class="title">Reminders</div>
     <div class="content">
-      <ul>
-        <li> ... </li>
-        <li> ... </li>
+      <ul id="reminders" contenteditable="true">
+        <li>Parent-Teacher Meeting at 4 PM</li>
+        <li>Bring sports uniform tomorrow</li>
       </ul>
     </div>
   </div>
@@ -78,9 +80,9 @@
   <div class="box">
     <div class="title">Homeworks</div>
     <div class="content">
-      <ul>
-        <li> ... </li>
-        <li> ... </li>
+      <ul id="homeworks" contenteditable="true">
+        <li>Math: Practice problems from page 45</li>
+        <li>Science: Complete lab report</li>
       </ul>
     </div>
   </div>
@@ -121,19 +123,16 @@
     const todayIndex = today.getDay();
     const todayTimetable = timetable[todayIndex] || [];
     const timetableList = document.getElementById("timetable");
-    timetableList.innerHTML = todayTimetable.map((subject, index) => `<li>${subject}</li>`).join("");
+    timetableList.innerHTML = todayTimetable.map((subject, index) => `<li>${index + 1}. ${subject}</li>`).join("");
 
-    // Cleaning Duty and Theme
-    const cleaningGroups = ["Gandhi", "Nehru", "Patel", "Tagore"];
+    // Cleaning Duty is set for Nehru and page background is adjusted
+    const currentGroup = "Nehru";
     const groupColors = {
       Gandhi: "linear-gradient(to right, darkgreen, lightgreen)",
       Nehru: "linear-gradient(to right, red, lightcoral)",
       Patel: "linear-gradient(to right, blue, lightblue)",
       Tagore: "linear-gradient(to right, yellow, lightyellow)"
     };
-    const currentWeek = Math.floor((today.getDate() - 1) / 7) % 4;
-    const currentGroup = cleaningGroups[currentWeek];
-    document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
     document.body.style.background = groupColors[currentGroup];
   </script>
 </body>
