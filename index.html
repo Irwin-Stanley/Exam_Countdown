@@ -120,7 +120,7 @@
         <div id="speciality"></div>
         <br>
         <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
-        <div id="cleaning-duty">Cleaning Duty: Nehru</div>
+        <div id="cleaning-duty"></div>
       </div>
     </div>
 
@@ -182,15 +182,15 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Get Speciality of the Day
-    async function fetchSpeciality() {
-      const query = `What is special about ${today.toLocaleDateString("en-US")}`;
-      const response = await fetch(`https://www.googleapis.com/customsearch/v1?key=YOUR_API_KEY&cx=YOUR_CX&q=${query}`);
-      const data = await response.json();
-      const speciality = data.items?.[0]?.snippet || "No speciality found.";
-      document.getElementById("speciality").innerText = `Speciality of the Day: ${speciality}`;
-    }
-    fetchSpeciality();
+    // Fetch Speciality of the Day (Mocked for now)
+    const specialityMock = "World Kindness Day"; // Replace with a call to fetch from ChatGPT later.
+    document.getElementById("speciality").innerText = `Speciality of the Day: ${specialityMock}`;
+
+    // Weekly Cleaning Duty Rotation
+    const cleaningGroups = ["Gandhi", "Nehru", "Patel", "Tagore"];
+    const weekNumber = Math.floor((today - new Date("2024-01-01")) / (7 * 24 * 60 * 60 * 1000)) % 4;
+    const currentGroup = cleaningGroups[weekNumber];
+    document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
 
     // Update Timetable
     const timetable = {
@@ -203,7 +203,7 @@
     };
     const todayIndex = today.getDay();
     const todayTimetable = timetable[todayIndex] || [];
-    document.getElementById("timetable").innerHTML = todayTimetable.map((subject, index) => `<li>${index + 1}. ${subject}</li>`).join("");
+    document.getElementById("timetable").innerHTML = todayTimetable.map((subject, index) => `<li>${subject}</li>`).join("");
 
     // Countdown Calculation
     function updateCountdown() {
@@ -214,12 +214,7 @@
       const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
 
-      document.getElementById("countdown").innerHTML = `
-        <div>Days: ${days}</div>
-        <div>Hours: ${hours}</div>
-        <div>Minutes: ${minutes}</div>
-      `;
-
+      document.getElementById("countdown").innerHTML = `${days} : ${hours} : ${minutes}`;
       document.getElementById("days-left").innerText = `${days} Days Left For Board Exam`;
     }
     setInterval(updateCountdown, 1000);
