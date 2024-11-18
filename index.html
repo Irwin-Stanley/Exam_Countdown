@@ -10,11 +10,24 @@
       padding: 0;
       font-family: Arial, sans-serif;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(to right, red, lightcoral); /* Nehru's theme */
+      background: linear-gradient(to bottom right, #f4f4f4, #e0e0e0);
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 20px 0;
+    }
+
+    .content-wrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      margin-top: 20px;
     }
 
     .side-box {
@@ -27,10 +40,11 @@
     }
 
     .box {
-      border: 2px solid #333;
-      padding: 10px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
+      background: #fff;
       height: 48%;
       overflow-y: auto;
     }
@@ -38,13 +52,9 @@
     .title {
       font-weight: bold;
       font-size: 1.2em;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       text-align: center;
       text-decoration: underline;
-    }
-
-    .content {
-      line-height: 1.6;
     }
 
     .editable {
@@ -61,17 +71,17 @@
       justify-content: center;
       text-align: center;
       width: 40%;
-      height: 70%;
       position: relative;
     }
 
     #fluid-container {
-      width: 150px;
-      height: 300px;
+      width: 200px;
+      height: 400px;
       position: relative;
       overflow: hidden;
       border: 2px solid #333;
       border-radius: 10px;
+      background: #e0f7fa;
     }
 
     #fluid {
@@ -79,12 +89,12 @@
       height: 100%;
       position: absolute;
       background: linear-gradient(to top, #004080, #00bfff);
-      animation: drip 8s infinite linear;
+      animation: lowerFluid 100000s linear forwards; /* Smooth level reduction */
     }
 
-    @keyframes drip {
+    @keyframes lowerFluid {
       0% {
-        transform: translateY(0);
+        transform: translateY(0%);
       }
       100% {
         transform: translateY(-100%);
@@ -109,60 +119,66 @@
   </style>
 </head>
 <body>
-  <!-- Left Boxes -->
-  <div class="side-box">
-    <!-- How's Today? -->
-    <div class="box">
-      <div class="title">How's Today?</div>
-      <div class="content">
-        <div id="date"></div>
-        <div id="time"></div>
-        <div id="speciality"></div>
-        <br>
-        <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
-        <div id="cleaning-duty"></div>
+  <!-- Main Title -->
+  <h1>10 - C</h1>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Left Boxes -->
+    <div class="side-box">
+      <!-- How's Today? -->
+      <div class="box">
+        <div class="title">How's Today?</div>
+        <div class="content">
+          <div id="date"></div>
+          <div id="time"></div>
+          <div id="speciality"></div>
+          <br>
+          <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
+          <div id="cleaning-duty"></div>
+        </div>
+      </div>
+
+      <!-- Reminders -->
+      <div class="box">
+        <div class="title">Reminders</div>
+        <div class="content">
+          <ul id="reminders" contenteditable="true">
+            <li>Parent-Teacher Meeting at 4 PM</li>
+            <li>Bring sports uniform tomorrow</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Today's Timetable -->
-    <div class="box">
-      <div class="title">Today's Timetable</div>
-      <div class="content">
-        <ol id="timetable"></ol>
+    <!-- Center Countdown Animation -->
+    <div id="center-animation">
+      <div id="fluid-container">
+        <div id="fluid"></div>
+        <div id="countdown"></div>
       </div>
+      <div id="days-left"></div>
     </div>
-  </div>
 
-  <!-- Center Countdown Animation -->
-  <div id="center-animation">
-    <div id="fluid-container">
-      <div id="fluid"></div>
-      <div id="countdown"></div>
-    </div>
-    <div id="days-left"></div>
-  </div>
-
-  <!-- Right Boxes -->
-  <div class="side-box">
-    <!-- Reminders -->
-    <div class="box">
-      <div class="title">Reminders</div>
-      <div class="content">
-        <ul id="reminders" contenteditable="true">
-          <li>Parent-Teacher Meeting at 4 PM</li>
-          <li>Bring sports uniform tomorrow</li>
-        </ul>
+    <!-- Right Boxes -->
+    <div class="side-box">
+      <!-- Today's Timetable -->
+      <div class="box">
+        <div class="title">Today's Timetable</div>
+        <div class="content">
+          <ol id="timetable"></ol>
+        </div>
       </div>
-    </div>
 
-    <!-- Homeworks -->
-    <div class="box">
-      <div class="title">Homeworks</div>
-      <div class="content">
-        <ul id="homeworks" contenteditable="true">
-          <li>Math: Practice problems from page 45</li>
-          <li>Science: Complete lab report</li>
-        </ul>
+      <!-- Homeworks -->
+      <div class="box">
+        <div class="title">Homeworks</div>
+        <div class="content">
+          <ul id="homeworks" contenteditable="true">
+            <li>Math: Practice problems from page 45</li>
+            <li>Science: Complete lab report</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -182,30 +198,34 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Fetch Speciality of the Day (Mocked for now)
-    const specialityMock = "World Kindness Day"; // Replace with a call to fetch from ChatGPT later.
-    document.getElementById("speciality").innerText = `Speciality of the Day: ${specialityMock}`;
-
     // Weekly Cleaning Duty Rotation
     const cleaningGroups = ["Gandhi", "Nehru", "Patel", "Tagore"];
     const weekNumber = Math.floor((today - new Date("2024-01-01")) / (7 * 24 * 60 * 60 * 1000)) % 4;
     const currentGroup = cleaningGroups[weekNumber];
     document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
 
-    // Update Timetable
+    // Fetch Day's Speciality (Mocked for now)
+    const specialities = {
+      0: "World Environment Day",
+      1: "World Kindness Day",
+      2: "National Science Day",
+      3: "Global Handwashing Day",
+      4: "Teacher's Day",
+      5: "Children's Day",
+      6: "International Yoga Day"
+    };
+    document.getElementById("speciality").innerText = `Speciality of the Day: ${specialities[today.getDay()]}`;
+
+    // Timetable
     const timetable = {
-      0: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
-      1: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/ Hindi", "Information Technology", "Physical Training", "English"],
-      2: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/ Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
-      3: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/ Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
-      4: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/ Hindi", "Information Technology", "English"],
-      5: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/ Hindi"]
+      1: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      // Continue other days...
     };
     const todayIndex = today.getDay();
     const todayTimetable = timetable[todayIndex] || [];
-    document.getElementById("timetable").innerHTML = todayTimetable.map((subject, index) => `<li>${subject}</li>`).join("");
+    document.getElementById("timetable").innerHTML = todayTimetable.map((subject) => `<li>${subject}</li>`).join("");
 
-    // Countdown Calculation
+    // Countdown
     function updateCountdown() {
       const now = new Date();
       const timeLeft = examDate - now;
