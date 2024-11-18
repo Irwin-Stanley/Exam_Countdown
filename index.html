@@ -12,7 +12,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(to bottom, #f9f9f9, #e0e0e0);
+      background: linear-gradient(to bottom right, #FF7F50, #FFD700, #32CD32, #00BFFF, #8A2BE2);
       color: #333;
     }
 
@@ -118,6 +118,12 @@
       font-weight: bold;
     }
 
+    .countdown-label {
+      font-size: 0.9em;
+      color: white;
+      text-align: center;
+    }
+
     #quote-box {
       margin-top: 20px;
       width: 50%;
@@ -164,11 +170,14 @@
         </div>
       </div>
 
-      <!-- Timetable -->
+      <!-- Reminders -->
       <div class="box">
-        <div class="title">Today's Timetable</div>
+        <div class="title">Reminders</div>
         <div class="content">
-          <ol id="timetable"></ol>
+          <ul id="reminders" contenteditable="true">
+            <li>Parent-Teacher Meeting at 4 PM</li>
+            <li>Bring sports uniform tomorrow</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -180,18 +189,18 @@
         <div id="countdown"></div>
       </div>
       <div id="days-left"></div>
+      <div class="countdown-label" id="days-label">Days</div>
+      <div class="countdown-label" id="hours-label">Hours</div>
+      <div class="countdown-label" id="minutes-label">Minutes</div>
     </div>
 
     <!-- Right Boxes -->
     <div class="side-box">
-      <!-- Reminders -->
+      <!-- Timetable -->
       <div class="box">
-        <div class="title">Reminders</div>
+        <div class="title">Today's Timetable</div>
         <div class="content">
-          <ul id="reminders" contenteditable="true">
-            <li>Parent-Teacher Meeting at 4 PM</li>
-            <li>Bring sports uniform tomorrow</li>
-          </ul>
+          <ol id="timetable"></ol>
         </div>
       </div>
 
@@ -235,32 +244,44 @@
     const currentGroup = cleaningGroups[weekNumber];
     document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
 
-    // Fetch Day's Speciality using ChatGPT mock logic
+    // Fetch Special Day from an external source
     async function fetchSpeciality() {
-      const specialities = await fetch('https://specialday-api.example.com'); // Replace with actual API
-      const speciality = "World Kindness Day"; // Mock for now
+      // Mocking with static content; replace with actual API call
+      const speciality = "World Kindness Day"; // Example
       document.getElementById("speciality").innerText = `Speciality of the Day: ${speciality}`;
     }
     fetchSpeciality();
 
-    // Quotes
-    const quotes = [
-      "The best way to predict the future is to create it.",
-      "Education is the most powerful weapon which you can use to change the world.",
-      "Success is not the key to happiness. Happiness is the key to success."
-    ];
-    const quoteOfTheDay = quotes[today.getDay() % quotes.length];
-    document.getElementById("quote").innerText = quoteOfTheDay;
+    // Quotes from the internet (can be replaced with an API)
+    async function fetchQuote() {
+      // Mocking with static quote; replace with real API call
+      const quote = "The best way to predict the future is to create it.";
+      document.getElementById("quote").innerText = quote;
+    }
+    fetchQuote();
 
-    // Timetable
+    // Timetable auto-update logic
     const timetable = {
       1: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      2: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/ Hindi", "Information Technology", "Physical Training", "English"],
+      3: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/ Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
+      // Add other days of the week...
     };
-    const todayIndex = today.getDay() || 1;
-    const todayTimetable = timetable[todayIndex] || [];
-    document.getElementById("timetable").innerHTML = todayTimetable.map((subject) => `<li>${subject}</li>`).join("");
 
-    // Countdown
+    function updateTimetable() {
+      const dayOfWeek = today.getDay();
+      const todaysTimetable = timetable[dayOfWeek] || [];
+      const timetableList = document.getElementById("timetable");
+      timetableList.innerHTML = "";
+      todaysTimetable.forEach((subject, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerText = `${index + 1}. ${subject}`;
+        timetableList.appendChild(listItem);
+      });
+    }
+    updateTimetable();
+
+    // Countdown Calculation
     function updateCountdown() {
       const now = new Date();
       const timeLeft = examDate - now;
@@ -269,7 +290,7 @@
       const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
 
-      document.getElementById("countdown").innerHTML = `${days} : ${hours} : ${minutes}`;
+      document.getElementById("countdown").innerHTML = `${days}:${hours}:${minutes}`;
       document.getElementById("days-left").innerText = `${days} Days Left For Board Exam`;
     }
     setInterval(updateCountdown, 1000);
