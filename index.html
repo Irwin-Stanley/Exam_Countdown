@@ -60,12 +60,11 @@
     }
 
     .editable {
-      border: none;
+      border: 1px dashed #999;
       padding: 5px;
       margin-top: 5px;
       display: block;
       color: black;
-      background: transparent;
     }
 
     #center-animation {
@@ -76,7 +75,6 @@
       text-align: center;
       width: 50%;
       position: relative;
-      margin-top: 20px;
     }
 
     #fluid-container {
@@ -91,7 +89,7 @@
 
     #fluid {
       width: 100%;
-      height: 25%; /* Fluid level set to 1/4 from the bottom */
+      height: 25%; /* Adjusted fluid height to be 3/4 from the bottom */
       position: absolute;
       background: linear-gradient(to top, #004080, #00bfff);
       animation: lowerFluid 100000s linear forwards; /* Smooth level reduction */
@@ -202,9 +200,7 @@
           </div>
           <br>
           <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
-          <div id="cleaning-duty">
-            Cleaning Duty: <span contenteditable="true" id="cleaning-duty-editable">Nehru</span>
-          </div>
+          <div id="cleaning-duty"></div>
         </div>
       </div>
 
@@ -274,29 +270,40 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Weekly Cleaning Duty Rotation (Starts with Nehru)
-    const cleaningGroups = ["Nehru", "Gandhi", "Patel", "Tagore"];
+    // Weekly Cleaning Duty Rotation
+    const cleaningGroups = ["Gandhi", "Nehru", "Patel", "Tagore"];
     const weekNumber = Math.floor((today - new Date("2024-01-01")) / (7 * 24 * 60 * 60 * 1000)) % 4;
     const currentGroup = cleaningGroups[weekNumber];
     document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
 
-    // Make Cleaning Duty Editable
-    document.getElementById("cleaning-duty-editable").addEventListener("input", function() {
-      const cleaningDuty = document.getElementById("cleaning-duty-editable").innerText;
-      document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${cleaningDuty}`;
-    });
+    // Fetch Special Day from an external source
+    async function fetchSpeciality() {
+      // Mocking with static content; replace with actual API call
+      const speciality = "World Kindness Day"; // Example
+      document.getElementById("speciality").innerText = `${speciality}`;
+    }
+    fetchSpeciality();
+
+    // Quotes from ChatGPT (for now, use static quotes)
+    function fetchQuote() {
+      const quote = "The best way to predict the future is to create it.";
+      document.getElementById("quote").innerText = quote;
+    }
+    fetchQuote();
+
+    // Timetable Configuration
+    const timetable = {
+      1: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      2: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/ Hindi", "Information Technology", "Physical Training", "English"],
+      3: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/ Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
+      4: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/ Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
+      5: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/ Hindi", "Information Technology", "English"],
+      6: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/ Hindi"]
+    };
 
     // Update Timetable
     function updateTimetable() {
-      const dayOfWeek = today.getDay() || 7;
-      const timetable = {
-        1: ["Math", "Science", "English"],
-        2: ["History", "Geography", "Computer"],
-        3: ["Math", "History", "Physical Education"],
-        4: ["English", "Biology", "Music"],
-        5: ["Physics", "Chemistry", "Math"],
-        6: ["Geography", "Sports", "Music"]
-      };
+      const dayOfWeek = today.getDay() || 7; // Sunday is 0 in JS, adjust to make it 7 for Sunday
       const todaysTimetable = timetable[dayOfWeek];
       const timetableList = document.getElementById("timetable");
       timetableList.innerHTML = "";
@@ -322,21 +329,6 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
-
-    // Today's Quote
-    const quotes = [
-      "The best way to predict the future is to create it.",
-      "Don't watch the clock; do what it does. Keep going.",
-      "The future depends on what we do in the present.",
-      "Success is the sum of small efforts, repeated day in and day out.",
-      "Time is what we want most but what we use worst."
-    ];
-
-    function updateQuote() {
-      const todayIndex = today.getDate() % quotes.length;
-      document.getElementById("quote").innerText = `"${quotes[todayIndex]}"`;
-    }
-    updateQuote();
   </script>
 </body>
 </html>
