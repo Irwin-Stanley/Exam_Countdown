@@ -12,7 +12,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(to bottom right, #f4f4f4, #e0e0e0);
+      background: linear-gradient(to bottom, #f9f9f9, #e0e0e0);
       color: #333;
     }
 
@@ -21,6 +21,7 @@
       font-weight: bold;
       text-decoration: underline;
       margin: 20px 0;
+      color: #444;
     }
 
     .content-wrapper {
@@ -70,12 +71,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      width: 40%;
+      width: 50%;
       position: relative;
     }
 
     #fluid-container {
-      width: 200px;
+      width: 300px;
       height: 400px;
       position: relative;
       overflow: hidden;
@@ -116,6 +117,30 @@
       margin-top: 20px;
       font-weight: bold;
     }
+
+    #quote-box {
+      margin-top: 20px;
+      width: 50%;
+      border: 1px solid #ccc;
+      padding: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: #fff;
+      text-align: center;
+    }
+
+    #quote-box .title {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    #quote-box .quote {
+      font-size: 1.2em;
+      font-style: italic;
+      color: #666;
+    }
   </style>
 </head>
 <body>
@@ -139,14 +164,11 @@
         </div>
       </div>
 
-      <!-- Reminders -->
+      <!-- Timetable -->
       <div class="box">
-        <div class="title">Reminders</div>
+        <div class="title">Today's Timetable</div>
         <div class="content">
-          <ul id="reminders" contenteditable="true">
-            <li>Parent-Teacher Meeting at 4 PM</li>
-            <li>Bring sports uniform tomorrow</li>
-          </ul>
+          <ol id="timetable"></ol>
         </div>
       </div>
     </div>
@@ -162,11 +184,14 @@
 
     <!-- Right Boxes -->
     <div class="side-box">
-      <!-- Today's Timetable -->
+      <!-- Reminders -->
       <div class="box">
-        <div class="title">Today's Timetable</div>
+        <div class="title">Reminders</div>
         <div class="content">
-          <ol id="timetable"></ol>
+          <ul id="reminders" contenteditable="true">
+            <li>Parent-Teacher Meeting at 4 PM</li>
+            <li>Bring sports uniform tomorrow</li>
+          </ul>
         </div>
       </div>
 
@@ -181,6 +206,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Today's Quote Box -->
+  <div id="quote-box">
+    <div class="title">Today's Quote</div>
+    <div id="quote" class="quote"></div>
   </div>
 
   <script>
@@ -204,24 +235,28 @@
     const currentGroup = cleaningGroups[weekNumber];
     document.getElementById("cleaning-duty").innerText = `Cleaning Duty: ${currentGroup}`;
 
-    // Fetch Day's Speciality (Mocked for now)
-    const specialities = {
-      0: "World Environment Day",
-      1: "World Kindness Day",
-      2: "National Science Day",
-      3: "Global Handwashing Day",
-      4: "Teacher's Day",
-      5: "Children's Day",
-      6: "International Yoga Day"
-    };
-    document.getElementById("speciality").innerText = `Speciality of the Day: ${specialities[today.getDay()]}`;
+    // Fetch Day's Speciality using ChatGPT mock logic
+    async function fetchSpeciality() {
+      const specialities = await fetch('https://specialday-api.example.com'); // Replace with actual API
+      const speciality = "World Kindness Day"; // Mock for now
+      document.getElementById("speciality").innerText = `Speciality of the Day: ${speciality}`;
+    }
+    fetchSpeciality();
+
+    // Quotes
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "Education is the most powerful weapon which you can use to change the world.",
+      "Success is not the key to happiness. Happiness is the key to success."
+    ];
+    const quoteOfTheDay = quotes[today.getDay() % quotes.length];
+    document.getElementById("quote").innerText = quoteOfTheDay;
 
     // Timetable
     const timetable = {
       1: ["History/Geography", "Politics/Economics", "Malayalam/ Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
-      // Continue other days...
     };
-    const todayIndex = today.getDay();
+    const todayIndex = today.getDay() || 1;
     const todayTimetable = timetable[todayIndex] || [];
     document.getElementById("timetable").innerHTML = todayTimetable.map((subject) => `<li>${subject}</li>`).join("");
 
