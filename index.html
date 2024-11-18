@@ -41,7 +41,6 @@
     }
 
     .box {
-      border: 1px solid #ccc;
       padding: 15px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
@@ -60,7 +59,6 @@
     }
 
     .editable {
-      border: 1px dashed #999;
       padding: 5px;
       margin-top: 5px;
       display: block;
@@ -178,6 +176,13 @@
     .side-box .box .content > div {
       margin-bottom: 15px;
     }
+
+    /* Remove borders from textboxes in "How's Today?" */
+    .side-box .box #date,
+    .side-box .box #time {
+      border: none;
+      background: none;
+    }
   </style>
 </head>
 <body>
@@ -200,7 +205,9 @@
           </div>
           <br>
           <div>Class Monitors: <span class="editable" contenteditable="true">[Enter names]</span></div>
-          <div id="cleaning-duty"></div>
+          <div id="cleaning-duty">
+            <span contenteditable="true">Cleaning Duty: Nehru</span>
+          </div>
         </div>
       </div>
 
@@ -283,13 +290,6 @@
       document.getElementById("speciality").innerText = `${speciality}`;
     }
     fetchSpeciality();
-
-    // Quotes from ChatGPT (for now, use static quotes)
-    function fetchQuote() {
-      const quote = "The best way to predict the future is to create it.";
-      document.getElementById("quote").innerText = quote;
-    }
-    fetchQuote();
 
     // Timetable Configuration
     const timetable = {
