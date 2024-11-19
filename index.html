@@ -82,12 +82,6 @@
       animation: wave-move 3s infinite ease-in-out;
     }
 
-    @keyframes wave-move {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
-    }
-
     @keyframes wave {
       0% { transform: translateY(5px); }
       50% { transform: translateY(-5px); }
@@ -203,22 +197,99 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Timetable Configuration
-    const timetable = {
-      1: ["History/Geography", "Politics/Economics", "Malayalam/Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
-      2: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/Hindi", "Information Technology", "Physical Training", "English"],
-      3: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
-      4: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
-      5: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/Hindi", "Information Technology", "English"],
-      6: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/Hindi"]
+    // Define the default timetable for each day
+    const weeklyTimetable = {
+      Monday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English",
+        "Physics",
+        "Mathematics(S)",
+        "Biology",
+        "Communicative English",
+        "Science Practical"
+      ],
+      Tuesday: [
+        "History/Geography",
+        "Physics",
+        "Mathematics(S)",
+        "Mathematics(R)",
+        "Politics/Economics",
+        "English",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "Physical Training",
+        "English"
+      ],
+      Wednesday: [
+        "History/Geography",
+        "Information Technology",
+        "Mathematics(R)",
+        "English",
+        "Mathematics(S)",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "Biology",
+        "Chemistry",
+        "MPT"
+      ],
+      Thursday: [
+        "History/Geography",
+        "Physics",
+        "Chemistry",
+        "English",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "English",
+        "Mathematics(S)",
+        "Physical Training",
+        "Mathematics(R)"
+      ],
+      Friday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Mathematics(R)",
+        "Biology",
+        "English",
+        "Mathematics(S)",
+        "Chemistry",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English"
+      ],
+      Saturday: [
+        "History/Geography",
+        "Mathematics(R)",
+        "Health Education",
+        "Drawing",
+        "Library",
+        "Mathematics(S)",
+        "Information Technology",
+        "Communicative English",
+        "Science Practical",
+        "Malayalam/Hindi"
+      ]
     };
 
+    // Function to update the timetable based on the day of the week
     function updateTimetable() {
-      const dayOfWeek = new Date().getDay();
-      const todaysTimetable = timetable[dayOfWeek === 0 ? 6 : dayOfWeek];
-      const timetableDiv = document.getElementById("timetable");
-      timetableDiv.innerHTML = todaysTimetable.map(subject => `<p>${subject}</p>`).join(""); // Removed serial numbers
+      const today = new Date();
+      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
+
+      const timetableElement = document.getElementById("timetable");
+      timetableElement.innerHTML = ""; // Clear existing timetable
+
+      const timetableForToday = weeklyTimetable[dayName] || [];
+      timetableForToday.forEach((subject, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
+        timetableElement.appendChild(listItem);
+      });
     }
+
+    // Initialize the timetable
     updateTimetable();
 
     // Countdown Logic
