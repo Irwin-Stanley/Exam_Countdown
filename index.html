@@ -7,108 +7,97 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #f7f7f7, #e4e4e4);
+      background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+      color: black;
     }
     h1 {
-      text-align: center;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: bold;
       text-decoration: underline;
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
     .container {
       display: flex;
       justify-content: space-between;
-      padding: 10px;
-      gap: 10px; /* Adjusted gaps */
+      width: 90%;
     }
     .box {
-      flex: 1;
-      margin: 0;
+      width: 22%;
       padding: 10px;
-      background-color: #ffffff;
+      background-color: white;
       border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      height: 320px; /* Reduced height to fit all content */
-      overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 10px 0;
+      text-align: left;
     }
-    .box textarea {
-      width: 100%;
-      height: 100%;
-      font-family: inherit;
-      font-size: 16px;
-      line-height: 1.5;
-      resize: none;
-      border: none;
-      background: transparent;
-    }
-    #fluid-container {
-      position: relative;
-      width: 300px;
-      height: 150px;
-      margin: 10px auto;
-      overflow: hidden;
-      background: lightblue;
-      border-radius: 20px;
-      box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-    .wave {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: rgba(0, 0, 255, 0.3);
-      border-radius: 45%;
-      animation: wave 5s infinite linear;
-    }
-    .wave:nth-child(2) {
-      animation: wave 5s infinite linear reverse;
-      background: rgba(0, 0, 255, 0.4);
-    }
-    @keyframes wave {
-      from { transform: translateX(-50%); }
-      to { transform: translateX(0); }
+    .box h2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 10px;
     }
     .countdown-container {
-      text-align: center;
-      margin: 10px auto;
-      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      margin: 20px 0;
     }
-    .countdown {
+    #fluid-container {
+      width: 100%;
+      height: 200px;
+      background: blue;
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    #wave {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      animation: wave 4s infinite linear;
+    }
+    @keyframes wave {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+    #countdown {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
       font-size: 24px;
       font-weight: bold;
-    }
-    .footer-text {
-      text-align: center;
-      font-size: 18px;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    #quote-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      margin: 10px auto;
-      padding: 10px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      height: 150px;
-      max-width: 100%;
-    }
-    #quote-box textarea {
-      width: 90%;
-      height: auto;
-      font-family: inherit;
-      font-size: 16px;
+      color: white;
       line-height: 1.5;
-      resize: none;
-      border: none;
+    }
+    .countdown-label {
+      font-size: 16px;
+      display: block;
+    }
+    #exam-text {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
       text-align: center;
-      background: transparent;
+    }
+    input, textarea {
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      background: none;
+      resize: none;
     }
   </style>
 </head>
@@ -117,70 +106,56 @@
   <div class="container">
     <div class="box">
       <h2>How's Today?</h2>
-      <div id="today-info">
-        <p><strong>Date:</strong> <span id="date"></span></p>
-        <p><strong>Time:</strong> <span id="time"></span></p>
-        <p><strong>Speciality:</strong> <textarea id="speciality" placeholder="Edit speciality"></textarea></p>
-        <p><strong>Cleaning Duty:</strong> <textarea id="cleaning-duty"></textarea></p>
-      </div>
+      <div>Today's Date: <input type="text" value="19th Nov 2024" readonly></div>
+      <div>Current Time: <input type="text" id="current-time" readonly></div>
+      <div>Speciality: <textarea id="speciality">World Philosophy Day</textarea></div>
+      <br>
+      <div>Class Monitors: <textarea>John & Mary</textarea></div>
+      <div>Cleaning Duty: <textarea>Nehru</textarea></div>
     </div>
     <div class="box">
-      <h2>Reminder</h2>
-      <textarea id="reminder" placeholder="Add Reminder"></textarea>
+      <h2>Reminders</h2>
+      <textarea>Bring lab coat for chemistry class.</textarea>
     </div>
-  </div>
-  <div id="fluid-container">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
-  <div class="countdown-container">
-    <div class="countdown" id="countdown"></div>
-    <div class="footer-text" id="exam-text"></div>
-  </div>
-  <div class="container">
     <div class="box">
-      <h2>Today's Timetable</h2>
-      <textarea id="timetable" placeholder="Add Timetable"></textarea>
+      <h2>Timetable</h2>
+      <ol id="timetable">
+        <li>History/Geography</li>
+        <li>Politics/Economics</li>
+        <li>Malayalam/Hindi</li>
+        <li>Information Technology</li>
+        <li>English</li>
+        <li>Physics</li>
+        <li>Mathematics(S)</li>
+        <li>Biology</li>
+        <li>Communicative English</li>
+        <li>Science Practical</li>
+      </ol>
     </div>
     <div class="box">
       <h2>Homework</h2>
-      <textarea id="homework" placeholder="Add Homework"></textarea>
+      <textarea>Complete the history project.</textarea>
     </div>
   </div>
-  <div id="quote-box">
-    <h2>Today's Quote</h2>
-    <textarea id="quote" placeholder="Add Quote"></textarea>
+  <div class="countdown-container">
+    <div id="fluid-container">
+      <div id="wave"></div>
+      <div id="countdown">
+        <span id="days">00</span>(DD) : 
+        <span id="hours">00</span>(HH) : 
+        <span id="minutes">00</span>(MM)
+      </div>
+    </div>
+    <div id="exam-text">0 Days left for Board Exam</div>
   </div>
+  <div class="box" style="width: 50%;">
+    <h2>Today's Quote:</h2>
+    <textarea id="quote">The best way to predict the future is to create it.</textarea>
+  </div>
+
   <script>
-    // Date and Time Logic
-    function updateDateTime() {
-      const now = new Date();
-      document.getElementById("date").innerText = now.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
-      document.getElementById("time").innerText = now.toLocaleTimeString();
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-
-    // Cleaning Duty Rotation
-    const cleaningDuties = ["Nehru", "Patel", "Tagore", "Gandhi"];
-    const currentWeek = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / (7 * 24 * 60 * 60 * 1000));
-    document.getElementById("cleaning-duty").value = cleaningDuties[currentWeek % cleaningDuties.length];
-
-    // Timetable Logic
-    const timetableData = {
-      Monday: ["History/Geography", "Politics/Economics", "Mathematics", "Physics", "English"],
-      Tuesday: ["History/Geography", "Physics", "Mathematics", "Politics/Economics", "English"],
-      Wednesday: ["Biology", "Information Technology", "Mathematics", "English", "Chemistry"],
-      Thursday: ["History/Geography", "Physics", "Mathematics", "Politics/Economics", "English"],
-      Friday: ["Biology", "Politics/Economics", "Mathematics", "Chemistry", "English"],
-      Saturday: ["History/Geography", "Information Technology", "Mathematics", "English", "Physical Training"]
-    };
-    const dayOfWeek = new Date().toLocaleString("en-us", { weekday: "long" });
-    const timetableBox = document.getElementById("timetable");
-    timetableBox.value = timetableData[dayOfWeek]?.map((subject, index) => `${index + 1}. ${subject}`).join("\n") || "No timetable found.";
-
     // Countdown Logic
-    const targetDate = new Date("February 14, 2025 00:00:00");
+    const targetDate = new Date('February 14, 2025 00:00:00');
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
@@ -188,11 +163,21 @@
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
-      document.getElementById("countdown").innerText = `${days} : ${hours} : ${minutes}`;
-      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("exam-text").textContent = `${days} Days left for Board Exam`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // Time Update
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("current-time").value = now.toLocaleTimeString();
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
   </script>
 </body>
 </html>
