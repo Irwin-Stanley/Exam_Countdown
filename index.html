@@ -71,6 +71,21 @@
       animation: wave-top 3s infinite ease-in-out;
     }
     
+    .countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      .countdown span {
+        margin-right: 5px; /* Spacing between values and labels */
+      }
+      
     /* Adjusted keyframes to make movement occur only at the top */
     @keyframes wave-top {
       0% {
