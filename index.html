@@ -34,7 +34,7 @@
 
     .box {
       flex: 1;
-      max-width: 24%; /* Increased width */
+      max-width: 24%; /* Adjusted width */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -135,6 +135,16 @@
       font-size: 18px;
       color: #555;
     }
+
+    .editable {
+      border: none; /* Removed borders */
+      background: transparent;
+      width: 100%;
+    }
+
+    .editable:focus {
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -150,8 +160,8 @@
       <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
     </div>
     <div class="box">
-      <h2>Reminders</h2>
-      <textarea class="editable">Edit here</textarea>
+      <h2>Timetable</h2>
+      <div id="timetable"></div> <!-- Removed serial numbers -->
     </div>
 
     <!-- Fluid Container -->
@@ -164,8 +174,8 @@
 
     <!-- Right Boxes -->
     <div class="box">
-      <h2>Timetable</h2>
-      <ol id="timetable"></ol>
+      <h2>Reminders</h2>
+      <textarea class="editable">Edit here</textarea>
     </div>
     <div class="box">
       <h2>Homeworks</h2>
@@ -191,101 +201,24 @@
       document.getElementById("time").innerText = time;
     }
     setInterval(updateTime, 1000);
-    updateTime(); 
-    
-    // Define the default timetable for each day
-    const weeklyTimetable = {
-      Monday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English",
-        "Physics",
-        "Mathematics(S)",
-        "Biology",
-        "Communicative English",
-        "Science Practical"
-      ],
-      Tuesday: [
-        "History/Geography",
-        "Physics",
-        "Mathematics(S)",
-        "Mathematics(R)",
-        "Politics/Economics",
-        "English",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "Physical Training",
-        "English"
-      ],
-      Wednesday: [
-        "History/Geography",
-        "Information Technology",
-        "Mathematics(R)",
-        "English",
-        "Mathematics(S)",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "Biology",
-        "Chemistry",
-        "MPT"
-      ],
-      Thursday: [
-        "History/Geography",
-        "Physics",
-        "Chemistry",
-        "English",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "English",
-        "Mathematics(S)",
-        "Physical Training",
-        "Mathematics(R)"
-      ],
-      Friday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Mathematics(R)",
-        "Biology",
-        "English",
-        "Mathematics(S)",
-        "Chemistry",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English"
-      ],
-      Saturday: [
-        "History/Geography",
-        "Mathematics(R)",
-        "Health Education",
-        "Drawing",
-        "Library",
-        "Mathematics(S)",
-        "Information Technology",
-        "Communicative English",
-        "Science Practical",
-        "Malayalam/Hindi"
-      ]
+    updateTime();
+
+    // Timetable Configuration
+    const timetable = {
+      1: ["History/Geography", "Politics/Economics", "Malayalam/Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      2: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/Hindi", "Information Technology", "Physical Training", "English"],
+      3: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
+      4: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
+      5: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/Hindi", "Information Technology", "English"],
+      6: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/Hindi"]
     };
 
-    // Function to update the timetable based on the day of the week
     function updateTimetable() {
-      const today = new Date();
-      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
-
-      const timetableElement = document.getElementById("timetable");
-      timetableElement.innerHTML = ""; // Clear existing timetable
-
-      const timetableForToday = weeklyTimetable[dayName] || [];
-      timetableForToday.forEach((subject, index) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
-        timetableElement.appendChild(listItem);
-      });
+      const dayOfWeek = new Date().getDay();
+      const todaysTimetable = timetable[dayOfWeek === 0 ? 6 : dayOfWeek];
+      const timetableDiv = document.getElementById("timetable");
+      timetableDiv.innerHTML = todaysTimetable.map(subject => `<p>${subject}</p>`).join(""); // Removed serial numbers
     }
-
-    // Initialize the timetable
     updateTimetable();
 
     // Countdown Logic
