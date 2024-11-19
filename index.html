@@ -24,16 +24,17 @@
 
     .container {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: space-between;
       width: 90%;
       max-width: 1200px;
       margin-top: 20px;
-      gap: 20px;
+      gap: 10px;
     }
 
     .box {
-      flex: 1 1 calc(45% - 20px);
+      flex: 1;
+      max-width: 22%;
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -52,13 +53,28 @@
     .fluid-container {
       text-align: center;
       position: relative;
-      width: 100%;
-      max-width: 300px;
+      width: 300px;
       height: 400px;
-      background: linear-gradient(to top, #4caf50 75%, transparent 25%);
+      background: linear-gradient(to top, #4caf50 25%, transparent 75%);
       border-radius: 20px;
+      overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      margin: 0 auto;
+      margin: 0 15px;
+    }
+
+    .fluid {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 75%;
+      background: linear-gradient(to top, #1e90ff, #87cefa);
+      animation: wave 3s infinite linear;
+    }
+
+    @keyframes wave {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
+      100% { transform: translateX(0); }
     }
 
     .countdown {
@@ -118,6 +134,12 @@
       <textarea class="editable">Edit here</textarea>
     </div>
 
+    <!-- Fluid Container -->
+    <div class="fluid-container">
+      <div class="fluid"></div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+
     <!-- Right Boxes -->
     <div class="box">
       <h2>Timetable</h2>
@@ -127,11 +149,6 @@
       <h2>Homeworks</h2>
       <textarea class="editable">Edit here</textarea>
     </div>
-  </div>
-
-  <!-- Fluid Container -->
-  <div class="fluid-container">
-    <div class="countdown" id="countdown"></div>
   </div>
   <div class="exam-text" id="exam-text"></div>
 
@@ -181,7 +198,7 @@
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
-      document.getElementById("countdown").innerText = `days(${days}) : hours(${hours}) : minutes(${minutes})`;
+      document.getElementById("countdown").innerText = `${days}(DD) : ${hours}(HH) : ${minutes}(MM)`;
       document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
     }
     setInterval(updateCountdown, 1000);
