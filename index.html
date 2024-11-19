@@ -78,10 +78,16 @@
       height: 20%;
       background: rgba(255, 255, 255, 0.4);
       opacity: 0.8;
-      border-radius: 0%;
+      border-radius: 50%;
       animation: wave-move 3s infinite ease-in-out;
     }
-
+    
+    @keyframes wave-move {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    
     @keyframes wave {
       0% { transform: translateY(5px); }
       50% { transform: translateY(-5px); }
