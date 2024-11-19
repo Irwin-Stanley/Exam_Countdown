@@ -146,6 +146,16 @@
       outline: none;
     }
 
+     #timetable textarea {
+      border: none; /* Removes the border */
+      background: transparent; /* Makes the background transparent */
+      resize: none; /* Prevents resizing the textarea */
+      width: 100%; /* Makes the textarea take up full width */
+      font-size: 16px; /* Adjust font size if necessary */
+      padding: 5px; /* Optional: Adds padding for better spacing */
+    }
+
+
 /* Add this to improve responsiveness */
 @media screen and (max-width: 768px) {
   .container {
@@ -326,17 +336,22 @@
     // Initialize the timetable
     updateTimetable();
 
-    // Countdown Logic
+       // Countdown Logic
     const examDate = new Date('2025-02-14T00:00:00');
     function updateCountdown() {
       const now = new Date();
       const diff = examDate - now;
-
+    
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-      document.getElementById("countdown").innerText = `${days}(DD) : ${hours}(HH) : ${minutes}(MM)`;
+    
+      // Format hours and minutes to have leading zeros if needed
+      const formattedHours = hours < 10 ? `0${hours}` : hours;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    
+      // Update the countdown display
+      document.getElementById("countdown").innerText = `${days}: ${formattedHours}: ${formattedMinutes}`;
       document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
     }
     setInterval(updateCountdown, 1000);
