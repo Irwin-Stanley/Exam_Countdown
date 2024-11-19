@@ -82,6 +82,391 @@
         text-align: center;
       }
       
+      .countdown span {
+        margin-right: 5px; /* Spacing between values and labels */
+      }
+      
+    /* Adjusted keyframes to make movement occur only at the top */
+    @keyframes wave-top {
+      0% {
+        transform: translateY(0); /* No movement at the top */
+      }
+      50% {
+        transform: translateY(-10px); /* Moves up at the top */
+      }
+      100% {
+        transform: translateY(0); /* Back to original position */
+      }
+    }
+
+    .exam-text {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    }
+
+    .quote-box {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 1200px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .quote-box h2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
+    }
+
+    .quote-box p {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .editable {
+      border: none; /* Removed borders */
+      background: transparent;
+      width: 100%;
+    }
+
+    .editable:focus {
+      outline: none;
+    }
+
+    #timetable {
+  list-style-type: none; /* Removes the bullets */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+#timetable textarea {
+  border: none;
+  background: transparent;
+  resize: none;
+  width: 100%;
+  font-size: 14px; /* Reduced font size */
+  padding: 3px; /* Reduced padding */
+  height: 30px; /* Adjusted height to make the textboxes smaller */
+}
+
+
+
+/* Add this to improve responsiveness */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .box {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .fluid-container {
+    width: 100%;
+    height: 300px;
+  }
+
+  .countdown {
+    font-size: 18px;
+  }
+
+  .quote-box p {
+    font-size: 16px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>10 - C</h1>
+  <div class="container">
+    <!-- Left Boxes -->
+    <div class="box">
+      <h2>How's Today?</h2>
+      <p><b>Today's Date:</b> <span id="date"></span></p>
+      <p><b>Current Time:</b> <span id="time"></span></p>
+      <p><b>Speciality of the Day:</b> <input type="text" id="speciality" class="editable" value="Edit here" /></p>
+      <p><b>Class Monitors:</b> <input type="text" class="editable" value="Edit here" /></p>
+      <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
+    </div>
+    <div class="box">
+      <h2>Timetable</h2>
+      <div id="timetable"></div> <!-- Removed serial numbers -->
+    </div>
+
+    <!-- Fluid Container -->
+    <div class="fluid-container">
+      <div class="fluid">
+        <div class="wave"></div>
+      </div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+
+    <!-- Right Boxes -->
+    <div class="box">
+      <h2>Reminders</h2>
+      <textarea class="editable">Edit here</textarea>
+    </div>
+    <div class="box">
+      <h2>Homeworks</h2>
+      <textarea class="editable">Edit here</textarea>
+    </div>
+  </div>
+  <div class="exam-text" id="exam-text"></div>
+
+  <!-- Quote Box -->
+  <div class="quote-box">
+    <h2>Today's Quote:</h2>
+    <p id="quote">Loading today's quote...</p>
+  </div>
+
+
+  <div class="countdown" id="countdown">
+    <span id="Days"></span> <span>days</span> : 
+    <span id="  Hours"></span> <span>hours</span> : 
+    <span id="     Minutes"></span> <span>minutes</span>
+  </div>
+
+
+  <script>
+    // Update Date and Time
+    function updateTime() {
+      const now = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById("date").innerText = now.toLocaleDateString(undefined, options);
+
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("time").innerText = time;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Define the default timetable for each day
+    const weeklyTimetable = {
+      Monday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English",
+        "Physics",
+        "Mathematics(S)",
+        "Biology",
+        "Communicative English",
+        "Science Practical"
+      ],
+      Tuesday: [
+        "History/Geography",
+        "Physics",
+        "Mathematics(S)",
+        "Mathematics(R)",
+        "Politics/Economics",
+        "English",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "Physical Training",
+        "English"
+      ],
+      Wednesday: [
+        "History/Geography",
+        "Information Technology",
+        "Mathematics(R)",
+        "English",
+        "Mathematics(S)",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "Biology",
+        "Chemistry",
+        "MPT"
+      ],
+      Thursday: [
+        "History/Geography",
+        "Physics",
+        "Chemistry",
+        "English",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "English",
+        "Mathematics(S)",
+        "Physical Training",
+        "Mathematics(R)"
+      ],
+      Friday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Mathematics(R)",
+        "Biology",
+        "English",
+        "Mathematics(S)",
+        "Chemistry",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English"
+      ],
+      Saturday: [
+        "History/Geography",
+        "Mathematics(R)",
+        "Health Education",
+        "Drawing",
+        "Library",
+        "Mathematics(S)",
+        "Information Technology",
+        "Communicative English",
+        "Science Practical",
+        "Malayalam/Hindi"
+      ]
+    };
+
+    // Function to update the timetable based on the day of the week
+    function updateTimetable() {
+      const today = new Date();
+      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
+
+      const timetableElement = document.getElementById("timetable");
+      timetableElement.innerHTML = ""; // Clear existing timetable
+
+      const timetableForToday = weeklyTimetable[dayName] || [];
+      timetableForToday.forEach((subject, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
+        timetableElement.appendChild(listItem);
+      });
+    }
+
+    // Initialize the timetable
+    updateTimetable();
+
+       // Countdown Logic
+    const examDate = new Date('2025-02-14T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = examDate - now;
+    
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    
+      // Update the countdown elements with both time and labels
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+
+    // Quotes Logic
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "You are never too old to set another goal or to dream a new dream.",
+      "Success usually comes to those who are too busy to be looking for it.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "The harder you work for something, the greater you’ll feel when you achieve it."
+    ];
+
+    function updateQuote() {
+      const today = new Date().getDate();
+      const index = today % quotes.length;
+      document.getElementById("quote").innerText = quotes[index];
+    }
+    updateQuote();
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to bottom right, #ffdfba, #d4a6f0);
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1200px;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .box {
+      flex: 1;
+      max-width: 24%; /* Adjusted width */
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      min-height: 200px;
+    }
+
+    .box h2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
+      margin-bottom: 10px;
+    }
+        
+        .fluid-container {
+      text-align: center;
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin: 0 15px;
+    }
+    
+    .fluid {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 75%;
+      background: linear-gradient(to top, #1e90ff, #87cefa);
+      animation: wave-top 3s infinite ease-in-out;
+    }
+    
+    .countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+      }
+      
       .countdown-item {
       display: flex;
       flex-direction: column;
