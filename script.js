@@ -1,46 +1,96 @@
-// Set Target Date to February 14, 2025
-const targetDate = new Date("February 14, 2025 00:00:00");
+<script>
+    // Define the default timetable for each day
+    const weeklyTimetable = {
+      Monday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English",
+        "Physics",
+        "Mathematics(S)",
+        "Biology",
+        "Communicative English",
+        "Science Practical"
+      ],
+      Tuesday: [
+        "History/Geography",
+        "Physics",
+        "Mathematics(S)",
+        "Mathematics(R)",
+        "Politics/Economics",
+        "English",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "Physical Training",
+        "English"
+      ],
+      Wednesday: [
+        "History/Geography",
+        "Information Technology",
+        "Mathematics(R)",
+        "English",
+        "Mathematics(S)",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "Biology",
+        "Chemistry",
+        "MPT"
+      ],
+      Thursday: [
+        "History/Geography",
+        "Physics",
+        "Chemistry",
+        "English",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "English",
+        "Mathematics(S)",
+        "Physical Training",
+        "Mathematics(R)"
+      ],
+      Friday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Mathematics(R)",
+        "Biology",
+        "English",
+        "Mathematics(S)",
+        "Chemistry",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English"
+      ],
+      Saturday: [
+        "History/Geography",
+        "Mathematics(R)",
+        "Health Education",
+        "Drawing",
+        "Library",
+        "Mathematics(S)",
+        "Information Technology",
+        "Communicative English",
+        "Science Practical",
+        "Malayalam/Hindi"
+      ]
+    };
 
-// DOM Elements
-const countdownElement = document.getElementById("countdown");
-const fluidElement = document.getElementById("fluid");
-const daysLeftElement = document.getElementById("days-left");
-const countDaysElement = document.getElementById("count-days");
-const countHoursElement = document.getElementById("count-hours");
-const countMinutesElement = document.getElementById("count-minutes");
+    // Function to update the timetable based on the day of the week
+    function updateTimetable() {
+      const today = new Date();
+      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
 
-// Calculate Total Duration
-const startDate = new Date().getTime();
-const totalDuration = targetDate.getTime() - startDate;
+      const timetableElement = document.getElementById("timetable");
+      timetableElement.innerHTML = ""; // Clear existing timetable
 
-// Update Countdown Every Second
-setInterval(() => {
-    const now = new Date().getTime();
-    const timeLeft = targetDate.getTime() - now;
-
-    if (timeLeft <= 0) {
-        countDaysElement.textContent = "00";
-        countHoursElement.textContent = "00";
-        countMinutesElement.textContent = "00";
-        daysLeftElement.textContent = "EXAM DAY!";
-        fluidElement.style.transform = "translateY(100%)";
-        return;
+      const timetableForToday = weeklyTimetable[dayName] || [];
+      timetableForToday.forEach((subject, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
+        timetableElement.appendChild(listItem);
+      });
     }
 
-    // Calculate Time Left
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-
-    // Update Countdown
-    countDaysElement.textContent = days.toString().padStart(2, '0');
-    countHoursElement.textContent = hours.toString().padStart(2, '0');
-    countMinutesElement.textContent = minutes.toString().padStart(2, '0');
-
-    // Update Days Left Message
-    daysLeftElement.textContent = `${days} Days Left For Board Exam`;
-
-    // Update Fluid Level Gradually
-    const percentage = (1 - timeLeft / totalDuration) * 100;
-    fluidElement.style.transform = `translateY(${percentage}%)`;
-}, 1000);
+    // Initialize the timetable
+    updateTimetable();
+  </script>
