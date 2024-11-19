@@ -84,7 +84,7 @@
       }
     }
 
-    .countdown {
+      .countdown {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -94,6 +94,11 @@
       font-weight: bold;
       text-align: center;
     }
+    
+    .countdown span {
+      margin-right: 5px; /* Spacing between values and labels */
+    }
+
 
     .exam-text {
       margin-top: 10px;
@@ -226,6 +231,14 @@
     <p id="quote">Loading today's quote...</p>
   </div>
 
+
+  <div class="countdown" id="countdown">
+    <span id="days"></span> <span>days</span> : 
+    <span id="hours"></span> <span>hours</span> : 
+    <span id="minutes"></span> <span>minutes</span>
+  </div>
+
+
   <script>
     // Update Date and Time
     function updateTime() {
@@ -344,16 +357,15 @@
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
     
-      // Format hours and minutes to have leading zeros if needed
-      const formattedHours = hours < 10 ? `0${hours}` : hours;
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    
-      // Update the countdown display
-      document.getElementById("countdown").innerText = `${days}: ${formattedHours}: ${formattedMinutes}`;
-      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
+      // Update the countdown elements with both time and labels
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
     }
+    
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
 
     // Quotes Logic
     const quotes = [
