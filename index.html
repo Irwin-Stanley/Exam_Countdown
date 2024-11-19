@@ -49,8 +49,8 @@
       color: black;
       margin-bottom: 10px;
     }
-    
-       .fluid-container {
+        
+        .fluid-container {
       text-align: center;
       position: relative;
       width: 300px;
@@ -68,16 +68,21 @@
       width: 100%;
       height: 75%;
       background: linear-gradient(to top, #1e90ff, #87cefa);
-      animation: wave 3s infinite ease-in-out;
+      animation: wave-top 3s infinite ease-in-out;
     }
     
-    /* Remove the wave class entirely */
-    @keyframes wave {
-      0% { transform: translateY(5px); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(5px); }
+    /* Adjusted keyframes to make movement occur only at the top */
+    @keyframes wave-top {
+      0% {
+        transform: translateY(0); /* No movement at the top */
+      }
+      50% {
+        transform: translateY(-10px); /* Moves up at the top */
+      }
+      100% {
+        transform: translateY(0); /* Back to original position */
+      }
     }
-
 
     .countdown {
       position: absolute;
