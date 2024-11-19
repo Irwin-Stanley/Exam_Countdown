@@ -7,97 +7,84 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin: 0;
-      background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
-      color: black;
+      padding: 0;
+      background: linear-gradient(to bottom, #f7f7f7, #e4e4e4);
     }
     h1 {
-      font-size: 32px;
+      text-align: center;
+      font-size: 36px;
       font-weight: bold;
       text-decoration: underline;
-      margin-bottom: 20px;
+      margin: 10px 0;
     }
     .container {
       display: flex;
       justify-content: space-between;
-      width: 90%;
+      padding: 20px;
     }
     .box {
-      width: 22%;
+      flex: 1;
+      margin: 10px;
       padding: 10px;
-      background-color: white;
+      background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin: 10px 0;
-      text-align: left;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .box h2 {
-      font-size: 20px;
-      font-weight: bold;
-      text-decoration: underline;
-      margin-bottom: 10px;
+    .box textarea {
+      width: 100%;
+      height: auto;
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.5;
+      resize: none;
+      border: none;
+      background: transparent;
     }
     .countdown-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50%;
-      margin: 20px 0;
-    }
-    #fluid-container {
-      width: 100%;
-      height: 200px;
-      background: blue;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-    }
-    #wave {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.6);
-      animation: wave 4s infinite linear;
-    }
-    @keyframes wave {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-    #countdown {
-      position: absolute;
-      top: 40%;
-      width: 100%;
       text-align: center;
-      font-size: 24px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .countdown {
+      font-size: 28px;
       font-weight: bold;
-      color: white;
       line-height: 1.5;
     }
-    .countdown-label {
+    .countdown-labels {
       font-size: 16px;
-      display: block;
     }
-    #exam-text {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 10px;
+    #fluid-container {
+      position: relative;
+      width: 300px;
+      height: 150px;
+      margin: 20px auto;
+      overflow: hidden;
+      background: lightblue;
+      border-radius: 20px;
+      box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: rgba(0, 0, 255, 0.3);
+      border-radius: 45%;
+      animation: wave 5s infinite linear;
+    }
+    .wave:nth-child(2) {
+      animation: wave 5s infinite linear reverse;
+      background: rgba(0, 0, 255, 0.4);
+    }
+    @keyframes wave {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    .footer-text {
       text-align: center;
-    }
-    input, textarea {
-      width: 100%;
-      font-size: 16px;
-      border: none;
-      background: none;
-      resize: none;
+      font-size: 18px;
+      margin-top: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -106,78 +93,78 @@
   <div class="container">
     <div class="box">
       <h2>How's Today?</h2>
-      <div>Today's Date: <input type="text" value="19th Nov 2024" readonly></div>
-      <div>Current Time: <input type="text" id="current-time" readonly></div>
-      <div>Speciality: <textarea id="speciality">World Philosophy Day</textarea></div>
-      <br>
-      <div>Class Monitors: <textarea>John & Mary</textarea></div>
-      <div>Cleaning Duty: <textarea>Nehru</textarea></div>
+      <textarea id="todays-info" placeholder="Today's Info"></textarea>
     </div>
     <div class="box">
-      <h2>Reminders</h2>
-      <textarea>Bring lab coat for chemistry class.</textarea>
+      <h2>Today's Quote:</h2>
+      <textarea id="quote" placeholder="Quote of the Day"></textarea>
     </div>
-    <div class="box">
-      <h2>Timetable</h2>
-      <ol id="timetable">
-        <li>History/Geography</li>
-        <li>Politics/Economics</li>
-        <li>Malayalam/Hindi</li>
-        <li>Information Technology</li>
-        <li>English</li>
-        <li>Physics</li>
-        <li>Mathematics(S)</li>
-        <li>Biology</li>
-        <li>Communicative English</li>
-        <li>Science Practical</li>
-      </ol>
-    </div>
-    <div class="box">
-      <h2>Homework</h2>
-      <textarea>Complete the history project.</textarea>
-    </div>
+  </div>
+  <div id="fluid-container">
+    <div class="wave"></div>
+    <div class="wave"></div>
   </div>
   <div class="countdown-container">
-    <div id="fluid-container">
-      <div id="wave"></div>
-      <div id="countdown">
-        <span id="days">00</span>(DD) : 
-        <span id="hours">00</span>(HH) : 
-        <span id="minutes">00</span>(MM)
-      </div>
+    <div class="countdown" id="countdown"></div>
+    <div class="countdown-labels">
+      <span>Days</span>&nbsp;&nbsp;<span>Hours</span>&nbsp;&nbsp;<span>Minutes</span>
     </div>
-    <div id="exam-text">0 Days left for Board Exam</div>
+    <div class="footer-text" id="exam-text"></div>
   </div>
-  <div class="box" style="width: 50%;">
-    <h2>Today's Quote:</h2>
-    <textarea id="quote">The best way to predict the future is to create it.</textarea>
+  <div class="container">
+    <div class="box">
+      <h2>Reminder</h2>
+      <textarea id="reminder" placeholder="Add Reminder"></textarea>
+    </div>
+    <div class="box">
+      <h2>Today's Timetable</h2>
+      <textarea id="timetable" placeholder="Add Timetable"></textarea>
+    </div>
   </div>
-
   <script>
     // Countdown Logic
-    const targetDate = new Date('February 14, 2025 00:00:00');
+    const targetDate = new Date("February 14, 2025 00:00:00");
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("exam-text").textContent = `${days} Days left for Board Exam`;
+      document.getElementById("countdown").innerText = `${days} (DD) : ${hours} (HH) : ${minutes} (MM)`;
+      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Time Update
-    function updateTime() {
-      const now = new Date();
-      document.getElementById("current-time").value = now.toLocaleTimeString();
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
+    // Quotes Logic
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "You are never too old to set another goal or to dream a new dream.",
+      "Success usually comes to those who are too busy to be looking for it.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "The harder you work for something, the greater you’ll feel when you achieve it."
+    ];
+
+    const quoteBox = document.getElementById("quote");
+    const today = new Date().getDate();
+    quoteBox.value = quotes[today % quotes.length];
+    quoteBox.addEventListener("input", () => {
+      // Allow manual edit
+    });
+
+    // Timetable Logic
+    const timetableData = {
+      Monday: ["Math", "English", "Science", "History"],
+      Tuesday: ["Physics", "Biology", "PE", "Geography"]
+    };
+    const dayOfWeek = new Date().toLocaleString("en-us", { weekday: "long" });
+    const timetableBox = document.getElementById("timetable");
+    timetableBox.value = timetableData[dayOfWeek]?.join("\n") || "No timetable found.";
+    timetableBox.addEventListener("input", () => {
+      // Allow manual edit
+    });
   </script>
 </body>
 </html>
