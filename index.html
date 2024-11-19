@@ -146,14 +146,20 @@
       outline: none;
     }
 
-     #timetable textarea {
-      border: none; /* Removes the border */
-      background: transparent; /* Makes the background transparent */
-      resize: none; /* Prevents resizing the textarea */
-      width: 100%; /* Makes the textarea take up full width */
-      font-size: 16px; /* Adjust font size if necessary */
-      padding: 5px; /* Optional: Adds padding for better spacing */
-    }
+    #timetable {
+  list-style-type: none; /* Removes the bullets */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+#timetable textarea {
+  border: none;
+  background: transparent;
+  resize: none;
+  width: 100%;
+  font-size: 16px;
+  padding: 5px;
+}
 
 
 /* Add this to improve responsiveness */
