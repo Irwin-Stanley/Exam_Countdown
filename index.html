@@ -82,7 +82,13 @@
         text-align: center;
       }
       
-      .countdown span {
+      .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .countdown span {
         margin-right: 5px; /* Spacing between values and labels */
       }
       
@@ -346,23 +352,18 @@
     // Initialize the timetable
     updateTimetable();
 
-       // Countdown Logic
-    const examDate = new Date('2025-02-14T00:00:00');
-    function updateCountdown() {
-      const now = new Date();
-      const diff = examDate - now;
-    
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    
-      // Update the countdown elements with both time and labels
+       // Countdown Logic // JavaScript for Countdown
+    const targetDate = new Date("2024-02-14").getTime();
+    setInterval(function () {
+      let currentDate = new Date().getTime();
+      let timeRemaining = targetDate - currentDate;
+      let days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-    }
-    
-    setInterval(updateCountdown, 1000);
+    }, 1000);
     updateCountdown();
 
 
