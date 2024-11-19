@@ -40,64 +40,18 @@
       text-decoration: underline;
       margin-bottom: 10px;
     }
-    .countdown-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 50%;
-      margin: 20px 0;
-    }
-    #fluid-container {
-      width: 100%;
-      height: 200px;
-      background: blue;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-    }
-    #wave {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.6);
-      animation: wave 4s infinite linear;
-    }
-    @keyframes wave {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-    #countdown {
-      position: absolute;
-      top: 40%;
-      width: 100%;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      line-height: 1.5;
-    }
-    .countdown-label {
-      font-size: 16px;
-      display: block;
-    }
-    #exam-text {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 10px;
-      text-align: center;
-    }
-    input, textarea {
+    textarea {
       width: 100%;
       font-size: 16px;
       border: none;
       background: none;
       resize: none;
+    }
+    ol {
+      padding-left: 20px;
+    }
+    ol li {
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -105,79 +59,108 @@
   <h1>Class 10-C</h1>
   <div class="container">
     <div class="box">
-      <h2>How's Today?</h2>
-      <div>Today's Date: <input type="text" value="19th Nov 2024" readonly></div>
-      <div>Current Time: <input type="text" id="current-time" readonly></div>
-      <div>Speciality: <textarea id="speciality">World Philosophy Day</textarea></div>
-      <br>
-      <div>Class Monitors: <textarea>John & Mary</textarea></div>
-      <div>Cleaning Duty: <textarea>Nehru</textarea></div>
-    </div>
-    <div class="box">
-      <h2>Reminders</h2>
-      <textarea>Bring lab coat for chemistry class.</textarea>
-    </div>
-    <div class="box">
       <h2>Timetable</h2>
       <ol id="timetable">
-        <li>History/Geography</li>
-        <li>Politics/Economics</li>
-        <li>Malayalam/Hindi</li>
-        <li>Information Technology</li>
-        <li>English</li>
-        <li>Physics</li>
-        <li>Mathematics(S)</li>
-        <li>Biology</li>
-        <li>Communicative English</li>
-        <li>Science Practical</li>
+        <!-- Timetable will be dynamically inserted here -->
       </ol>
     </div>
-    <div class="box">
-      <h2>Homework</h2>
-      <textarea>Complete the history project.</textarea>
-    </div>
-  </div>
-  <div class="countdown-container">
-    <div id="fluid-container">
-      <div id="wave"></div>
-      <div id="countdown">
-        <span id="days">00</span>(DD) : 
-        <span id="hours">00</span>(HH) : 
-        <span id="minutes">00</span>(MM)
-      </div>
-    </div>
-    <div id="exam-text">0 Days left for Board Exam</div>
-  </div>
-  <div class="box" style="width: 50%;">
-    <h2>Today's Quote:</h2>
-    <textarea id="quote">The best way to predict the future is to create it.</textarea>
   </div>
 
   <script>
-    // Countdown Logic
-    const targetDate = new Date('February 14, 2025 00:00:00');
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    // Define the default timetable for each day
+    const weeklyTimetable = {
+      Monday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English",
+        "Physics",
+        "Mathematics(S)",
+        "Biology",
+        "Communicative English",
+        "Science Practical"
+      ],
+      Tuesday: [
+        "History/Geography",
+        "Physics",
+        "Mathematics(S)",
+        "Mathematics(R)",
+        "Politics/Economics",
+        "English",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "Physical Training",
+        "English"
+      ],
+      Wednesday: [
+        "History/Geography",
+        "Information Technology",
+        "Mathematics(R)",
+        "English",
+        "Mathematics(S)",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "Biology",
+        "Chemistry",
+        "MPT"
+      ],
+      Thursday: [
+        "History/Geography",
+        "Physics",
+        "Chemistry",
+        "English",
+        "Malayalam/Hindi",
+        "Politics/Economics",
+        "English",
+        "Mathematics(S)",
+        "Physical Training",
+        "Mathematics(R)"
+      ],
+      Friday: [
+        "History/Geography",
+        "Politics/Economics",
+        "Mathematics(R)",
+        "Biology",
+        "English",
+        "Mathematics(S)",
+        "Chemistry",
+        "Malayalam/Hindi",
+        "Information Technology",
+        "English"
+      ],
+      Saturday: [
+        "History/Geography",
+        "Mathematics(R)",
+        "Health Education",
+        "Drawing",
+        "Library",
+        "Mathematics(S)",
+        "Information Technology",
+        "Communicative English",
+        "Science Practical",
+        "Malayalam/Hindi"
+      ]
+    };
 
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("exam-text").textContent = `${days} Days left for Board Exam`;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    // Function to update the timetable based on the day of the week
+    function updateTimetable() {
+      const today = new Date();
+      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
 
-    // Time Update
-    function updateTime() {
-      const now = new Date();
-      document.getElementById("current-time").value = now.toLocaleTimeString();
+      const timetableElement = document.getElementById("timetable");
+      timetableElement.innerHTML = ""; // Clear existing timetable
+
+      const timetableForToday = weeklyTimetable[dayName] || [];
+      timetableForToday.forEach((subject, index) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
+        timetableElement.appendChild(listItem);
+      });
     }
-    setInterval(updateTime, 1000);
-    updateTime();
+
+    // Initialize the timetable
+    updateTimetable();
   </script>
 </body>
 </html>
