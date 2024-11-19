@@ -3,164 +3,250 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class 10-C Dashboard</title>
+  <title>Class Dashboard</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0;
-      background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
-      color: black;
+      background: linear-gradient(to bottom right, #ffdfba, #d4a6f0);
     }
+
     h1 {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: bold;
       text-decoration: underline;
-      margin-bottom: 20px;
+      color: #333;
     }
+
     .container {
       display: flex;
+      flex-wrap: nowrap;
       justify-content: space-between;
       width: 90%;
+      max-width: 1200px;
+      margin-top: 20px;
+      gap: 10px;
     }
+
     .box {
-      width: 22%;
-      padding: 10px;
+      flex: 1;
+      max-width: 24%; /* Increased width */
       background-color: white;
+      padding: 15px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin: 10px 0;
-      text-align: left;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      min-height: 200px;
     }
+
     .box h2 {
       font-size: 20px;
       font-weight: bold;
       text-decoration: underline;
+      color: black;
       margin-bottom: 10px;
     }
-    textarea {
+
+    .fluid-container {
+      text-align: center;
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      margin: 0 15px;
+    }
+
+    .fluid {
+      position: absolute;
+      bottom: 0;
       width: 100%;
+      height: 75%;
+      background: linear-gradient(to top, #1e90ff, #87cefa);
+      animation: wave 3s infinite ease-in-out;
+    }
+
+    .wave {
+      position: absolute;
+      top: 0; /* Wave animation now at the top */
+      width: 200%;
+      height: 20%;
+      background: rgba(255, 255, 255, 0.4);
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: wave-move 3s infinite ease-in-out;
+    }
+
+    @keyframes wave-move {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes wave {
+      0% { transform: translateY(5px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(5px); }
+    }
+
+    .countdown {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .exam-text {
+      margin-top: 10px;
       font-size: 16px;
-      border: none;
-      background: none;
-      resize: none;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
     }
-    ol {
-      padding-left: 20px;
+
+    .quote-box {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 1200px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: center;
     }
-    ol li {
-      margin: 5px 0;
+
+    .quote-box h2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
+    }
+
+    .quote-box p {
+      font-size: 18px;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>Class 10-C</h1>
+  <h1>10 - C</h1>
   <div class="container">
+    <!-- Left Boxes -->
+    <div class="box">
+      <h2>How's Today?</h2>
+      <p><b>Today's Date:</b> <span id="date"></span></p>
+      <p><b>Current Time:</b> <span id="time"></span></p>
+      <p><b>Speciality of the Day:</b> <input type="text" id="speciality" class="editable" value="Edit here" /></p>
+      <p><b>Class Monitors:</b> <input type="text" class="editable" value="Edit here" /></p>
+      <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
+    </div>
+    <div class="box">
+      <h2>Reminders</h2>
+      <textarea class="editable">Edit here</textarea>
+    </div>
+
+    <!-- Fluid Container -->
+    <div class="fluid-container">
+      <div class="fluid">
+        <div class="wave"></div>
+      </div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+
+    <!-- Right Boxes -->
     <div class="box">
       <h2>Timetable</h2>
-      <ol id="timetable">
-        <!-- Timetable will be dynamically inserted here -->
-      </ol>
+      <ol id="timetable"></ol>
     </div>
+    <div class="box">
+      <h2>Homeworks</h2>
+      <textarea class="editable">Edit here</textarea>
+    </div>
+  </div>
+  <div class="exam-text" id="exam-text"></div>
+
+  <!-- Quote Box -->
+  <div class="quote-box">
+    <h2>Today's Quote:</h2>
+    <p id="quote">Loading today's quote...</p>
   </div>
 
   <script>
-    // Define the default timetable for each day
-    const weeklyTimetable = {
-      Monday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English",
-        "Physics",
-        "Mathematics(S)",
-        "Biology",
-        "Communicative English",
-        "Science Practical"
-      ],
-      Tuesday: [
-        "History/Geography",
-        "Physics",
-        "Mathematics(S)",
-        "Mathematics(R)",
-        "Politics/Economics",
-        "English",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "Physical Training",
-        "English"
-      ],
-      Wednesday: [
-        "History/Geography",
-        "Information Technology",
-        "Mathematics(R)",
-        "English",
-        "Mathematics(S)",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "Biology",
-        "Chemistry",
-        "MPT"
-      ],
-      Thursday: [
-        "History/Geography",
-        "Physics",
-        "Chemistry",
-        "English",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "English",
-        "Mathematics(S)",
-        "Physical Training",
-        "Mathematics(R)"
-      ],
-      Friday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Mathematics(R)",
-        "Biology",
-        "English",
-        "Mathematics(S)",
-        "Chemistry",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English"
-      ],
-      Saturday: [
-        "History/Geography",
-        "Mathematics(R)",
-        "Health Education",
-        "Drawing",
-        "Library",
-        "Mathematics(S)",
-        "Information Technology",
-        "Communicative English",
-        "Science Practical",
-        "Malayalam/Hindi"
-      ]
+    // Update Date and Time
+    function updateTime() {
+      const now = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById("date").innerText = now.toLocaleDateString(undefined, options);
+
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("time").innerText = time;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Timetable Configuration
+    const timetable = {
+      1: ["History/Geography", "Politics/Economics", "Malayalam/Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
+      2: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/Hindi", "Information Technology", "Physical Training", "English"],
+      3: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
+      4: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
+      5: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/Hindi", "Information Technology", "English"],
+      6: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/Hindi"]
     };
 
-    // Function to update the timetable based on the day of the week
     function updateTimetable() {
-      const today = new Date();
-      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
-
-      const timetableElement = document.getElementById("timetable");
-      timetableElement.innerHTML = ""; // Clear existing timetable
-
-      const timetableForToday = weeklyTimetable[dayName] || [];
-      timetableForToday.forEach((subject, index) => {
+      const dayOfWeek = new Date().getDay();
+      const todaysTimetable = timetable[dayOfWeek === 0 ? 6 : dayOfWeek];
+      const timetableList = document.getElementById("timetable");
+      timetableList.innerHTML = "";
+      todaysTimetable.forEach((subject, index) => {
         const listItem = document.createElement("li");
-        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
-        timetableElement.appendChild(listItem);
+        listItem.innerText = `${index + 1}. ${subject}`;
+        timetableList.appendChild(listItem);
       });
     }
-
-    // Initialize the timetable
     updateTimetable();
+
+    // Countdown Logic
+    const examDate = new Date('2025-02-14T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = examDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      document.getElementById("countdown").innerText = `${days}(DD) : ${hours}(HH) : ${minutes}(MM)`;
+      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Quotes Logic
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "You are never too old to set another goal or to dream a new dream.",
+      "Success usually comes to those who are too busy to be looking for it.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "The harder you work for something, the greater you’ll feel when you achieve it."
+    ];
+
+    function updateQuote() {
+      const today = new Date().getDate();
+      const index = today % quotes.length;
+      document.getElementById("quote").innerText = quotes[index];
+    }
+    updateQuote();
   </script>
 </body>
 </html>
