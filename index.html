@@ -16,7 +16,7 @@
       font-size: 36px;
       font-weight: bold;
       text-decoration: underline;
-      margin: 10px 0;
+      margin: 20px 0;
     }
     .container {
       display: flex;
@@ -30,6 +30,9 @@
       background-color: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      height: 400px; /* Increased height */
+      max-width: 300px; /* Reduced width */
+      overflow-y: auto;
     }
     .box textarea {
       width: 100%;
@@ -82,6 +85,14 @@
       margin-top: 10px;
       font-weight: bold;
     }
+    #quote-box {
+      width: 100%;
+      background-color: #ffffff;
+      margin: 20px auto;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -89,11 +100,16 @@
   <div class="container">
     <div class="box">
       <h2>How's Today?</h2>
-      <textarea id="todays-info" placeholder="Today's Info"></textarea>
+      <div id="today-info">
+        <p><strong>Date:</strong> <span id="date"></span></p>
+        <p><strong>Time:</strong> <span id="time"></span></p>
+        <p><strong>Speciality:</strong> <textarea id="speciality" placeholder="Edit speciality"></textarea></p>
+        <p><strong>Cleaning Duty:</strong> <textarea id="cleaning-duty"></textarea></p>
+      </div>
     </div>
     <div class="box">
-      <h2>Homework</h2>
-      <textarea id="homework" placeholder="Add Homework"></textarea>
+      <h2>Reminder</h2>
+      <textarea id="reminder" placeholder="Add Reminder"></textarea>
     </div>
   </div>
   <div id="fluid-container">
@@ -106,30 +122,32 @@
   </div>
   <div class="container">
     <div class="box">
-      <h2>Reminder</h2>
-      <textarea id="reminder" placeholder="Add Reminder"></textarea>
-    </div>
-    <div class="box">
       <h2>Today's Timetable</h2>
       <textarea id="timetable" placeholder="Add Timetable"></textarea>
     </div>
+    <div class="box">
+      <h2>Homework</h2>
+      <textarea id="homework" placeholder="Add Homework"></textarea>
+    </div>
+  </div>
+  <div id="quote-box">
+    <h2>Today's Quote:</h2>
+    <textarea id="quote" placeholder="Add Quote"></textarea>
   </div>
   <script>
-    // Countdown Logic
-    const targetDate = new Date("February 14, 2025 00:00:00");
-    function updateCountdown() {
+    // Date and Time Logic
+    function updateDateTime() {
       const now = new Date();
-      const diff = targetDate - now;
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-      document.getElementById("countdown").innerText = `${days} : ${hours} : ${minutes}`;
-      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
+      document.getElementById("date").innerText = now.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+      document.getElementById("time").innerText = now.toLocaleTimeString();
     }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Cleaning Duty Rotation
+    const cleaningDuties = ["Nehru", "Patel", "Tagore", "Gandhi"];
+    const currentWeek = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) / (7 * 24 * 60 * 60 * 1000));
+    document.getElementById("cleaning-duty").value = cleaningDuties[currentWeek % cleaningDuties.length];
 
     // Timetable Logic
     const timetableData = {
@@ -146,6 +164,22 @@
     timetableBox.addEventListener("input", () => {
       // Allow manual edit
     });
+
+    // Countdown Logic
+    const targetDate = new Date("February 14, 2025 00:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+      document.getElementById("countdown").innerText = `${days} : ${hours} : ${minutes}`;
+      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
