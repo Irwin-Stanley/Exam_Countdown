@@ -23,19 +23,22 @@
     }
 
     .container {
-      display: grid;
-      grid-template-columns: 1fr 2fr 1fr;
-      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 90%;
       max-width: 1200px;
       margin-top: 20px;
-      gap: 10px;
+      gap: 20px;
     }
 
     .box {
+      flex: 1 1 calc(45% - 20px);
       background-color: white;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      min-height: 200px;
     }
 
     .box h2 {
@@ -47,18 +50,12 @@
     }
 
     .fluid-container {
-      grid-column: 2 / 3;
       text-align: center;
       position: relative;
-    }
-
-    .fluid {
       width: 100%;
       max-width: 300px;
       height: 400px;
       background: linear-gradient(to top, #4caf50 75%, transparent 25%);
-      position: relative;
-      overflow: hidden;
       border-radius: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       margin: 0 auto;
@@ -75,12 +72,12 @@
       text-align: center;
     }
 
-    .labels {
-      display: flex;
-      justify-content: space-around;
+    .exam-text {
       margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
       color: #333;
-      font-size: 14px;
+      text-align: center;
     }
 
     .editable {
@@ -93,6 +90,14 @@
 
     .editable:focus {
       outline: none;
+    }
+
+    ol {
+      padding-left: 20px;
+    }
+
+    ol li {
+      margin-bottom: 5px;
     }
   </style>
 </head>
@@ -109,32 +114,26 @@
       <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
     </div>
     <div class="box">
-      <h2>Timetable</h2>
-      <ol id="timetable"></ol>
-    </div>
-
-    <!-- Fluid Container -->
-    <div class="fluid-container">
-      <div class="fluid">
-        <div class="countdown" id="countdown"></div>
-      </div>
-      <div class="labels">
-        <span>Days</span>
-        <span>Hours</span>
-        <span>Minutes</span>
-      </div>
+      <h2>Reminders</h2>
+      <textarea class="editable">Edit here</textarea>
     </div>
 
     <!-- Right Boxes -->
     <div class="box">
-      <h2>Reminders</h2>
-      <textarea class="editable">Edit here</textarea>
+      <h2>Timetable</h2>
+      <ol id="timetable"></ol>
     </div>
     <div class="box">
       <h2>Homeworks</h2>
       <textarea class="editable">Edit here</textarea>
     </div>
   </div>
+
+  <!-- Fluid Container -->
+  <div class="fluid-container">
+    <div class="countdown" id="countdown"></div>
+  </div>
+  <div class="exam-text" id="exam-text"></div>
 
   <script>
     // Update Date and Time
@@ -182,7 +181,8 @@
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
-      document.getElementById("countdown").innerText = `Days (${days}): Hours (${hours}): Minutes (${minutes})`;
+      document.getElementById("countdown").innerText = `days(${days}) : hours(${hours}) : minutes(${minutes})`;
+      document.getElementById("exam-text").innerText = `${days} Days left for Board Exam`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
