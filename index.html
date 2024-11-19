@@ -34,7 +34,7 @@
 
     .box {
       flex: 1;
-      max-width: 22%;
+      max-width: 24%; /* Increased width */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -55,7 +55,7 @@
       position: relative;
       width: 300px;
       height: 400px;
-      background: linear-gradient(to top, #4caf50 25%, transparent 75%);
+      background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -68,13 +68,30 @@
       width: 100%;
       height: 75%;
       background: linear-gradient(to top, #1e90ff, #87cefa);
-      animation: wave 3s infinite linear;
+      animation: wave 3s infinite ease-in-out;
+    }
+
+    .wave {
+      position: absolute;
+      top: 0; /* Wave animation now at the top */
+      width: 200%;
+      height: 20%;
+      background: rgba(255, 255, 255, 0.4);
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: wave-move 3s infinite ease-in-out;
+    }
+
+    @keyframes wave-move {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
     @keyframes wave {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(-10px); }
-      100% { transform: translateX(0); }
+      0% { transform: translateY(5px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(5px); }
     }
 
     .countdown {
@@ -96,24 +113,27 @@
       text-align: center;
     }
 
-    .editable {
-      border: none;
-      background: transparent;
-      width: 100%;
-      font-size: 16px;
-      color: #333;
+    .quote-box {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 1200px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: center;
     }
 
-    .editable:focus {
-      outline: none;
+    .quote-box h2 {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      color: black;
     }
 
-    ol {
-      padding-left: 20px;
-    }
-
-    ol li {
-      margin-bottom: 5px;
+    .quote-box p {
+      font-size: 18px;
+      color: #555;
     }
   </style>
 </head>
@@ -136,7 +156,9 @@
 
     <!-- Fluid Container -->
     <div class="fluid-container">
-      <div class="fluid"></div>
+      <div class="fluid">
+        <div class="wave"></div>
+      </div>
       <div class="countdown" id="countdown"></div>
     </div>
 
@@ -151,6 +173,12 @@
     </div>
   </div>
   <div class="exam-text" id="exam-text"></div>
+
+  <!-- Quote Box -->
+  <div class="quote-box">
+    <h2>Today's Quote:</h2>
+    <p id="quote">Loading today's quote...</p>
+  </div>
 
   <script>
     // Update Date and Time
@@ -203,6 +231,22 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // Quotes Logic
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "You are never too old to set another goal or to dream a new dream.",
+      "Success usually comes to those who are too busy to be looking for it.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "The harder you work for something, the greater you’ll feel when you achieve it."
+    ];
+
+    function updateQuote() {
+      const today = new Date().getDate();
+      const index = today % quotes.length;
+      document.getElementById("quote").innerText = quotes[index];
+    }
+    updateQuote();
   </script>
 </body>
 </html>
