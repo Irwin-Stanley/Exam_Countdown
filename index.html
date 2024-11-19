@@ -21,22 +21,22 @@
     .container {
       display: flex;
       justify-content: space-between;
-      padding: 20px;
+      padding: 10px;
+      gap: 10px; /* Adjusted gaps */
     }
     .box {
       flex: 1;
-      margin: 10px;
+      margin: 0;
       padding: 10px;
       background-color: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      height: 400px; /* Increased height */
-      max-width: 300px; /* Reduced width */
+      height: 320px; /* Reduced height to fit all content */
       overflow-y: auto;
     }
     .box textarea {
       width: 100%;
-      height: auto;
+      height: 100%;
       font-family: inherit;
       font-size: 16px;
       line-height: 1.5;
@@ -48,7 +48,7 @@
       position: relative;
       width: 300px;
       height: 150px;
-      margin: 20px auto;
+      margin: 10px auto;
       overflow: hidden;
       background: lightblue;
       border-radius: 20px;
@@ -72,8 +72,8 @@
     }
     .countdown-container {
       text-align: center;
-      margin: 20px auto;
-      padding: 20px;
+      margin: 10px auto;
+      padding: 10px;
     }
     .countdown {
       font-size: 24px;
@@ -86,12 +86,29 @@
       font-weight: bold;
     }
     #quote-box {
-      width: 100%;
-      background-color: #ffffff;
-      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 10px auto;
       padding: 10px;
+      background-color: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      height: 150px;
+      max-width: 100%;
+    }
+    #quote-box textarea {
+      width: 90%;
+      height: auto;
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.5;
+      resize: none;
+      border: none;
+      text-align: center;
+      background: transparent;
     }
   </style>
 </head>
@@ -131,7 +148,7 @@
     </div>
   </div>
   <div id="quote-box">
-    <h2>Today's Quote:</h2>
+    <h2>Today's Quote</h2>
     <textarea id="quote" placeholder="Add Quote"></textarea>
   </div>
   <script>
@@ -151,26 +168,22 @@
 
     // Timetable Logic
     const timetableData = {
-      Monday: ["History/Geography", "Politics/Economics", "Malayalam/Hindi", "Information Technology", "English", "Physics", "Mathematics(S)", "Biology", "Communicative English", "Science Practical"],
-      Tuesday: ["History/Geography", "Physics", "Mathematics(S)", "Mathematics(R)", "Politics/Economics", "English", "Malayalam/Hindi", "Information Technology", "Physical Training", "English"],
-      Wednesday: ["History/Geography", "Information Technology", "Mathematics(R)", "English", "Mathematics(S)", "Malayalam/Hindi", "Politics/Economics", "Biology", "Chemistry", "MPT"],
-      Thursday: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Politics/Economics", "English", "Mathematics(S)", "Physical Training", "Mathematics(R)"],
-      Friday: ["History/Geography", "Politics/Economics", "Mathematics(R)", "Biology", "English", "Mathematics(S)", "Chemistry", "Malayalam/Hindi", "Information Technology", "English"],
-      Saturday: ["History/Geography", "Mathematics(R)", "Health Education", "Drawing", "Library", "Mathematics(S)", "Information Technology", "Communicative English", "Science Practical", "Malayalam/Hindi"]
+      Monday: ["History/Geography", "Politics/Economics", "Mathematics", "Physics", "English"],
+      Tuesday: ["History/Geography", "Physics", "Mathematics", "Politics/Economics", "English"],
+      Wednesday: ["Biology", "Information Technology", "Mathematics", "English", "Chemistry"],
+      Thursday: ["History/Geography", "Physics", "Mathematics", "Politics/Economics", "English"],
+      Friday: ["Biology", "Politics/Economics", "Mathematics", "Chemistry", "English"],
+      Saturday: ["History/Geography", "Information Technology", "Mathematics", "English", "Physical Training"]
     };
     const dayOfWeek = new Date().toLocaleString("en-us", { weekday: "long" });
     const timetableBox = document.getElementById("timetable");
     timetableBox.value = timetableData[dayOfWeek]?.map((subject, index) => `${index + 1}. ${subject}`).join("\n") || "No timetable found.";
-    timetableBox.addEventListener("input", () => {
-      // Allow manual edit
-    });
 
     // Countdown Logic
     const targetDate = new Date("February 14, 2025 00:00:00");
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
