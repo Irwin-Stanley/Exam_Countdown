@@ -111,7 +111,9 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      text-align: center;
+      text-align: center; /* Centralized content */
+      font-family: Arial, sans-serif; /* Arial font */
+      font-size: 18px; /* Increased font size */
     }
 
     /* Remove borders for all textareas in specific boxes */
@@ -123,37 +125,8 @@
       background: transparent;
       outline: none;
       padding: 8px;
-      font-size: 14px;
-    }
-
-    /* Ensure all textboxes in these sections have consistent styling */
-    #how-today textarea,
-    #reminders textarea,
-    #homework textarea,
-    #quote textarea {
-      width: 100%;
-      height: 40px;
-      font-size: 14px;
       resize: none;
-    }
-
-    /* Updated box width to fit the textboxes more appropriately */
-    .container {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      width: 90%;
-      max-width: 1300px; /* Increased max-width for better spacing */
-      margin-top: 20px;
-      gap: 20px; /* Increased gap for better visual balance */
-    }
-
-    /* Adjustments to width and padding for all boxes to fit content */
-    .box {
-      flex: 1;
-      max-width: 30%; /* Increased box width */
-      padding: 20px; /* More padding for a spacious look */
-      min-height: 300px; /* Increased minimum height */
+      font-size: 16px;
     }
   </style>
 </head>
@@ -169,7 +142,7 @@
       <p><b>Current Time:</b> <span id="time"></span></p>
       <p><b>Speciality of the Day:</b> <textarea>Edit here</textarea></p>
       <p><b>Class Monitors:</b> <textarea>Edit here</textarea></p>
-      <p><b>Cleaning Duty:</b> <textarea id="cleaning-duty">Nehru</textarea></p>
+      <p><b>Cleaning Duty:</b> <textarea>Edit here</textarea></p>
     </div>
     
     <!-- Timetable Section -->
@@ -223,7 +196,6 @@
     const weeklyTimetable = {
       Monday: ["History", "Geography"],
       Tuesday: ["Math", "Physics"],
-      // Add other days if needed
     };
 
     // Populate Timetable
@@ -240,7 +212,7 @@
     updateTimetable();
 
     // Countdown Logic
-    const targetDate = new Date("2025-02-15").getTime();
+    const targetDate = new Date("2024-02-14").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
