@@ -133,7 +133,7 @@
     }
 
     /* Specific adjustments for timetable */
-    #timetable ul {
+    #timetable {
       padding-left: 20px;
       margin: 0;
       height: 360px; /* Increased to fit subjects properly */
@@ -229,7 +229,7 @@
       timetable.innerHTML = "";
       (weeklyTimetable[today] || []).forEach((subject, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `<textarea>${index} ${subject}</textarea>`;
+        li.innerHTML = `<textarea>${subject}</textarea>`;
         timetable.appendChild(li);
       });
     }
@@ -246,7 +246,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `${days} Days Left for Board Exam`;
+      document.getElementById("exam-days-text").innerText = `Only ${days} Days Left for Board Exam!`;
     }, 60000); // Update every minute
   </script>
 </body>
