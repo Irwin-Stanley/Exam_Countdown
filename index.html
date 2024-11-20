@@ -111,9 +111,12 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      text-align: center; /* Centralized content */
-      font-family: Arial, sans-serif; /* Arial font */
-      font-size: 18px; /* Increased font size */
+    }
+
+    .quote-box h2 {
+      text-align: center; /* Center the heading */
+      text-decoration: underline; /* Add underline */
+      font-size: 20px;
     }
 
     /* Remove borders for all textareas in specific boxes */
@@ -127,6 +130,7 @@
       padding: 8px;
       resize: none;
       font-size: 16px;
+      text-align: left; /* Ensure left-alignment */
     }
   </style>
 </head>
@@ -217,7 +221,7 @@
     updateTimetable();
 
     // Countdown Logic
-    const targetDate = new Date("2024-02-14").getTime();
+    const targetDate = new Date("2025-02-15").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
