@@ -37,7 +37,7 @@
       flex: 1;
       max-width: 18%;
       min-width: 200px;
-      height: 350px; /* Increased height */
+      height: 450px; /* Increased height to fit content */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -55,7 +55,7 @@
 
     .fluid-container {
       width: 300px;
-      height: 350px; /* Match the new box height */
+      height: 450px; /* Match the new box height */
       background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
@@ -122,10 +122,11 @@
       border: none;
       background: transparent;
       outline: none;
-      padding: 8px;
+      padding: 5px;
       resize: none;
       font-size: 16px;
       text-align: left;
+      height: 2.5em; /* Fit 2 lines per textbox */
     }
   </style>
 </head>
@@ -189,7 +190,6 @@
       Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
       Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
       Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
-
     };
 
     function updateTimetable() {
