@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Dashboard</title>
   <style>
+    /* Existing styles remain unchanged */
     body {
       margin: 0;
       padding: 0;
@@ -34,7 +35,7 @@
 
     .box {
       flex: 1;
-      max-width: 24%; /* Adjusted width */
+      max-width: 24%;
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -49,8 +50,8 @@
       color: black;
       margin-bottom: 10px;
     }
-        
-        .fluid-container {
+
+    .fluid-container {
       text-align: center;
       position: relative;
       width: 300px;
@@ -61,7 +62,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       margin: 0 15px;
     }
-    
+
     .fluid {
       position: absolute;
       bottom: 0;
@@ -70,22 +71,34 @@
       background: linear-gradient(to top, #1e90ff, #87cefa);
       animation: wave-top 3s infinite ease-in-out;
     }
-    
+
     .countdown {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-      }
-      
-      .countdown span {
-        margin-right: 5px; /* Spacing between values and labels */
-      }
-      
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .countdown span {
+      display: block;
+    }
+
+    .time-values {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .time-labels {
+      font-size: 16px;
+      color: #ddd;
+      margin-top: 5px;
+    }
+
     /* Adjusted keyframes to make movement occur only at the top */
     @keyframes wave-top {
       0% {
@@ -97,14 +110,6 @@
       100% {
         transform: translateY(0); /* Back to original position */
       }
-    }
-
-    .exam-text {
-      margin-top: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
     }
 
     .quote-box {
@@ -125,240 +130,62 @@
       color: black;
     }
 
-    .quote-box p {
+    .quote-box textarea {
+      width: 100%;
+      border: none;
+      background: transparent;
       font-size: 18px;
       color: #555;
+      resize: none;
     }
 
-    .editable {
-      border: none; /* Removed borders */
-      background: transparent;
-      width: 100%;
-    }
-
-    .editable:focus {
+    .quote-box textarea:focus {
       outline: none;
     }
-
-    #timetable {
-  list-style-type: none; /* Removes the bullets */
-  padding: 0; /* Removes default padding */
-  margin: 0; /* Removes default margin */
-  }
-
-  #timetable textarea {
-    border: none;
-    background: transparent;
-    resize: none;
-    width: 100%;
-    font-size: 14px; /* Reduced font size */
-    padding: 3px; /* Reduced padding */
-    height: 30px; /* Adjusted height to make the textboxes smaller */
-  }
-
-
-
-/* Add this to improve responsiveness */
-@media screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .box {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .fluid-container {
-    width: 100%;
-    height: 300px;
-  }
-
-  .countdown {
-    font-size: 18px;
-  }
-
-  .quote-box p {
-    font-size: 16px;
-  }
-}
-
-
   </style>
 </head>
 <body>
   <h1>10 - C</h1>
   <div class="container">
-    <!-- Left Boxes -->
-    <div class="box">
-      <h2>How's Today?</h2>
-      <p><b>Today's Date:</b> <span id="date"></span></p>
-      <p><b>Current Time:</b> <span id="time"></span></p>
-      <p><b>Speciality of the Day:</b> <input type="text" id="speciality" class="editable" value="Edit here" /></p>
-      <p><b>Class Monitors:</b> <input type="text" class="editable" value="Edit here" /></p>
-      <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
-    </div>
-    <div class="box">
-      <h2>Timetable</h2>
-      <div id="timetable"></div> <!-- Removed serial numbers -->
-    </div>
-
-    <!-- Fluid Container -->
+    <!-- Fluid Container with Countdown -->
     <div class="fluid-container">
-      <div class="fluid">
-        <div class="wave"></div>
+      <div class="fluid"></div>
+      <div class="countdown">
+        <div class="time-values">
+          <span id="days">--</span>
+          <span id="hours">--</span>
+          <span id="minutes">--</span>
+        </div>
+        <div class="time-labels">
+          <span>Days</span>
+          <span>Hours</span>
+          <span>Minutes</span>
+        </div>
       </div>
-      <div class="countdown" id="countdown"></div>
-    </div>
-
-    <!-- Right Boxes -->
-    <div class="box">
-      <h2>Reminders</h2>
-      <textarea class="editable">Edit here</textarea>
-    </div>
-    <div class="box">
-      <h2>Homeworks</h2>
-      <textarea class="editable">Edit here</textarea>
     </div>
   </div>
-  <div class="exam-text" id="exam-text"></div>
 
   <!-- Quote Box -->
   <div class="quote-box">
     <h2>Today's Quote:</h2>
-    <p id="quote">Loading today's quote...</p>
+    <textarea id="quote">Loading today's quote...</textarea>
   </div>
-
-
-  <div class="countdown" id="countdown">
-    <span id="Days"></span> <span>days</span> : 
-    <span id="  Hours"></span> <span>hours</span> : 
-    <span id="     Minutes"></span> <span>minutes</span>
-  </div>
-
 
   <script>
-    // Update Date and Time
-    function updateTime() {
-      const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById("date").innerText = now.toLocaleDateString(undefined, options);
+    // Update Countdown Timer
+    const targetDate = new Date("2024-02-14").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const timeRemaining = targetDate - now;
 
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      document.getElementById("time").innerText = time;
-    }
-    setInterval(updateTime, 1000);
-    updateTime();
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
 
-    // Define the default timetable for each day
-    const weeklyTimetable = {
-      Monday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English",
-        "Physics",
-        "Mathematics(S)",
-        "Biology",
-        "Communicative English",
-        "Science Practical"
-      ],
-      Tuesday: [
-        "History/Geography",
-        "Physics",
-        "Mathematics(S)",
-        "Mathematics(R)",
-        "Politics/Economics",
-        "English",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "Physical Training",
-        "English"
-      ],
-      Wednesday: [
-        "History/Geography",
-        "Information Technology",
-        "Mathematics(R)",
-        "English",
-        "Mathematics(S)",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "Biology",
-        "Chemistry",
-        "MPT"
-      ],
-      Thursday: [
-        "History/Geography",
-        "Physics",
-        "Chemistry",
-        "English",
-        "Malayalam/Hindi",
-        "Politics/Economics",
-        "English",
-        "Mathematics(S)",
-        "Physical Training",
-        "Mathematics(R)"
-      ],
-      Friday: [
-        "History/Geography",
-        "Politics/Economics",
-        "Mathematics(R)",
-        "Biology",
-        "English",
-        "Mathematics(S)",
-        "Chemistry",
-        "Malayalam/Hindi",
-        "Information Technology",
-        "English"
-      ],
-      Saturday: [
-        "History/Geography",
-        "Mathematics(R)",
-        "Health Education",
-        "Drawing",
-        "Library",
-        "Mathematics(S)",
-        "Information Technology",
-        "Communicative English",
-        "Science Practical",
-        "Malayalam/Hindi"
-      ]
-    };
-
-    // Function to update the timetable based on the day of the week
-    function updateTimetable() {
-      const today = new Date();
-      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
-
-      const timetableElement = document.getElementById("timetable");
-      timetableElement.innerHTML = ""; // Clear existing timetable
-
-      const timetableForToday = weeklyTimetable[dayName] || [];
-      timetableForToday.forEach((subject, index) => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `<textarea>${index + 1}. ${subject}</textarea>`;
-        timetableElement.appendChild(listItem);
-      });
-    }
-
-    // Initialize the timetable
-    updateTimetable();
-
-   const targetDate = new Date("2024-02-14").getTime();
-    setInterval(function () {
-      let currentDate = new Date().getTime();
-      let timeRemaining = targetDate - currentDate;
-      let days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
     }, 1000);
-
-
 
     // Quotes Logic
     const quotes = [
@@ -372,7 +199,7 @@
     function updateQuote() {
       const today = new Date().getDate();
       const index = today % quotes.length;
-      document.getElementById("quote").innerText = quotes[index];
+      document.getElementById("quote").value = quotes[index];
     }
     updateQuote();
   </script>
