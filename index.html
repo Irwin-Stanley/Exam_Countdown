@@ -136,6 +136,15 @@
       font-size: 14px;
       padding: 0;
     }
+
+    /* Increased size for textboxes in "How's Today" */
+    .how-today-textarea {
+      width: 100%;
+      height: 80px; /* Increased height for multi-line input */
+      font-size: 14px;
+      padding: 8px;
+      resize: none;
+    }
   </style>
 </head>
 <body>
@@ -148,9 +157,9 @@
       <h2>How's Today?</h2>
       <p><b>Today's Date:</b> <span id="date"></span></p>
       <p><b>Current Time:</b> <span id="time"></span></p>
-      <p><b>Speciality of the Day:</b> <input type="text" id="speciality" class="editable" value="World Hello Day, National Philosophy Day." /></p>
-      <p><b>Class Monitors:</b> <input type="text" class="editable" value="Akash Padmanabhan, Theertha Shaji" /></p>
-      <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
+      <p><b>Speciality of the Day:</b> <textarea class="how-today-textarea" id="speciality">Edit here</textarea></p>
+      <p><b>Class Monitors:</b> <textarea class="how-today-textarea">Edit here</textarea></p>
+      <p><b>Cleaning Duty:</b> <textarea class="how-today-textarea" id="cleaning-duty">Nehru</textarea></p>
     </div>
     
     <!-- Timetable Section -->
@@ -187,8 +196,7 @@
   <!-- Editable Quote Box -->
   <div class="quote-box">
     <h2>Today's Quote:</h2>
-    <textarea id="quote" class="editable" rows="2">"It seems to me that what we call beauty in a face lies in the smile.
--LEO TOLSTOY"</textarea>
+    <textarea id="quote" class="editable" rows="2">Loading today's quote...</textarea>
   </div>
 
   <script>
@@ -203,13 +211,8 @@
 
     // Default Timetable Data
     const weeklyTimetable = {
-      Monday: ["His./Geo.", "Poli./Eco.", "Malayalam/Hindi", "IT", "English", "Physics", "Maths(Sanesh Sir)", "Biology", "CE", "Science Practicals"],
-      Tuesday: ["His./Geo.", "Physics", "Maths(Sanesh Sir)", "Maths(Ramya Tr.)", "Poli./Eco.", "English", "Malayalam/Hindi", "IT", "PT", "English"],
-      Wednesday: ["His./Geo.", "IT", "Maths(Ramya Tr.)", "English", "Maths(Sanesh Sir)", "Malayalam/Hindi", "Poli./Eco.", "Biology", "Chemistry", "MPT"],
-      Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
-      Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
-      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
-
+      Monday: ["History", "Geography"],
+      Tuesday: ["Math", "Physics"],
       // Add other days if needed
     };
 
@@ -227,7 +230,7 @@
     updateTimetable();
 
     // Countdown Logic
-    const targetDate = new Date("2025-02-14").getTime();
+    const targetDate = new Date("2024-02-14").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
