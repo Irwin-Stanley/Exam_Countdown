@@ -114,35 +114,26 @@
       text-align: center;
     }
 
-    /* Styling for textboxes */
-    input.editable, #timetable textarea {
+    /* Remove borders for all textareas in specific boxes */
+    #how-today textarea,
+    #reminders textarea,
+    #homework textarea,
+    #quote textarea {
       border: none;
       background: transparent;
       outline: none;
-    }
-
-    #timetable ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-
-    #timetable li {
-      margin-bottom: 5px;
-    }
-
-    #timetable textarea {
-      resize: none;
-      width: 100%;
-      font-size: 14px;
-      padding: 0;
-    }
-
-    /* Reduced size for textboxes in "How's Today" box (2 lines height) */
-    .how-today-textarea {
-      width: 100%;
-      height: 40px; /* Height adjusted for two lines */
-      font-size: 14px;
       padding: 8px;
+      font-size: 14px;
+    }
+
+    /* Ensure all textboxes in these sections have consistent styling */
+    #how-today textarea,
+    #reminders textarea,
+    #homework textarea,
+    #quote textarea {
+      width: 100%;
+      height: 40px;
+      font-size: 14px;
       resize: none;
     }
 
@@ -172,13 +163,13 @@
   
   <div class="container">
     <!-- Left Section -->
-    <div class="box">
+    <div class="box" id="how-today">
       <h2>How's Today?</h2>
       <p><b>Today's Date:</b> <span id="date"></span></p>
       <p><b>Current Time:</b> <span id="time"></span></p>
-      <p><b>Speciality of the Day:</b> <textarea class="how-today-textarea" id="speciality">Edit here</textarea></p>
-      <p><b>Class Monitors:</b> <textarea class="how-today-textarea">Edit here</textarea></p>
-      <p><b>Cleaning Duty:</b> <textarea class="how-today-textarea" id="cleaning-duty">Nehru</textarea></p>
+      <p><b>Speciality of the Day:</b> <textarea>Edit here</textarea></p>
+      <p><b>Class Monitors:</b> <textarea>Edit here</textarea></p>
+      <p><b>Cleaning Duty:</b> <textarea id="cleaning-duty">Nehru</textarea></p>
     </div>
     
     <!-- Timetable Section -->
@@ -202,20 +193,20 @@
     </div>
 
     <!-- Right Section -->
-    <div class="box">
+    <div class="box" id="reminders">
       <h2>Reminders</h2>
-      <textarea class="editable">Edit here</textarea>
+      <textarea>Edit here</textarea>
     </div>
-    <div class="box">
+    <div class="box" id="homework">
       <h2>Homeworks</h2>
-      <textarea class="editable">Edit here</textarea>
+      <textarea>Edit here</textarea>
     </div>
   </div>
 
   <!-- Editable Quote Box -->
-  <div class="quote-box">
+  <div class="quote-box" id="quote">
     <h2>Today's Quote:</h2>
-    <textarea id="quote" class="editable" rows="2">Loading today's quote...</textarea>
+    <textarea>Edit here</textarea>
   </div>
 
   <script>
@@ -249,7 +240,7 @@
     updateTimetable();
 
     // Countdown Logic
-    const targetDate = new Date("2024-02-14").getTime();
+    const targetDate = new Date("2025-02-15").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
