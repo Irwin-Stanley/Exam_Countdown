@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Dashboard</title>
   <style>
-    /* Basic styling for the page layout */
     body {
       margin: 0;
       padding: 0;
@@ -16,7 +15,6 @@
       background: linear-gradient(to bottom right, #ffdfba, #d4a6f0);
     }
 
-    /* Title styling */
     h1 {
       font-size: 36px;
       font-weight: bold;
@@ -25,23 +23,21 @@
       text-align: center;
     }
 
-    /* Flex container for all main sections */
     .container {
       display: flex;
-      justify-content: center; /* Center the boxes horizontally */
-      align-items: flex-start; /* Align top edges */
+      justify-content: center;
+      align-items: flex-start;
       gap: 15px;
       width: 90%;
       max-width: 1200px;
       margin: 20px auto;
     }
 
-    /* Styling for individual boxes */
     .box {
       flex: 1;
-      max-width: 18%; /* Equal size for all boxes */
+      max-width: 18%;
       min-width: 200px;
-      height: 300px; /* Uniform height */
+      height: 350px; /* Increased height */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -57,10 +53,9 @@
       margin-bottom: 10px;
     }
 
-    /* Fluid container styling */
     .fluid-container {
       width: 300px;
-      height: 300px; /* Match the box height */
+      height: 350px; /* Match the new box height */
       background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
@@ -83,7 +78,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-size: 18px; /* Reduced font size */
+      font-size: 18px;
       font-weight: bold;
       text-align: center;
     }
@@ -94,7 +89,6 @@
       font-weight: bold;
     }
 
-    /* Wave animation for fluid */
     @keyframes wave-top {
       0%, 100% {
         transform: translateY(0);
@@ -104,7 +98,6 @@
       }
     }
 
-    /* Styling for the quote box */
     .quote-box {
       margin-top: 20px;
       width: 90%;
@@ -116,32 +109,30 @@
     }
 
     .quote-box h2 {
-      text-align: center; /* Center the heading */
-      text-decoration: underline; /* Add underline */
+      text-align: center;
+      text-decoration: underline;
       font-size: 20px;
     }
 
-    /* Remove borders for specific textareas */
     #how-today textarea,
     #reminders textarea,
     #homework textarea,
-    #quote textarea {
+    #quote textarea,
+    #timetable textarea {
       border: none;
       background: transparent;
       outline: none;
       padding: 8px;
       resize: none;
       font-size: 16px;
-      text-align: left; /* Ensure left-alignment */
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <!-- Main Title -->
   <h1>10 - C</h1>
   
   <div class="container">
-    <!-- "How's Today" Box -->
     <div class="box" id="how-today">
       <h2>How's Today?</h2>
       <p><b>Today's Date:</b> <span id="date"></span></p>
@@ -151,13 +142,11 @@
       <p><b>Cleaning Duty:</b> <textarea>Edit here</textarea></p>
     </div>
 
-    <!-- Timetable Section -->
     <div class="box">
       <h2>Timetable</h2>
       <ul id="timetable"></ul>
     </div>
 
-    <!-- Fluid Container with Countdown -->
     <div class="fluid-container">
       <div class="fluid"></div>
       <div class="countdown" id="countdown">
@@ -168,27 +157,23 @@
       <p id="exam-days-text"></p>
     </div>
 
-    <!-- Reminders Box -->
     <div class="box" id="reminders">
       <h2>Reminders</h2>
       <textarea>Edit here</textarea>
     </div>
 
-    <!-- Homework Box -->
     <div class="box" id="homework">
       <h2>Homeworks</h2>
       <textarea>Edit here</textarea>
     </div>
   </div>
 
-  <!-- Editable Quote Box -->
   <div class="quote-box" id="quote">
     <h2>Today's Quote:</h2>
     <textarea>Edit here</textarea>
   </div>
 
   <script>
-    // Display Date and Time
     function updateTime() {
       const now = new Date();
       document.getElementById("date").innerText = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -197,7 +182,6 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Default Timetable Data
     const weeklyTimetable = {
       Monday: ["His./Geo.", "Poli./Eco.", "Malayalam/Hindi", "IT", "English", "Physics", "Maths(Sanesh Sir)", "Biology", "CE", "Science Practicals"],
       Tuesday: ["His./Geo.", "Physics", "Maths(Sanesh Sir)", "Maths(Ramya Tr.)", "Poli./Eco.", "English", "Malayalam/Hindi", "IT", "PT", "English"],
@@ -208,7 +192,6 @@
 
     };
 
-    // Populate Timetable
     function updateTimetable() {
       const today = new Date().toLocaleString("en-US", { weekday: "long" });
       const timetable = document.getElementById("timetable");
@@ -221,7 +204,6 @@
     }
     updateTimetable();
 
-    // Countdown Logic
     const targetDate = new Date("2025-02-15").getTime();
     setInterval(() => {
       const now = new Date().getTime();
