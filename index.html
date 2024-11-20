@@ -62,7 +62,6 @@
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       position: relative;
-      transform: rotate(180deg); /* Rotating the fluid container 180 degrees */
     }
 
     .fluid {
@@ -72,6 +71,7 @@
       height: 100%;
       background: linear-gradient(to top, #1e90ff, #87cefa);
       animation: wave-top 3s infinite ease-in-out;
+      transform: rotate(180deg); /* Only rotate the fluid, not the text */
     }
 
     .countdown {
@@ -248,8 +248,9 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Only ${days} Days Left for Board Exam!`;
-    }, 60000); // Update every minute
+      document.getElementById("exam-days-text").innerText = `Please remember : Only ${days} Days Left for Board Exam!`;
+    }, 60000);
+
   </script>
 </body>
 </html>
