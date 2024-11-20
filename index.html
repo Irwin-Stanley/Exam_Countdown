@@ -86,103 +86,103 @@
         margin-right: 5px; /* Spacing between values and labels */
       }
       
-    /* Adjusted keyframes to make movement occur only at the top */
-    @keyframes wave-top {
-      0% {
-        transform: translateY(0); /* No movement at the top */
+      /* Adjusted keyframes to make movement occur only at the top */
+      @keyframes wave-top {
+        0% {
+          transform: translateY(0); /* No movement at the top */
+        }
+        50% {
+          transform: translateY(-10px); /* Moves up at the top */
+        }
+        100% {
+          transform: translateY(0); /* Back to original position */
+        }
       }
-      50% {
-        transform: translateY(-10px); /* Moves up at the top */
+  
+      .exam-text {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
       }
-      100% {
-        transform: translateY(0); /* Back to original position */
+  
+      .quote-box {
+        margin-top: 20px;
+        width: 90%;
+        max-width: 1200px;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        text-align: center;
       }
+  
+      .quote-box h2 {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: black;
+      }
+  
+      .quote-box p {
+        font-size: 18px;
+        color: #555;
+      }
+  
+      .editable {
+        border: none; /* Removed borders */
+        background: transparent;
+        width: 100%;
+      }
+  
+      .editable:focus {
+        outline: none;
+      }
+  
+        #timetable {
+      list-style-type: none; /* Removes the bullets */
+      padding: 0; /* Removes default padding */
+      margin: 0; /* Removes default margin */
+      }
+    
+      #timetable textarea {
+        border: none;
+        background: transparent;
+        resize: none;
+        width: 100%;
+        font-size: 14px; /* Reduced font size */
+        padding: 3px; /* Reduced padding */
+        height: 30px; /* Adjusted height to make the textboxes smaller */
+      }
+  
+  
+  
+  /* Add this to improve responsiveness */
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
     }
-
-    .exam-text {
-      margin-top: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
+    
+    .box {
+      max-width: 100%;
+      margin-bottom: 20px;
     }
-
-    .quote-box {
-      margin-top: 20px;
-      width: 90%;
-      max-width: 1200px;
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      text-align: center;
+  
+    .fluid-container {
+      width: 100%;
+      height: 300px;
     }
-
-    .quote-box h2 {
-      font-size: 20px;
-      font-weight: bold;
-      text-decoration: underline;
-      color: black;
-    }
-
-    .quote-box p {
+  
+    .countdown {
       font-size: 18px;
-      color: #555;
-    }
-
-    .editable {
-      border: none; /* Removed borders */
-      background: transparent;
-      width: 100%;
-    }
-
-    .editable:focus {
-      outline: none;
-    }
-
-      #timetable {
-    list-style-type: none; /* Removes the bullets */
-    padding: 0; /* Removes default padding */
-    margin: 0; /* Removes default margin */
     }
   
-    #timetable textarea {
-      border: none;
-      background: transparent;
-      resize: none;
-      width: 100%;
-      font-size: 14px; /* Reduced font size */
-      padding: 3px; /* Reduced padding */
-      height: 30px; /* Adjusted height to make the textboxes smaller */
+    .quote-box p {
+      font-size: 16px;
     }
-
-
-
-/* Add this to improve responsiveness */
-@media screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
   }
-  
-  .box {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .fluid-container {
-    width: 100%;
-    height: 300px;
-  }
-
-  .countdown {
-    font-size: 18px;
-  }
-
-  .quote-box p {
-    font-size: 16px;
-  }
-}
 
 
   </style>
