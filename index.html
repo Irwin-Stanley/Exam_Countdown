@@ -22,29 +22,29 @@
       font-weight: bold;
       text-decoration: underline;
       color: #333;
+      text-align: center;
     }
 
-    /* Layout container for main sections */
+    /* Flex container for all main sections */
     .container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center; /* Center the container */
+      justify-content: center; /* Center the boxes horizontally */
+      align-items: flex-start; /* Align top edges */
+      gap: 15px;
       width: 90%;
       max-width: 1200px;
       margin: 20px auto;
-      gap: 15px;
     }
 
     /* Styling for individual boxes */
     .box {
       flex: 1;
-      max-width: 22%; /* Equal size for all boxes */
+      max-width: 18%; /* Equal size for all boxes */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      min-height: 220px;
-      text-align: center; /* Centering text content */
+      text-align: center;
     }
 
     .box h2 {
@@ -57,15 +57,13 @@
 
     /* Fluid container styling */
     .fluid-container {
-      text-align: center;
-      position: relative;
       width: 300px;
       height: 400px;
       background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      margin: auto; /* Centering the fluid container */
+      position: relative;
     }
 
     .fluid {
@@ -104,6 +102,7 @@
       }
     }
 
+    /* Styling for the quote box */
     .quote-box {
       margin-top: 20px;
       width: 90%;
@@ -112,7 +111,6 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      text-align: center; /* Center the box */
     }
 
     .quote-box h2 {
@@ -121,7 +119,7 @@
       font-size: 20px;
     }
 
-    /* Remove borders for all textareas in specific boxes */
+    /* Remove borders for specific textareas */
     #how-today textarea,
     #reminders textarea,
     #homework textarea,
@@ -141,7 +139,7 @@
   <h1>10 - C</h1>
   
   <div class="container">
-    <!-- Left Section -->
+    <!-- "How's Today" Box -->
     <div class="box" id="how-today">
       <h2>How's Today?</h2>
       <p><b>Today's Date:</b> <span id="date"></span></p>
@@ -150,7 +148,7 @@
       <p><b>Class Monitors:</b> <textarea>Edit here</textarea></p>
       <p><b>Cleaning Duty:</b> <textarea>Edit here</textarea></p>
     </div>
-    
+
     <!-- Timetable Section -->
     <div class="box">
       <h2>Timetable</h2>
@@ -158,24 +156,23 @@
     </div>
 
     <!-- Fluid Container with Countdown -->
-    <div>
-      <div class="fluid-container">
-        <div class="fluid"></div>
-        <div class="countdown" id="countdown">
-          <span id="days"></span>d : 
-          <span id="hours"></span>h : 
-          <span id="minutes"></span>m
-        </div>
+    <div class="fluid-container">
+      <div class="fluid"></div>
+      <div class="countdown" id="countdown">
+        <span id="days"></span>d : 
+        <span id="hours"></span>h : 
+        <span id="minutes"></span>m
       </div>
-      <!-- Days Left Below the Fluid Container -->
       <p id="exam-days-text"></p>
     </div>
 
-    <!-- Right Section -->
+    <!-- Reminders Box -->
     <div class="box" id="reminders">
       <h2>Reminders</h2>
       <textarea>Edit here</textarea>
     </div>
+
+    <!-- Homework Box -->
     <div class="box" id="homework">
       <h2>Homeworks</h2>
       <textarea>Edit here</textarea>
@@ -206,7 +203,6 @@
       Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
       Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
       Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
-
     };
 
     // Populate Timetable
@@ -234,7 +230,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Only ${days} Days Left for Board Exam!`;
+      document.getElementById("exam-days-text").innerText = `${days} Days Left for Board Exam`;
     }, 1000);
   </script>
 </body>
