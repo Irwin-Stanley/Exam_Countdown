@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Class Dashboard</title>
   <style>
+    /* Basic styling for the page layout */
     body {
       margin: 0;
       padding: 0;
@@ -15,6 +16,7 @@
       background: linear-gradient(to bottom right, #ffdfba, #d4a6f0);
     }
 
+    /* Title styling */
     h1 {
       font-size: 36px;
       font-weight: bold;
@@ -22,6 +24,7 @@
       color: #333;
     }
 
+    /* Layout container for main sections */
     .container {
       display: flex;
       flex-wrap: nowrap;
@@ -32,6 +35,7 @@
       gap: 10px;
     }
 
+    /* Styling for individual boxes */
     .box {
       flex: 1;
       max-width: 24%;
@@ -50,6 +54,7 @@
       margin-bottom: 10px;
     }
 
+    /* Fluid container styling */
     .fluid-container {
       text-align: center;
       position: relative;
@@ -73,7 +78,7 @@
 
     .countdown {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
@@ -82,23 +87,13 @@
       text-align: center;
     }
 
-    .exam-days {
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
-    }
-
+    /* Wave animation for fluid */
     @keyframes wave-top {
-      0% {
+      0%, 100% {
         transform: translateY(0);
       }
       50% {
         transform: translateY(-10px);
-      }
-      100% {
-        transform: translateY(0);
       }
     }
 
@@ -113,74 +108,34 @@
       text-align: center;
     }
 
-    .quote-box h2 {
-      font-size: 20px;
-      font-weight: bold;
-      text-decoration: underline;
-      color: black;
-    }
-
-    .quote-box #quote {
-      font-size: 18px;
-      color: #555;
-      border: 1px dashed #ccc;
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #f9f9f9;
-      cursor: text;
-    }
-
-    .quote-box #quote:focus {
+    /* Styling for textboxes */
+    input.editable, #timetable textarea {
+      border: none;
+      background: transparent;
       outline: none;
-      border-color: #333;
-      background-color: #fff;
     }
 
-    #timetable {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
+    #timetable ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    #timetable li {
+      margin-bottom: 5px;
     }
 
     #timetable textarea {
-      border: none;
-      background: transparent;
       resize: none;
       width: 100%;
       font-size: 14px;
-      padding: 3px;
-      height: 30px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .box {
-        max-width: 100%;
-        margin-bottom: 20px;
-      }
-
-      .fluid-container {
-        width: 100%;
-        height: 300px;
-      }
-
-      .countdown {
-        font-size: 14px;
-      }
-
-      .quote-box #quote {
-        font-size: 16px;
-      }
+      padding: 0;
     }
   </style>
 </head>
 <body>
   <h1>10 - C</h1>
   <div class="container">
+    <!-- Left Section -->
     <div class="box">
       <h2>How's Today?</h2>
       <p><b>Today's Date:</b> <span id="date"></span></p>
@@ -194,13 +149,18 @@
       <ul id="timetable"></ul>
     </div>
 
+    <!-- Fluid Container with Countdown -->
     <div class="fluid-container">
       <div class="fluid"></div>
-      <div class="countdown" id="countdown"></div>
+      <div class="countdown" id="countdown">
+        <span id="days"></span>d : 
+        <span id="hours"></span>h : 
+        <span id="minutes"></span>m
+      </div>
+      <p id="exam-days-text" style="text-align: center; margin-top: 10px; font-weight: bold;"></p>
     </div>
 
-    <div class="exam-days" id="exam-days"></div>
-
+    <!-- Right Section -->
     <div class="box">
       <h2>Reminders</h2>
       <textarea class="editable">Edit here</textarea>
@@ -211,21 +171,23 @@
     </div>
   </div>
 
+  <!-- Editable Quote Box -->
   <div class="quote-box">
     <h2>Today's Quote:</h2>
-    <div id="quote" contenteditable="true">Enter Today's Quote ... </div>
+    <textarea id="quote" class="editable" rows="2">Loading today's quote...</textarea>
   </div>
 
   <script>
+    // Display Date and Time
     function updateTime() {
       const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById("date").innerText = now.toLocaleDateString(undefined, options);
-      document.getElementById("time").innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("date").innerText = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+      document.getElementById("time").innerText = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     }
     setInterval(updateTime, 1000);
     updateTime();
 
+    // Default Timetable Data
     const weeklyTimetable = {
       Monday: ["History/Geography", "Politics/Economics", "Malayalam/Hindi", "IT", "English", "Physics", "Maths(Sanesh Sir)", "Biology", "CE", "Science Practicals"],
       Tuesday: ["History/Geography", "Physics", "Maths(Sanesh Sir)", "Maths(Ramya Teacher)", "Politics/Economics", "English", "Malayalam/Hindi", "IT", "PT", "English"],
@@ -233,37 +195,37 @@
       Thursday: ["History/Geography", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Politics/Economics", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Teacher)"],
       Friday: ["History/Geography", "Politics/Economics", "Maths(Ramya Teacher)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
       Saturday: ["History/Geography", "Maths(Ramya Teacher)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
+
+      // Add other days as needed
     };
 
+    // Populate Timetable
     function updateTimetable() {
-      const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
+      const today = new Date().toLocaleString("en-US", { weekday: "long" });
       const timetable = document.getElementById("timetable");
       timetable.innerHTML = "";
-      (weeklyTimetable[today] || []).forEach((subject) => {
-        const item = document.createElement("li");
-        item.textContent = subject;
-        timetable.appendChild(item);
+      (weeklyTimetable[today] || []).forEach(subject => {
+        const li = document.createElement("li");
+        li.innerHTML = `<textarea>${subject}</textarea>`;
+        timetable.appendChild(li);
       });
     }
     updateTimetable();
 
+    // Countdown Logic
     const targetDate = new Date("2024-02-14").getTime();
     setInterval(() => {
       const now = new Date().getTime();
-      const timeLeft = targetDate - now;
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m`;
-      document.getElementById("exam-days").innerText = `${days} Days Left for Board Exam`;
-    }, 1000);
+      const diff = targetDate - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-    const quotes = ["Keep going!", "Success is near."];
-    function updateQuote() {
-      const index = new Date().getDate() % quotes.length;
-      document.getElementById("quote").innerText = quotes[index];
-    }
-    updateQuote();
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("exam-days-text").innerText = `${days} Days Left for Board Exam`;
+    }, 1000);
   </script>
 </body>
 </html>
