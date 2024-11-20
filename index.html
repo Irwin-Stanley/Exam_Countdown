@@ -27,23 +27,24 @@
     /* Layout container for main sections */
     .container {
       display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center; /* Center the container */
       width: 90%;
       max-width: 1200px;
-      margin-top: 20px;
-      gap: 10px;
+      margin: 20px auto;
+      gap: 15px;
     }
 
     /* Styling for individual boxes */
     .box {
       flex: 1;
-      max-width: 22%; /* Adjusted width for all boxes */
+      max-width: 22%; /* Equal size for all boxes */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      min-height: 200px;
+      min-height: 220px;
+      text-align: center; /* Centering text content */
     }
 
     .box h2 {
@@ -64,7 +65,7 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      margin: 0 15px;
+      margin: auto; /* Centering the fluid container */
     }
 
     .fluid {
@@ -111,6 +112,7 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: center; /* Center the box */
     }
 
     .quote-box h2 {
@@ -232,7 +234,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `${days} Days Left for Board Exam`;
+      document.getElementById("exam-days-text").innerText = `Only ${days} Days Left for Board Exam!`;
     }, 1000);
   </script>
 </body>
