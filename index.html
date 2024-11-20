@@ -127,11 +127,10 @@
       resize: none;
       font-size: 16px;
       text-align: left;
-      height: 2.5em; /* Fit 2 lines per textbox */
     }
 
     /* Specific adjustments for timetable */
-    #timetable ol {
+    #timetable ul {
       padding-left: 20px;
       margin: 0;
       height: 360px; /* Increased to fit subjects properly */
@@ -152,6 +151,11 @@
     #exam-days-text {
       margin-top: 20px;
     }
+
+    /* Adjust size of timetable textboxes to fit 1 line */
+    #timetable textarea {
+      height: 1.5em; /* Adjusted to fit 1 line */
+    }
   </style>
 </head>
 <body>
@@ -169,7 +173,7 @@
 
     <div class="box">
       <h2>Timetable</h2>
-      <ol id="timetable"></ol>
+      <ul id="timetable"></ul>
     </div>
 
     <div class="fluid-container">
@@ -221,9 +225,9 @@
       const today = new Date().toLocaleString("en-US", { weekday: "long" });
       const timetable = document.getElementById("timetable");
       timetable.innerHTML = "";
-      (weeklyTimetable[today] || []).forEach((subject, index) => {
+      (weeklyTimetable[today] || []).forEach((subject) => {
         const li = document.createElement("li");
-        li.innerHTML = `${index}. <textarea>${subject}</textarea>`;
+        li.innerHTML = `<textarea>${subject}</textarea>`;
         timetable.appendChild(li);
       });
     }
