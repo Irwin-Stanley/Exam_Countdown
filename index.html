@@ -38,7 +38,7 @@
     /* Styling for individual boxes */
     .box {
       flex: 1;
-      max-width: 24%;
+      max-width: 22%; /* Adjusted width for all boxes */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -87,6 +87,12 @@
       text-align: center;
     }
 
+    #exam-days-text {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
     /* Wave animation for fluid */
     @keyframes wave-top {
       0%, 100% {
@@ -133,7 +139,9 @@
   </style>
 </head>
 <body>
+  <!-- Main Title -->
   <h1>10 - C</h1>
+  
   <div class="container">
     <!-- Left Section -->
     <div class="box">
@@ -144,20 +152,25 @@
       <p><b>Class Monitors:</b> <input type="text" class="editable" value="Edit here" /></p>
       <p><b>Cleaning Duty:</b> <input type="text" id="cleaning-duty" class="editable" value="Nehru" /></p>
     </div>
+    
+    <!-- Timetable Section -->
     <div class="box">
       <h2>Timetable</h2>
       <ul id="timetable"></ul>
     </div>
 
     <!-- Fluid Container with Countdown -->
-    <div class="fluid-container">
-      <div class="fluid"></div>
-      <div class="countdown" id="countdown">
-        <span id="days"></span>d : 
-        <span id="hours"></span>h : 
-        <span id="minutes"></span>m
+    <div>
+      <div class="fluid-container">
+        <div class="fluid"></div>
+        <div class="countdown" id="countdown">
+          <span id="days"></span>d : 
+          <span id="hours"></span>h : 
+          <span id="minutes"></span>m
+        </div>
       </div>
-      <p id="exam-days-text" style="text-align: center; margin-top: 10px; font-weight: bold;"></p>
+      <!-- Days Left Below the Fluid Container -->
+      <p id="exam-days-text"></p>
     </div>
 
     <!-- Right Section -->
@@ -196,7 +209,7 @@
       Friday: ["History/Geography", "Politics/Economics", "Maths(Ramya Teacher)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
       Saturday: ["History/Geography", "Maths(Ramya Teacher)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
 
-      // Add other days as needed
+      // Add other days if needed
     };
 
     // Populate Timetable
