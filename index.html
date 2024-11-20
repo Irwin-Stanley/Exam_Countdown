@@ -145,6 +145,25 @@
       padding: 8px;
       resize: none;
     }
+
+    /* Updated box width to fit the textboxes more appropriately */
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 90%;
+      max-width: 1300px; /* Increased max-width for better spacing */
+      margin-top: 20px;
+      gap: 20px; /* Increased gap for better visual balance */
+    }
+
+    /* Adjustments to width and padding for all boxes to fit content */
+    .box {
+      flex: 1;
+      max-width: 30%; /* Increased box width */
+      padding: 20px; /* More padding for a spacious look */
+      min-height: 300px; /* Increased minimum height */
+    }
   </style>
 </head>
 <body>
