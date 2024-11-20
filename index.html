@@ -42,7 +42,7 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      text-align: center;
+      text-align: left;
     }
 
     .box h2 {
@@ -51,6 +51,7 @@
       text-decoration: underline;
       color: black;
       margin-bottom: 10px;
+      text-align: center; /* Center align the heading */
     }
 
     .fluid-container {
@@ -130,8 +131,7 @@
     }
 
     /* Specific adjustments for timetable */
-    #timetable ul {
-      list-style-type: disc;
+    #timetable ol {
       padding-left: 20px;
       margin: 0;
       height: 360px; /* Increased to fit subjects properly */
@@ -141,6 +141,16 @@
 
     #timetable li {
       margin-bottom: 10px;
+    }
+
+    /* Hide borders of textboxes in all the boxes */
+    textarea {
+      border: none;
+    }
+
+    /* Adjust the location of the exam days text */
+    #exam-days-text {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -159,7 +169,7 @@
 
     <div class="box">
       <h2>Timetable</h2>
-      <ul id="timetable"></ul>
+      <ol id="timetable"></ol>
     </div>
 
     <div class="fluid-container">
@@ -169,7 +179,6 @@
         <span id="hours"></span>h : 
         <span id="minutes"></span>m
       </div>
-      <p id="exam-days-text"></p>
     </div>
 
     <div class="box" id="reminders">
@@ -187,6 +196,8 @@
     <h2>Today's Quote:</h2>
     <textarea>Edit here</textarea>
   </div>
+
+  <div id="exam-days-text"></div> <!-- Positioned below the container -->
 
   <script>
     function updateTime() {
@@ -210,9 +221,9 @@
       const today = new Date().toLocaleString("en-US", { weekday: "long" });
       const timetable = document.getElementById("timetable");
       timetable.innerHTML = "";
-      (weeklyTimetable[today] || []).forEach(subject => {
+      (weeklyTimetable[today] || []).forEach((subject, index) => {
         const li = document.createElement("li");
-        li.innerHTML = `<textarea>${subject}</textarea>`;
+        li.innerHTML = `${index}. <textarea>${subject}</textarea>`;
         timetable.appendChild(li);
       });
     }
