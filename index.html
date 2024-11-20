@@ -68,7 +68,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 75%;
+      height: 100%;
       background: linear-gradient(to top, #1e90ff, #87cefa);
       animation: wave-top 3s infinite ease-in-out;
     }
@@ -91,161 +91,145 @@
     }
 
     @keyframes wave-top {
-      0%, 100% {
+      0% {
         transform: translateY(0);
       }
       50% {
-        transform: translateY(-10px);
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(0);
       }
     }
 
-    .quote-box {
-      margin-top: 20px;
-      width: 90%;
-      max-width: 1200px;
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    .timetable {
+      padding-left: 0;
+      margin-left: 0;
     }
 
-    .quote-box h2 {
-      text-align: center;
-      text-decoration: underline;
-      font-size: 20px;
+    .timetable li {
+      padding-left: 0;
     }
 
-    #how-today textarea,
-    #reminders textarea,
-    #homework textarea,
-    #quote textarea,
-    #timetable textarea {
-      border: none;
-      background: transparent;
-      outline: none;
-      padding: 5px;
+    .box textarea {
+      width: 100%;
+      height: 100%;
       resize: none;
-      font-size: 16px;
-      text-align: left;
-    }
-
-    /* Specific adjustments for timetable */
-    #timetable ul {
-      padding-left: 20px;
-      margin: 0;
-      height: 360px; /* Increased to fit subjects properly */
-      overflow-y: auto;
-      text-align: left;
-    }
-
-    #timetable li {
-      margin-bottom: 10px;
-    }
-
-    /* Hide borders of textboxes in all the boxes */
-    textarea {
       border: none;
+      padding: 10px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+      box-sizing: border-box;
     }
 
-    /* Adjust the location of the exam days text */
-    #exam-days-text {
-      margin-top: 20px;
+    .box input[type="text"] {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 8px;
     }
 
-    /* Adjust size of timetable textboxes to fit 1 line */
-    #timetable textarea {
-      height: 1.5em; /* Adjusted to fit 1 line */
-    }
   </style>
 </head>
 <body>
-  <h1>10 - C</h1>
-  
+
+  <h1>Class 10-C</h1>
+
   <div class="container">
-    <div class="box" id="how-today">
-      <h2>How's Today?</h2>
-      <p><b>Today's Date:</b> <span id="date"></span></p>
-      <p><b>Current Time:</b> <span id="time"></span></p>
-      <p><b>Speciality of the Day:</b> <textarea>Edit here</textarea></p>
-      <p><b>Class Monitors:</b> <textarea>Edit here</textarea></p>
-      <p><b>Cleaning Duty:</b> <textarea>Edit here</textarea></p>
-    </div>
-
-    <div class="box">
-      <h2>Timetable</h2>
-      <ul id="timetable"></ul>
-    </div>
-
+    <!-- Fluid Container with Countdown -->
     <div class="fluid-container">
       <div class="fluid"></div>
-      <div class="countdown" id="countdown">
-        <span id="days"></span>d : 
-        <span id="hours"></span>h : 
-        <span id="minutes"></span>m
-      </div>
+      <div class="countdown" id="countdown">Time Left</div>
+      <div id="exam-days-text">____ Days Left for Board Exam</div>
     </div>
 
-    <div class="box" id="reminders">
+    <!-- Timetable Box -->
+    <div class="box">
+      <h2>Timetable</h2>
+      <ul class="timetable" id="timetable-list">
+        <li><input type="text" id="subject1" disabled /></li>
+        <li><input type="text" id="subject2" disabled /></li>
+        <li><input type="text" id="subject3" disabled /></li>
+        <li><input type="text" id="subject4" disabled /></li>
+        <li><input type="text" id="subject5" disabled /></li>
+        <li><input type="text" id="subject6" disabled /></li>
+        <li><input type="text" id="subject7" disabled /></li>
+        <li><input type="text" id="subject8" disabled /></li>
+        <li><input type="text" id="subject9" disabled /></li>
+        <li><input type="text" id="subject10" disabled /></li>
+      </ul>
+    </div>
+
+    <!-- How's Today Box -->
+    <div class="box">
+      <h2>How's Today</h2>
+      <textarea readonly>Write your thoughts here...</textarea>
+    </div>
+
+    <!-- Reminders Box -->
+    <div class="box">
       <h2>Reminders</h2>
-      <textarea>Edit here</textarea>
+      <textarea readonly>Write reminders here...</textarea>
     </div>
 
-    <div class="box" id="homework">
-      <h2>Homeworks</h2>
-      <textarea>Edit here</textarea>
+    <!-- Homework Box -->
+    <div class="box">
+      <h2>Homework</h2>
+      <textarea readonly>Write homework here...</textarea>
+    </div>
+
+    <!-- Quote of the Day Box -->
+    <div class="box">
+      <h2>Today's Quote</h2>
+      <textarea readonly>Inspirational quote for the day...</textarea>
     </div>
   </div>
-
-  <div class="quote-box" id="quote">
-    <h2>Today's Quote:</h2>
-    <textarea>Edit here</textarea>
-  </div>
-
-  <div id="exam-days-text"></div> <!-- Positioned below the container -->
 
   <script>
-    function updateTime() {
-      const now = new Date();
-      document.getElementById("date").innerText = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-      document.getElementById("time").innerText = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    // Countdown Logic
+    function updateCountdown() {
+      const examDate = new Date("2025-02-15T00:00:00");
+      const currentDate = new Date();
+      const timeRemaining = examDate - currentDate;
+      const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      document.getElementById("countdown").textContent = `${daysRemaining} Days Left`;
+      document.getElementById("exam-days-text").textContent = `Only ${daysRemaining} Days Left for Board Exam!`;
     }
-    setInterval(updateTime, 1000);
-    updateTime();
 
-    const weeklyTimetable = {
-      Monday: ["His./Geo.", "Poli./Eco.", "Malayalam/Hindi", "IT", "English", "Physics", "Maths(Sanesh Sir)", "Biology", "CE", "Science Practicals"],
-      Tuesday: ["His./Geo.", "Physics", "Maths(Sanesh Sir)", "Maths(Ramya Tr.)", "Poli./Eco.", "English", "Malayalam/Hindi", "IT", "PT", "English"],
-      Wednesday: ["His./Geo.", "IT", "Maths(Ramya Tr.)", "English", "Maths(Sanesh Sir)", "Malayalam/Hindi", "Poli./Eco.", "Biology", "Chemistry", "MPT"],
-      Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
-      Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
-      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
-    };
+    setInterval(updateCountdown, 1000 * 60 * 60 * 24); // Update every day
 
+    updateCountdown(); // Initial call to update countdown
+
+    // Timetable update logic based on the current day
     function updateTimetable() {
-      const today = new Date().toLocaleString("en-US", { weekday: "long" });
-      const timetable = document.getElementById("timetable");
-      timetable.innerHTML = "";
-      (weeklyTimetable[today] || []).forEach((subject) => {
-        const li = document.createElement("li");
-        li.innerHTML = `<textarea>${subject}</textarea>`;
-        timetable.appendChild(li);
-      });
+      const subjects = [
+      ["His./Geo.", "Poli./Eco.", "Malayalam/Hindi", "IT", "English", "Physics", "Maths(Sanesh Sir)", "Biology", "CE", "Science Practicals"],
+      ["His./Geo.", "Physics", "Maths(Sanesh Sir)", "Maths(Ramya Tr.)", "Poli./Eco.", "English", "Malayalam/Hindi", "IT", "PT", "English"],
+      ["His./Geo.", "IT", "Maths(Ramya Tr.)", "English", "Maths(Sanesh Sir)", "Malayalam/Hindi", "Poli./Eco.", "Biology", "Chemistry", "MPT"],
+      ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
+      ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
+      ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
+        
+      ];
+
+      const currentDay = new Date().getDay(); // Get current day (0 = Sunday, 6 = Saturday)
+      const currentSubjects = subjects[currentDay]; // Get subjects for the current day
+
+      // Update timetable inputs with subjects
+      for (let i = 0; i < 10; i++) {
+        document.getElementById(`subject${i + 1}`).value = currentSubjects[i];
+      }
     }
-    updateTimetable();
 
-    const targetDate = new Date("2025-02-15").getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    updateTimetable(); // Initial call to update timetable
 
-      document.getElementById("days").innerText = days;
-      document.getElementById("hours").innerText = hours;
-      document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Only ${days} Days Left for Board Exam!`;
-    }, 1000);
   </script>
+
 </body>
 </html>
