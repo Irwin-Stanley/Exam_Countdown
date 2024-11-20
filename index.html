@@ -50,7 +50,7 @@
       margin-bottom: 10px;
     }
         
-   .fluid-container {
+    .fluid-container {
       text-align: center;
       position: relative;
       width: 300px;
@@ -71,16 +71,16 @@
       animation: wave-top 3s infinite ease-in-out;
     }
     
-    .countdown {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-      }
+        .countdown {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+        }
       
       .countdown span {
         margin-right: 5px; /* Spacing between values and labels */
@@ -106,7 +106,7 @@
         color: #333;
         text-align: center;
       }
-  
+      
       .quote-box {
         margin-top: 20px;
         width: 90%;
@@ -117,29 +117,29 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         text-align: center;
       }
-  
+      
       .quote-box h2 {
         font-size: 20px;
         font-weight: bold;
         text-decoration: underline;
         color: black;
       }
-  
+      
       .quote-box p {
         font-size: 18px;
         color: #555;
       }
-  
+      
       .editable {
         border: none; /* Removed borders */
         background: transparent;
         width: 100%;
       }
-  
+      
       .editable:focus {
         outline: none;
       }
-  
+      
      #timetable {
         list-style-type: none; /* Removes the bullets */
         padding: 0; /* Removes default padding */
@@ -328,23 +328,24 @@
     };
 
     // Function to update the timetable based on the day of the week
-    function updateTimetable() {
-      const today = new Date();
-      const dayName = today.toLocaleString('en-US', { weekday: 'long' });
+   function updateTimetable() {
+    const today = new Date();
+    const dayName = today.toLocaleString('en-US', { weekday: 'long' });
 
-      const timetableElement = document.getElementById("timetable");
-      timetableElement.innerHTML = ""; // Clear existing timetable
+    const timetableElement = document.getElementById("timetable").querySelector("ul");
+    timetableElement.innerHTML = ""; // Clear existing timetable
 
-      const timetableForToday = weeklyTimetable[dayName] || [];
-      timetableForToday.forEach((subject, index) => {
+    const timetableForToday = weeklyTimetable[dayName] || [];
+    timetableForToday.forEach((subject, index) => {
         const listItem = document.createElement("li");
-        listItem.innerHTML = <textarea>${index + 1}. ${subject}</textarea>;
+        listItem.textContent = `${index + 1}. ${subject}`;
         timetableElement.appendChild(listItem);
-      });
-    }
+    });
+}
 
-    // Initialize the timetable
-    updateTimetable();
+// Initialize the timetable
+updateTimetable();
+
 
    const targetDate = new Date("2024-02-14").getTime();
     setInterval(function () {
