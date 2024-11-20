@@ -231,11 +231,12 @@
   </div>
 
 
-  <div class="countdown" id="countdown">
-    <span id="Days"></span> <span>days</span> : 
-    <span id="  Hours"></span> <span>hours</span> : 
-    <span id="     Minutes"></span> <span>minutes</span>
-  </div>
+ <div class="countdown" id="countdown">
+    <span id="days"></span> <span>days</span> : 
+    <span id="hours"></span> <span>hours</span> : 
+    <span id="minutes"></span> <span>minutes</span>
+</div>
+
 
 
   <script>
@@ -347,18 +348,26 @@
 updateTimetable();
 
 
-   const targetDate = new Date("2024-02-14").getTime();
-    setInterval(function () {
-      let currentDate = new Date().getTime();
-      let timeRemaining = targetDate - currentDate;
-      let days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-      document.getElementById("days").innerText = days;
-      document.getElementById("hours").innerText = hours;
-      document.getElementById("minutes").innerText = minutes;
-    }, 1000);
+ const targetDate = new Date("2024-02-14").getTime();
 
+setInterval(function () {
+    const currentDate = new Date().getTime();
+    const timeRemaining = targetDate - currentDate;
+
+    if (timeRemaining > 0) {
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+    } else {
+        document.getElementById("days").innerText = 0;
+        document.getElementById("hours").innerText = 0;
+        document.getElementById("minutes").innerText = 0;
+    }
+}, 1000);
 
 
     // Quotes Logic
