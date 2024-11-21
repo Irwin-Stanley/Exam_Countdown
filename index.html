@@ -37,7 +37,7 @@
       flex: 1;
       max-width: 18%;
       min-width: 200px;
-      height: 450px; /* Increased height to fit content */
+      height: 450px; /* Height adjusted */
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -51,12 +51,12 @@
       text-decoration: underline;
       color: black;
       margin-bottom: 10px;
-      text-align: center; /* Center align the heading */
+      text-align: center;
     }
 
     .fluid-container {
       width: 300px;
-      height: 450px; /* Match the new box height */
+      height: 450px;
       background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
@@ -68,10 +68,8 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 100%;
+      height: 50%;
       background: linear-gradient(to top, #1e90ff, #e0e0e0); /* Blue at the bottom, Grey at the top */
-      animation: wave-top 3s infinite ease-in-out;
-      transform: rotate(180deg); /* Only rotate the fluid, not the text */
     }
 
     .countdown {
@@ -89,18 +87,6 @@
       text-align: center;
       margin-top: 10px;
       font-weight: bold;
-    }
-
-    @keyframes wave-top {
-      0% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-100%);
-      }
-      100% {
-        transform: translateY(0);
-      }
     }
 
     .quote-box {
@@ -129,7 +115,7 @@
       outline: none;
       padding: 5px;
       resize: none;
-      font-size: 16px;
+      font-size: 14px; /* Reduced font size */
       text-align: left;
     }
 
@@ -137,28 +123,18 @@
     #timetable {
       padding-left: 20px;
       margin: 0;
-      height: 360px; /* Increased to fit subjects properly */
+      height: 360px;
       overflow-y: auto;
       text-align: left;
     }
 
-    #timetable li {
-      margin-bottom: 10px;
-    }
-
-    /* Hide borders of textboxes in all the boxes */
-    textarea {
-      border: none;
-    }
-
-    /* Adjust the location of the exam days text */
     #exam-days-text {
       margin-top: 20px;
     }
 
     /* Adjust size of timetable textboxes to fit 1 line */
     #timetable textarea {
-      height: 1.5em; /* Adjusted to fit 1 line */
+      height: 1.2em; /* Smaller size for 1 line */
     }
   </style>
 </head>
@@ -222,14 +198,13 @@
       Wednesday: ["His./Geo.", "IT", "Maths(Ramya Tr.)", "English", "Maths(Sanesh Sir)", "Malayalam/Hindi", "Poli./Eco.", "Biology", "Chemistry", "MPT"],
       Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
       Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
-      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
-    };
+      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]    };
 
     function updateTimetable() {
       const today = new Date().toLocaleString("en-US", { weekday: "long" });
       const timetable = document.getElementById("timetable");
       timetable.innerHTML = "";
-      (weeklyTimetable[today] || []).forEach((subject, index) => {
+      (weeklyTimetable[today] || []).forEach(subject => {
         const li = document.createElement("li");
         li.innerHTML = `<textarea>${subject}</textarea>`;
         timetable.appendChild(li);
@@ -248,7 +223,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Please Remember : Only ${days} Days Left for Board Exam!`;
+      document.getElementById("exam-days-text").innerText = `Remember : Only ${days} Days Left for Board Exam!`;
     }, 60000);
   </script>
 </body>
