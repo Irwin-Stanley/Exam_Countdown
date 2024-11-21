@@ -69,14 +69,14 @@
       bottom: 0;
       width: 100%;
       height: 50%;
-      background: linear-gradient(to top, #1e90ff, #e0e0e0); /* Blue at the bottom, Grey at the top */
+      background: linear-gradient(to top, #1e90ff 75%, #e0e0e0 25%); /* Adjusted gradient ratio */
     }
 
     .countdown {
       position: absolute;
-      top: 50%;
+      bottom: 10%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       color: white;
       font-size: 18px;
       font-weight: bold;
@@ -85,8 +85,9 @@
 
     #exam-days-text {
       text-align: center;
-      margin-top: 10px;
+      font-size: 20px;
       font-weight: bold;
+      margin: 15px auto;
     }
 
     .quote-box {
@@ -128,10 +129,6 @@
       text-align: left;
     }
 
-    #exam-days-text {
-      margin-top: 20px;
-    }
-
     /* Adjust size of timetable textboxes to fit 1 line */
     #timetable textarea {
       height: 1.2em; /* Smaller size for 1 line */
@@ -159,9 +156,9 @@
     <div class="fluid-container">
       <div class="fluid"></div>
       <div class="countdown" id="countdown">
-        <span id="days"></span>d : 
-        <span id="hours"></span>h : 
-        <span id="minutes"></span>m
+        <span id="days"></span>Days : 
+        <span id="hours"></span>Hours : 
+        <span id="minutes"></span>Minutes
       </div>
     </div>
 
@@ -176,12 +173,12 @@
     </div>
   </div>
 
+  <div id="exam-days-text"></div> <!-- Moved above the quote box -->
+
   <div class="quote-box" id="quote">
     <h2>Today's Quote:</h2>
     <textarea>Edit here</textarea>
   </div>
-
-  <div id="exam-days-text"></div> <!-- Positioned below the container -->
 
   <script>
     function updateTime() {
@@ -223,7 +220,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Remember : Only ${days} Days Left for Board Exam!`;
+      document.getElementById("exam-days-text").innerText = `Remember: Only ${days} Days Left for Board Exam!`;
     }, 60000);
   </script>
 </body>
