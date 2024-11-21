@@ -31,7 +31,6 @@
       width: 90%;
       max-width: 1200px;
       margin: 20px auto;
-     
     }
 
     .box {
@@ -67,11 +66,12 @@
 
     .fluid {
       position: absolute;
-      bottom: 0;
+      top: 0; /* Fluid moved to the top */
       width: 100%;
       height: 50%;
-      background: linear-gradient(to top, #1e90ff 75%, #e0e0e0 25%);
+      background: linear-gradient(to bottom, #e0e0e0 25%, #1e90ff 75%); /* 1:3 ratio of grey to blue from top to bottom */
     }
+
     .countdown {
       position: absolute;
       bottom: 15%;
@@ -255,7 +255,7 @@
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Remember: Only ${days} Days Left for Board Exam!`;
+      document.getElementById("exam-days-text").innerText = Remember : Only ${days} Days Left for Board Exam!;
     }, 60000);
   </script>
 </body>
