@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>Class Dashboard</title>
   <style>
     body {
@@ -12,8 +13,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: linear-gradient(to bottom right, #ffdfba, #d4a6f0);
-    }
+      background: linear-gradient(to bottom right, #ffdfba, #d4a6f0); 
+    } 
 
     h1 {
       font-size: 36px;
@@ -37,7 +38,7 @@
       flex: 1;
       max-width: 18%;
       min-width: 200px;
-      height: 450px; /* Height adjusted */
+      height: 450px;
       background-color: white;
       padding: 15px;
       border-radius: 8px;
@@ -53,7 +54,56 @@
       margin-bottom: 10px;
       text-align: center;
     }
+    
+      .fluid-container {
+      width: 300px;
+      height: 450px;
+      background: #1e90ff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      text-align: center; /* This centers the countdown */
+    }
+    
+    #countdown-heading {
+      position: absolute; /* Positioned absolutely to float above other elements */
+      top: 10px; /* Adjust as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px; /* Same font size as other headings */
+      font-weight: bold; /* Same font weight as other headings */
+      text-decoration: underline; /* Same text decoration as other headings */
+      color: black; /* Same color as other headings */
+      text-align: center; /* Centered alignment */
+      z-index: 10; /* Ensures it's on top of the fluid container */
+      margin: 0;
+    }
 
+    
+    .fluid {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to bottom, #e0e0e0 35%, #1e90ff 65%);
+    }
+    
+    .countdown {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+    }
+
+/*
+    Note : to change the gradient after the fluid level is less than half (or when days are less than half,) use the following codes insted of the above:
+    
     .fluid-container {
       width: 300px;
       height: 450px;
@@ -63,24 +113,47 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       position: relative;
     }
-
     .fluid {
       position: absolute;
-      bottom: 0;
+      bottom : 0; 
       width: 100%;
       height: 50%;
-      background: linear-gradient(to top, #1e90ff, #e0e0e0); /* Blue at the bottom, Grey at the top */
-    }
+      background: linear-gradient(to bottom, #e0e0e0 50%, #1e90ff 50%);
+    } 
+    
+*/
 
     .countdown {
       position: absolute;
-      top: 50%;
+      bottom: 15%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%);
       color: white;
       font-size: 18px;
       font-weight: bold;
       text-align: center;
+      width: 100%;
+    }
+
+    .countdown-row {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+
+    .count-column {
+      text-align: center;
+    }
+
+    .count-value {
+      font-size: 24px;
+      font-weight: bold;
+      display: block;
+    }
+
+    .count-label {
+      font-size: 14px;
+      font-weight: normal;
     }
 
     #exam-days-text {
@@ -105,21 +178,59 @@
       font-size: 20px;
     }
 
-    #how-today textarea,
-    #reminders textarea,
-    #homework textarea,
-    #quote textarea,
+    #how-today textarea {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    font-size: 16px;
+    text-align: left;
+    width: 100%; /* Ensure it fills the entire width of the quote box */
+  }
+    #reminders textarea {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    font-size: 16px;
+    text-align: left;
+    width: 100%; /* Ensure it fills the entire width of the quote box */
+  }
+    #homework textarea {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    font-size: 16px;
+    text-align: left;
+    width: 100%; /* Ensure it fills the entire width of the quote box */
+  }
+   
+    #quote textarea {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    font-size: 16px;
+    text-align: left;
+    width: 100%; /* Ensure it fills the entire width of the quote box */
+    height: 50px; /* Set a specific height for better appearance (you can adjust as needed) */
+  }
+
     #timetable textarea {
       border: none;
       background: transparent;
       outline: none;
       padding: 5px;
       resize: none;
-      font-size: 14px; /* Reduced font size */
+      font-size: 14px;
       text-align: left;
     }
 
-    /* Specific adjustments for timetable */
     #timetable {
       padding-left: 20px;
       margin: 0;
@@ -132,9 +243,8 @@
       margin-top: 20px;
     }
 
-    /* Adjust size of timetable textboxes to fit 1 line */
     #timetable textarea {
-      height: 1.2em; /* Smaller size for 1 line */
+      height: 1.2em;
     }
   </style>
 </head>
@@ -144,11 +254,12 @@
   <div class="container">
     <div class="box" id="how-today">
       <h2>How's Today?</h2>
-      <p><b>Today's Date:</b> <span id="date"></span></p>
+      <p><b>Today's Date:</b></p>  <!-- Moved the date to a new line -->
+      <p><span id="date"></span></p>  <!-- Date now appears on a new line -->
       <p><b>Current Time:</b> <span id="time"></span></p>
-      <p><b>Speciality of the Day:</b> <textarea>Edit here</textarea></p>
-      <p><b>Class Monitors:</b> <textarea>Edit here</textarea></p>
-      <p><b>Cleaning Duty:</b> <textarea>Edit here</textarea></p>
+      <p><b>Speciality of the Day:</b> <textarea>No speciality for today.</textarea></p> <!-- Edit the special days here! -->
+      <p><b>Class Monitors:</b> <textarea>Akash Padmanabhan, Theertha Shaji.</textarea></p>
+      <p><b>Class Maintenance Duty:</b> <textarea>Nehru House</textarea></p> <!--Edit the Cleaning duty Here! -->
     </div>
 
     <div class="box">
@@ -157,13 +268,26 @@
     </div>
 
     <div class="fluid-container">
+      <h2 id="countdown-heading"> The Final Countdown </h2> <!-- Heading added at the top -->
       <div class="fluid"></div>
-      <div class="countdown" id="countdown">
-        <span id="days"></span>d : 
-        <span id="hours"></span>h : 
-        <span id="minutes"></span>m
+      <div class="countdown">
+        <div class="countdown-row">
+          <div class="count-column">
+            <span class="count-value" id="days"></span>
+            <span class="count-label">Days</span>
+          </div>
+          <div class="count-column">
+            <span class="count-value" id="hours"></span>
+            <span class="count-label">Hours</span>
+          </div>
+          <div class="count-column">
+            <span class="count-value" id="minutes"></span>
+            <span class="count-label">Minutes</span>
+          </div>
+        </div>
       </div>
     </div>
+
 
     <div class="box" id="reminders">
       <h2>Reminders</h2>
@@ -176,12 +300,13 @@
     </div>
   </div>
 
+  <div id="exam-days-text"></div>
+
   <div class="quote-box" id="quote">
     <h2>Today's Quote:</h2>
-    <textarea>Edit here</textarea>
+    <textarea> "I learned that courage was not the absence of fear, but the triumph over it. The brave man is not he who does not feel afraid, but he who conquers that fear." 
+                                - Nelson Mandela  </textarea>
   </div>
-
-  <div id="exam-days-text"></div> <!-- Positioned below the container -->
 
   <script>
     function updateTime() {
@@ -198,7 +323,8 @@
       Wednesday: ["His./Geo.", "IT", "Maths(Ramya Tr.)", "English", "Maths(Sanesh Sir)", "Malayalam/Hindi", "Poli./Eco.", "Biology", "Chemistry", "MPT"],
       Thursday: ["His./Geo.", "Physics", "Chemistry", "English", "Malayalam/Hindi", "Poli./Eco.", "English", "Maths(Sanesh Sir)", "PT", "Maths(Ramya Tr.)"],
       Friday: ["His./Geo.", "Poli./Eco.", "Maths(Ramya Tr.)", "Biology", "English", "Maths(Sanesh Sir)", "Chemistry", "Malayalam/Hindi", "IT", "English"],
-      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]    };
+      Saturday: ["His./Geo.", "Maths(Ramya Tr.)", "Health Education", "Drawing", "Library", "Maths(Sanesh Sir)", "IT", "CE", "Science Practicals", "Malayalam/Hindi"]
+    };
 
     function updateTimetable() {
       const today = new Date().toLocaleString("en-US", { weekday: "long" });
@@ -216,14 +342,15 @@
     setInterval(() => {
       const now = new Date().getTime();
       const diff = targetDate - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, "0");
+      const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, "0");
+      const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
 
       document.getElementById("days").innerText = days;
       document.getElementById("hours").innerText = hours;
       document.getElementById("minutes").innerText = minutes;
-      document.getElementById("exam-days-text").innerText = `Remember : Only ${days} Days Left for Board Exam!`;
+  document.getElementById("exam-days-text").innerText = `Remember: Only ${days} Days Left for the Board Exam!`;
+
     }, 60000);
   </script>
 </body>
