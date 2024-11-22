@@ -348,6 +348,50 @@
   document.getElementById("exam-days-text").innerText = `Remember: Only ${days} Days Left for the Board Exam!`;
 
     }, 60000);
+     
+    // Function to save data to localStorage
+    function saveData(key, content) {
+      const data = {
+        content: content,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+    
+    // Function to load data from localStorage
+    function loadData(key) {
+      const data = JSON.parse(localStorage.getItem(key));
+      if (data) {
+        const currentTime = Date.now();
+        const twoDaysInMillis = 2 * 24 * 60 * 60 * 1000;
+        if (currentTime - data.timestamp <= twoDaysInMillis) {
+          return data.content;
+        }
+      }
+      return ""; // Return empty if no valid data found
+    }
+    
+    // Initialize reminders and homework
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load saved data for reminders
+      const remindersTextArea = document.querySelector("#reminders textarea");
+      remindersTextArea.value = loadData("reminders");
+    
+      // Load saved data for homework
+      const homeworkTextArea = document.querySelector("#homework textarea");
+      homeworkTextArea.value = loadData("homework");
+    
+      // Save reminders on input
+      remindersTextArea.addEventListener("input", () => {
+        saveData("reminders", remindersTextArea.value);
+      });
+    
+      // Save homework on input
+      homeworkTextArea.addEventListener("input", () => {
+        saveData("homework", homeworkTextArea.value);
+      });
+    });
+
   </script>
 </body>
 </html>
